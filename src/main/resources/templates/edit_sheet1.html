@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{edit.edit} + ' ' + #{class.Sheet1}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/bootstrap.min.css}" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/site.css}" />
+<script th:src="@{/resources/js/jquery.min.js}"></script>
+<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<div class="container">
+		<form class="form-narrow form-horizontal" method="post"
+			th:action="@{/sheet1s/save}" th:object="${sheet1Form}"
+			th:fragment="sheet1Form">
+			<!--/* Show general error messages when form contains errors */-->
+			<th:block th:if="${#fields.hasErrors('${sheet1Form.*}')}">
+				<div th:each="fieldErrors : ${#fields.errors('${sheet1Form.*}')}">
+					<div th:each="message : ${fieldErrors.split(';')}">
+						<div
+							th:replace="fragments/alert :: alert (type='danger', message=${message})">Alert</div>
+					</div>
+				</div>
+			</th:block>
+			<fieldset>
+				<legend th:if="${sheet1Form.id == 0}"
+					th:text="#{edit.new} + ' ' + #{class.Sheet1}"></legend>
+				<legend th:if="${sheet1Form.id > 0}"
+					th:text="#{edit.edit} + ' ' + #{class.Sheet1}"></legend>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('date')}? 'has-error'">
+					<label for="date" class="col-lg-2 control-label"
+						th:text="#{Sheet1.date} + ':'"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="date"
+							th:field="*{date}" />
+						<ul class="help-block"
+							th:each="error: ${#fields.errors('date')}">
+							<li th:each="message : ${error.split(';')}">
+								<p class="error-message" th:text="${message}"></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('decimal')}? 'has-error'">
+					<label for="decimal" class="col-lg-2 control-label"
+						th:text="#{Sheet1.decimal} + ':'"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="decimal"
+							th:field="*{decimal}" />
+						<ul class="help-block"
+							th:each="error: ${#fields.errors('decimal')}">
+							<li th:each="message : ${error.split(';')}">
+								<p class="error-message" th:text="${message}"></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<input type="hidden" class="form-control" id="id" th:field="*{id}" />
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('intfield')}? 'has-error'">
+					<label for="intfield" class="col-lg-2 control-label"
+						th:text="#{Sheet1.intfield} + ':'"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="intfield"
+							th:field="*{intfield}" />
+						<ul class="help-block"
+							th:each="error: ${#fields.errors('intfield')}">
+							<li th:each="message : ${error.split(';')}">
+								<p class="error-message" th:text="${message}"></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('text')}? 'has-error'">
+					<label for="text" class="col-lg-2 control-label"
+						th:text="#{Sheet1.text} + ':'"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="text"
+							th:field="*{text}" />
+						<ul class="help-block"
+							th:each="error: ${#fields.errors('text')}">
+							<li th:each="message : ${error.split(';')}">
+								<p class="error-message" th:text="${message}"></p>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<button type="submit" name="action" value="save"
+							class="btn btn-default" th:text="#{edit.save}"></button>
+						<button type="submit" name="action" value="cancel" class="btn"
+							th:text="#{edit.cancel}"></button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+
+	<div th:insert="fragments/footer :: footer">&copy; 2020 default</div>
+</body></html>

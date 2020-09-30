@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{header.home}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/bootstrap.min.css}" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/site.css}" />
+<script th:src="@{/resources/js/jquery.min.js}"></script>
+<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+    	<a th:href="@{/accounts}">Account</a><br>
+    	<a th:href="@{/sheet2s}">Sheet2</a><br>
+    	<a th:href="@{/sheet1s}">Sheet1</a><br>
+    	<a th:href="@{/sheet1users}">Sheet1user</a><br>
+    	<a th:href="@{/api/}">/api/</a><br>
+    	<a th:href="@{/login}">Login</a><br>
+	<div th:insert="fragments/footer :: footer">&copy; 2020 default</div>
+</body></html>

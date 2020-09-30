@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{edit.listView} + ' ' + #{class.Sheet2}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/bootstrap.min.css}" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/site.css}" />
+<script th:src="@{/resources/js/jquery.min.js}"></script>
+<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<div class="container">
+		<h1 th:text="#{class.Sheet2} + ' ' + #{edit.list}"></h1>
+		<a th:href="@{/sheet2s/new}" th:text="#{edit.new} + ' ' + #{class.Sheet2}"></a> <br /><br />
+
+	    <table>
+	        <tr>
+            <th th:text="#{Sheet2.date}">Date</th>
+            <th th:text="#{Sheet2.decimal}">Decimal</th>
+            <th th:text="#{Sheet2.integer}">Integer</th>
+            <th th:text="#{Sheet2.text}">Text</th>
+            <th th:text="#{edit.actions}"></th>
+	        </tr>
+	        <tr th:each="sheet2:${sheet2s}">
+	            <td th:if="${sheet2 != null}" th:text="${sheet2.date}"></td>
+				<td th:unless="${sheet2 != null}"></td>
+	            <td th:if="${sheet2 != null}" th:text="${sheet2.decimal}"></td>
+				<td th:unless="${sheet2 != null}"></td>
+	            <td th:if="${sheet2 != null}" th:text="${sheet2.integer}"></td>
+				<td th:unless="${sheet2 != null}"></td>
+	            <td th:if="${sheet2 != null}" th:text="${sheet2.text}"></td>
+				<td th:unless="${sheet2 != null}"></td>
+				<td><a th:href="@{'/sheet2s/edit/' + ${sheet2.id}}" th:text="#{edit.edit}"></a>
+					&nbsp;&nbsp;&nbsp; <a th:href="@{'/sheet2s/delete/' + ${sheet2.id}}" th:text="#{edit.delete}"></a>
+				</td>
+
+	        </tr>
+	    </table>
+    </div>
+
+	<div th:insert="fragments/footer :: footer">&copy; 2020 default</div>
+</body></html>

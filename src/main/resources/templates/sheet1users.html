@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="#{edit.listView} + ' ' + #{class.Sheet1user}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/bootstrap.min.css}" />
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/site.css}" />
+<script th:src="@{/resources/js/jquery.min.js}"></script>
+<script th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<div class="container">
+		<h1 th:text="#{class.Sheet1user} + ' ' + #{edit.list}"></h1>
+		<a th:href="@{/sheet1users/new}" th:text="#{edit.new} + ' ' + #{class.Sheet1user}"></a> <br /><br />
+
+	    <table>
+	        <tr>
+            <th th:text="#{Sheet1.date}">Date</th>
+            <th th:text="#{Sheet1.decimal}">Decimal</th>
+            <th th:text="#{Sheet1.intfield}">IntField</th>
+            <th th:text="#{Sheet1.text}">Text</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.email}">Email</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.role}">Role</th>
+            <th th:text="#{Sheet1user.useryn}">UserYN</th>
+            <th th:text="#{edit.actions}"></th>
+	        </tr>
+	        <tr th:each="sheet1user:${sheet1users}">
+	            <td th:if="${sheet1user.sheet1 != null}" th:text="${sheet1user.sheet1.date}"></td>
+				<td th:unless="${sheet1user.sheet1 != null}"></td>
+	            <td th:if="${sheet1user.sheet1 != null}" th:text="${sheet1user.sheet1.decimal}"></td>
+				<td th:unless="${sheet1user.sheet1 != null}"></td>
+	            <td th:if="${sheet1user.sheet1 != null}" th:text="${sheet1user.sheet1.intfield}"></td>
+				<td th:unless="${sheet1user.sheet1 != null}"></td>
+	            <td th:if="${sheet1user.sheet1 != null}" th:text="${sheet1user.sheet1.text}"></td>
+				<td th:unless="${sheet1user.sheet1 != null}"></td>
+	            <td th:if="${sheet1user.account != null}" sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${sheet1user.account.email}"></td>
+				<td th:unless="${sheet1user.account != null}"></td>
+	            <td th:if="${sheet1user.account != null}" sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${sheet1user.account.role}"></td>
+				<td th:unless="${sheet1user.account != null}"></td>
+	            <td th:if="${sheet1user != null}" th:text="${sheet1user.useryn}"></td>
+				<td th:unless="${sheet1user != null}"></td>
+				<td><a th:href="@{'/sheet1users/edit/' + ${sheet1user.id}}" th:text="#{edit.edit}"></a>
+					&nbsp;&nbsp;&nbsp; <a th:href="@{'/sheet1users/delete/' + ${sheet1user.id}}" th:text="#{edit.delete}"></a>
+				</td>
+
+	        </tr>
+	    </table>
+    </div>
+
+	<div th:insert="fragments/footer :: footer">&copy; 2020 default</div>
+</body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" media="screen"
+	th:href="@{/resources/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div th:fragment="header">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".nav-collapse">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" th:href="@{/}" th:text="#{app.name}"></a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li id="guiMenu" class="dropdown"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"><span
+								th:text="#{header.gui}"></span> <b class="caret"></b> </a>
+							<ul class="dropdown-menu">
+								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'account' ? 'active' : ''}">
+    								<a id="guiItemAccount" th:href="@{/accounts}" th:text="#{class.Account}"></a></li>
+								<li th:classappend="${module == 'sheet2' ? 'active' : ''}">
+    								<a id="guiItemSheet2" th:href="@{/sheet2s}" th:text="#{class.Sheet2}"></a></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1' ? 'active' : ''}">
+    								<a id="guiItemSheet1" th:href="@{/sheet1s}" th:text="#{class.Sheet1}"></a></li>
+								<li th:classappend="${module == 'sheet1user' ? 'active' : ''}">
+    								<a id="guiItemSheet1user" th:href="@{/sheet1users}" th:text="#{class.Sheet1user}"></a></li>
+							</ul></li>
+						<li id="restMenu" class="dropdown"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"><span
+								th:text="#{header.restApi}"></span> <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'account' ? 'active' : ''}">
+    								<a id="apiItemAccount" th:href="@{/api/accounts}" th:text="#{class.Account}"></a></li>
+								<li th:classappend="${module == 'sheet2' ? 'active' : ''}">
+    								<a id="apiItemSheet2" th:href="@{/api/sheet2s}" th:text="#{class.Sheet2}"></a></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1' ? 'active' : ''}">
+    								<a id="apiItemSheet1" th:href="@{/api/sheet1s}" th:text="#{class.Sheet1}"></a></li>
+								<li th:classappend="${module == 'sheet1user' ? 'active' : ''}">
+    								<a id="apiItemSheet1user" th:href="@{/api/sheet1users}" th:text="#{class.Sheet1user}"></a></li>
+							</ul></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li id="langMenu" class="dropdown"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"><span
+								th:text="#{lang.change}"></span> <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li th:classappend="'active'"><a
+									th:href="@{/international?lang=en}" th:text="#{lang.en}"></a></li>
+								<li th:classappend="'active'"><a
+									th:href="@{/international?lang=fr}" th:text="#{lang.fr}"></a></li>
+								<li th:classappend="'active'"><a
+									th:href="@{/international?lang=de}" th:text="#{lang.de}"></a></li>
+							</ul></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li th:if="${#authorization.expression('!isAuthenticated()')}">
+							<a th:href="@{/login}"> <span
+								class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;<span
+								th:text="#{signin.signin}"></span>
+						</a>
+
+						</li>
+						<li th:if="${#authorization.expression('isAuthenticated()')}">
+							<a th:href="@{#}" onclick="$('#form').submit();"> <span
+								class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;<span
+								th:text="#{signin.logout}"></span>
+						</a>
+							<form style="visibility: hidden" id="form" method="post"
+								action="#" th:action="@{/logout}"></form>
+						</li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</nav>
+		<br>
+		<div class="container">
+			<!-- /* Handle the flash message in container */-->
+			<th:block th:if="${message != null}">
+				<!-- /* The message code is returned from the @Controller */ -->
+				<div
+					th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
+			</th:block>
+		</div>
+	</div>
+	<!-- End of header -->
+</body>
+</html>
