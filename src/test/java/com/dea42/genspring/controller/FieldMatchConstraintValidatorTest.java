@@ -17,6 +17,8 @@ import com.dea42.genspring.UnitBase;
 import com.dea42.genspring.form.ValidatorTestForm;
 import com.dea42.genspring.utils.Utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Based on
  * https://memorynotfound.com/field-matching-bean-validation-annotation-example/
@@ -24,6 +26,7 @@ import com.dea42.genspring.utils.Utils;
  * @author avata
  *
  */
+@Slf4j
 public class FieldMatchConstraintValidatorTest extends UnitBase {
 
 	private static Validator validator;
@@ -54,7 +57,7 @@ public class FieldMatchConstraintValidatorTest extends UnitBase {
 		// check expected errors are found
 		List<String> errs = new ArrayList<String>();
 		for (ConstraintViolation<ValidatorTestForm> c : constraintViolations) {
-			LOGGER.debug(c.getMessageTemplate());
+			log.debug(c.getMessageTemplate());
 			errs.add(c.getMessageTemplate());
 		}
 		for (String err : keys) {
@@ -66,11 +69,11 @@ public class FieldMatchConstraintValidatorTest extends UnitBase {
 				List<String> errKeys = Arrays.asList(keys);
 				for (String err : errs) {
 					if (!errKeys.contains(err))
-						LOGGER.error("Unexpected error '" + err + "'");
+						log.error("Unexpected error '" + err + "'");
 				}
 			} else {
 				for (String err : errs) {
-					LOGGER.error("Unexpected error '" + err + "'");
+					log.error("Unexpected error '" + err + "'");
 				}
 
 			}

@@ -95,7 +95,8 @@ public class AppControllerTest extends MockBase {
 	 */
 	@Test
 	public void testSignupAccountFormErrorsRedirectAttributes() throws Exception {
-		Account account = new Account(TEST_USER, TEST_PASS, TEST_ROLE);
+		Account account = getDefaultUserAccount();
+		account.setId(0);
 
 		given(accountServices.save(account)).willReturn(account);
 		given(accountServices.login(account.getEmail(), account.getPassword())).willReturn(true);
@@ -105,13 +106,20 @@ public class AppControllerTest extends MockBase {
 		AccountForm accountForm = getInstance(account);
 		ResultActions result = send(SEND_POST, "/signup", "accountForm", accountForm, ImmutableMap.of("action", "save"),
 				null, "/home");
-		expectSuccessMsg(result, MessageHelper.signup_success);
+		expectSuccessMsg(result, MessageHelper.signup_success,TEST_USER);
+
+//		send(SEND_GET, "/home", null, null, null, ADMIN_USER, null);
+//		result.andDo(MockMvcResultHandlers.print());
+//		contentContainsKey(result, MessageHelper.app_name);
+//		contentContainsKey(result, MessageHelper.app_description);
+//		String appName = Utils.getProp(getMsgBundle(), MessageHelper.app_name, "??");
+//		contentContainsKey(result, MessageHelper.index_greeting, appName);
 
 		accountForm = getInstance(account);
 		accountForm.setPassword(" ");
 		accountForm.setPasswordConfirm(" ");
 		result = send(SEND_POST, "/signup", "accountForm", accountForm, null, null, null);
-		contentContainsKey(result, MessageHelper.password_mismatch);
+		contentContainsKey(result, MessageHelper.notBlank_message);
 
 		accountForm = getInstance(account);
 		accountForm.setEmail(ADMIN_USER);
@@ -180,14 +188,16 @@ public class AppControllerTest extends MockBase {
 	@Test
 	public void testLoginModelAccountFormErrorsRedirectAttributes() throws Exception {
 		// set up
-		Account account = new Account(ADMIN_USER, ADMIN_PASS, ADMIN_ROLE);
+		Account account = getDefaultAdminAccount();
+		account.setId(0);
+
 		given(accountServices.save(account)).willReturn(account);
 		given(accountServices.login(account.getEmail(), account.getPassword())).willReturn(true);
 
 		// happy path test
 		LoginForm loginForm = getLoginInstance(ADMIN_USER, ADMIN_PASS);
 		ResultActions result = send(SEND_POST, "/authenticate", "loginForm", loginForm, null, null, "/home");
-		expectSuccessMsg(result, MessageHelper.signin_success);
+		expectSuccessMsg(result, MessageHelper.signin_success,ADMIN_USER);
 		contentNotContainsKey(result, MessageHelper.form_errors);
 
 		// failure tests

@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.ResultActions;
 import com.google.common.collect.ImmutableMap;
+import lombok.extern.slf4j.Slf4j;
 
 import com.dea42.genspring.MockBase;
 import com.dea42.genspring.entity.Account;
@@ -16,9 +17,10 @@ import com.dea42.genspring.form.AccountForm;
  * Description: AccountController. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.4.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.5.1<br>
  * @version 1.0.0<br>
  */
+@Slf4j
 @WebMvcTest(AccountController.class)
 public class AccountControllerTest extends MockBase {
 	private Account getAccount(Integer id) {
@@ -90,7 +92,7 @@ public class AccountControllerTest extends MockBase {
 		AccountForm form = AccountForm.getInstance(o);
 		form.setPassword(getTestPasswordString(30));
 		form.setPasswordConfirm(form.getPassword());
-		LOGGER.debug(form.toString());
+		log.debug(form.toString());
 
 		send(SEND_POST, "/accounts/save", "accountForm", form, ImmutableMap.of("action", "save"), ADMIN_USER,
 				"/accounts");

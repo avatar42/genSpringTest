@@ -32,6 +32,7 @@ import com.dea42.genspring.UnitBase;
 import com.dea42.genspring.utils.Utils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Base class for Selenium tests
@@ -39,6 +40,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  * @author GenSpring
  *
  */
+@Slf4j
 public class SeleniumBase extends UnitBase {
 
 	@LocalServerPort
@@ -85,7 +87,7 @@ public class SeleniumBase extends UnitBase {
 			else
 				element = parent.findElement(selector);
 		} catch (Exception e) {
-			LOGGER.info("Element " + selector + " not found");
+			log.info("Element " + selector + " not found");
 		}
 		return element;
 	}
@@ -108,7 +110,7 @@ public class SeleniumBase extends UnitBase {
 		try {
 			rtn = driver.getPageSource();
 		} catch (Exception e) {
-			LOGGER.warn("failed getting page source", e);
+			log.warn("failed getting page source", e);
 		}
 
 		return rtn;
@@ -202,7 +204,7 @@ public class SeleniumBase extends UnitBase {
 	 */
 	protected WebElement waitThenClick(By selector, WebElement parent) {
 		waitForElement(selector);
-		LOGGER.debug("clicking:" + selector);
+		log.debug("clicking:" + selector);
 		return clickBy(selector, parent);
 
 	}
@@ -230,7 +232,7 @@ public class SeleniumBase extends UnitBase {
 		WebElement element = getBy(selector, parent);
 		assertNotNull("Getting element" + selector, element);
 		element.click();
-		LOGGER.debug("Clicked:" + selector);
+		log.debug("Clicked:" + selector);
 		return element;
 	}
 
@@ -240,7 +242,7 @@ public class SeleniumBase extends UnitBase {
 		try {
 			rtn = element.getAttribute(attrName);
 		} catch (Exception e) {
-			LOGGER.warn("Failed to get attribue " + attrName + " from " + element, e);
+			log.warn("Failed to get attribue " + attrName + " from " + element, e);
 		}
 
 		return rtn;
@@ -260,7 +262,7 @@ public class SeleniumBase extends UnitBase {
 		}
 
 		element.sendKeys(text);
-		LOGGER.debug("Clicked link:" + text);
+		log.debug("Clicked link:" + text);
 
 		String actual = getAttribute(element, "value");
 		assertEquals("Checking element contains what we typed", b4text + text, actual);
@@ -405,7 +407,7 @@ public class SeleniumBase extends UnitBase {
 			}
 		}
 
-		LOGGER.debug(refs.toString());
+		log.debug(refs.toString());
 		return refs;
 	}
 
@@ -475,7 +477,7 @@ public class SeleniumBase extends UnitBase {
 				File scrFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
 				File destFile = new File(testName + ".screenShot.png");
 				FileUtils.copyFile(scrFile, destFile);
-				LOGGER.error("saved screenshot to:" + destFile.getAbsolutePath(), e);
+				log.error("saved screenshot to:" + destFile.getAbsolutePath(), e);
 			} catch (IOException ioe) {
 				throw new RuntimeException(ioe);
 			}
@@ -488,7 +490,7 @@ public class SeleniumBase extends UnitBase {
 
 		@Override
 		protected void finished(Description description) {
-			LOGGER.info("Runtime:" + (endTime - startTime) + " milliseconds");
+			log.info("Runtime:" + (endTime - startTime) + " milliseconds");
 			if (driver != null)
 				driver.quit();
 		}

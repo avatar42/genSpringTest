@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.dea42.genspring.controller.AppController;
+import com.dea42.genspring.entity.Account;
 import com.dea42.genspring.utils.Utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,12 +36,12 @@ public abstract class UnitBase extends TestCase {
 
 	protected Set<String> headless = new HashSet<String>();
 
-	protected static long TEST_USER_ID;
+	protected static int TEST_USER_ID;
 	protected static String TEST_USER;
 	protected static String TEST_PASS;
 	protected static String TEST_ROLE;
 
-	protected static long ADMIN_USER_ID;
+	protected static int ADMIN_USER_ID;
 	protected static String ADMIN_USER;
 	protected static String ADMIN_PASS;
 	protected static String ADMIN_ROLE;
@@ -50,13 +51,13 @@ public abstract class UnitBase extends TestCase {
 		msgEnBundle = ResourceBundle.getBundle("messages");
 
 		if (TEST_USER == null) {
-			TEST_USER_ID = Utils.getProp(appBundle, "default.userid", 1l);
+			TEST_USER_ID = Utils.getProp(appBundle, "default.userid", 1);
 			TEST_USER = Utils.getProp(appBundle, "default.user", null);
 			TEST_PASS = Utils.getProp(appBundle, "default.userpass", null);
 			TEST_ROLE = Utils.getProp(appBundle, "default.userrole", null);
 		}
 		if (ADMIN_USER == null) {
-			ADMIN_USER_ID = Utils.getProp(appBundle, "default.adminid", 2l);
+			ADMIN_USER_ID = Utils.getProp(appBundle, "default.adminid", 2);
 			ADMIN_USER = Utils.getProp(appBundle, "default.admin", null);
 			ADMIN_PASS = Utils.getProp(appBundle, "default.adminpass", null);
 			ADMIN_ROLE = Utils.getProp(appBundle, "default.adminrole", null);
@@ -70,6 +71,24 @@ public abstract class UnitBase extends TestCase {
 		headless.add(AppController.HOME_SIGNED_VIEW_NAME);
 		headless.add(AppController.HOME_NOT_SIGNED_VIEW_NAME);
 
+	}
+
+	protected Account getDefaultAdminAccount() {
+		Account a = new Account();
+		a.setEmail(ADMIN_USER);
+		a.setId(ADMIN_USER_ID);
+		a.setPassword(ADMIN_PASS);
+		a.setRole(ADMIN_ROLE);
+		return a;
+	}
+
+	protected Account getDefaultUserAccount() {
+		Account a = new Account();
+		a.setEmail(TEST_USER);
+		a.setId(TEST_USER_ID);
+		a.setPassword(TEST_PASS);
+		a.setRole(TEST_ROLE);
+		return a;
 	}
 
 	/**

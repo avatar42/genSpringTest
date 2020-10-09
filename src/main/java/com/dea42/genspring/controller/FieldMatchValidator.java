@@ -6,7 +6,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.dea42.genspring.utils.Utils;
-
+import lombok.extern.slf4j.Slf4j;
 /**
  * Compares two fields to confirm that match mainly for password confirm hence
  * the field name defaults.
@@ -14,6 +14,7 @@ import com.dea42.genspring.utils.Utils;
  * @author avata
  *
  */
+@Slf4j
 public class FieldMatchValidator extends BaseConstraintValidator<FieldMatch, Object> {
 
 	@Override
@@ -44,7 +45,7 @@ public class FieldMatchValidator extends BaseConstraintValidator<FieldMatch, Obj
 			}
 			messageTemplate = Utils.getProp(bundle, msgKey, msgKey);
 		} catch (final Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			log.error(e.getMessage(), e);
 			messageTemplate = e.getLocalizedMessage();
 		}
 

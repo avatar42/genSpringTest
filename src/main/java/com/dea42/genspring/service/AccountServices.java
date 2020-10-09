@@ -7,8 +7,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +21,12 @@ import com.dea42.genspring.utils.Utils;
  * Description: AccountServices. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.4.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.5.1<br>
  * @version 1.0.0<br>
  */
+@Slf4j
 @Service
 public class AccountServices extends UserServices<Account> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AccountServices.class.getName());
     @Autowired
     private AccountRepository accountRepository;
 
@@ -41,13 +40,16 @@ public class AccountServices extends UserServices<Account> {
 		ResourceBundle bundle = ResourceBundle.getBundle("app");
 		boolean doinit = Utils.getProp(bundle, "init.default.users", true);
 		if (doinit) {
-			LOGGER.warn("Resetting default users");
+			log.warn("Resetting default users");
 			String user = Utils.getProp(bundle, "default.user", null);
 			if (!StringUtils.isBlank(user)) {
 				Integer id = Utils.getProp(bundle, "default.userid", 1);
 				String userpass = Utils.getProp(bundle, "default.userpass", null);
 				String userrole = ROLE_PREFIX + Utils.getProp(bundle, "default.userrole", null);
-				Account a = new Account(user, userpass, userrole);
+				Account a = new Account();
+				a.setEmail(user);
+				a.setPassword(userpass);
+				a.setRole(userrole);
 				a.setId(id);
 				save(a);
 			}
@@ -57,7 +59,10 @@ public class AccountServices extends UserServices<Account> {
 				Integer id = Utils.getProp(bundle, "default.adminid", 2);
 				String userpass = Utils.getProp(bundle, "default.adminpass", null);
 				String userrole = ROLE_PREFIX + Utils.getProp(bundle, "default.adminrole", null);
-				Account a = new Account(user, userpass, userrole);
+				Account a = new Account();
+				a.setEmail(user);
+				a.setPassword(userpass);
+				a.setRole(userrole);
 				a.setId(id);
 				save(a);
 			}

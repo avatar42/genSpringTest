@@ -7,8 +7,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * General utils used by app from GenSpring static resources
@@ -16,8 +15,8 @@ import org.slf4j.LoggerFactory;
  * @author avata
  *
  */
+@Slf4j
 public class Utils {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class.getName());
 
 	/**
 	 * Checks if Ajax request
@@ -61,16 +60,16 @@ public class Utils {
 	 * @param defaultVal
 	 * @return returns bundle value or defaultVal if not found
 	 */
-	public static String getProp(ResourceBundle bundle, String key, String defaultVal, String...args) {
+	public static String getProp(ResourceBundle bundle, String key, String defaultVal, String... args) {
 		try {
 			String val = bundle.getString(key);
 			for (int i = 0; i < args.length; i++) {
-				String argkey = "%" + (i+1) + "$s";
+				String argkey = "%" + (i + 1) + "$s";
 				val = val.replace(argkey, args[i]);
 			}
 			return new String(val.getBytes("ISO-8859-1"), "UTF-8");
 		} catch (MissingResourceException | UnsupportedEncodingException e) {
-			LOGGER.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
+			log.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
 		}
 
 		return defaultVal;
@@ -80,7 +79,7 @@ public class Utils {
 		try {
 			return Integer.parseInt(bundle.getString(key));
 		} catch (MissingResourceException e) {
-			LOGGER.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
+			log.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
 		}
 
 		return defaultVal;
@@ -90,7 +89,7 @@ public class Utils {
 		try {
 			return Long.parseLong(bundle.getString(key));
 		} catch (MissingResourceException e) {
-			LOGGER.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
+			log.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
 		}
 
 		return defaultVal;
@@ -100,7 +99,7 @@ public class Utils {
 		try {
 			return Boolean.parseBoolean(bundle.getString(key));
 		} catch (MissingResourceException e) {
-			LOGGER.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
+			log.warn(key + " undefined in " + bundle.getBaseBundleName() + " using " + defaultVal);
 		}
 
 		return defaultVal;

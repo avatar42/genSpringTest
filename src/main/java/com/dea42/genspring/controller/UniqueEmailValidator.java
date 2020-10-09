@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dea42.genspring.service.AccountServices;
 import com.dea42.genspring.utils.Utils;
-
+import lombok.extern.slf4j.Slf4j;
 /**
  * Check to see if email is already used by a user if used on form instead of
  * field then ignores if idFieldName > 0
@@ -15,6 +15,7 @@ import com.dea42.genspring.utils.Utils;
  * @author avata
  *
  */
+@Slf4j
 public class UniqueEmailValidator extends BaseConstraintValidator<UniqueEmail, Object> {
 
 	@Autowired
@@ -38,7 +39,7 @@ public class UniqueEmailValidator extends BaseConstraintValidator<UniqueEmail, O
 
 			messageTemplate = Utils.getProp(bundle, msgKey, msgKey);
 		} catch (final Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			log.error(e.getMessage(), e);
 			messageTemplate = e.getLocalizedMessage();
 		}
 		storeErrors(context, messageTemplate);

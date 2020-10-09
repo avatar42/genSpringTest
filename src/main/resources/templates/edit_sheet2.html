@@ -28,7 +28,7 @@
 				</div>
 			</th:block>
 			<fieldset>
-				<legend th:if="${sheet2Form.id == 0}"
+				<legend th:unless="${sheet2Form.id > 0}"
 					th:text="#{edit.new} + ' ' + #{class.Sheet2}"></legend>
 				<legend th:if="${sheet2Form.id > 0}"
 					th:text="#{edit.edit} + ' ' + #{class.Sheet2}"></legend>

@@ -1,8 +1,7 @@
 package com.dea42.genspring.controller;
 
 import javax.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +28,13 @@ import com.dea42.genspring.utils.Utils;
  * Description: Sheet1userController. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.4.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.5.1<br>
  * @version 1.0.0<br>
  */
+@Slf4j
 @Controller
 @RequestMapping("/sheet1users")
 public class Sheet1userController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Sheet1userController.class.getName());
 
 	@Autowired
 	private Sheet1userServices sheet1userService;
@@ -73,7 +72,7 @@ public class Sheet1userController {
 			try {
 				sheet1user = sheet1userService.save(sheet1user);
 			} catch (Exception e) {
-				LOGGER.error("Failed saving:" + form, e);
+				log.error("Failed saving:" + form, e);
 			}
 
 			if (sheet1user == null) {

@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,16 +24,18 @@ import com.dea42.genspring.service.AccountServices;
 import com.dea42.genspring.utils.MessageHelper;
 import com.dea42.genspring.utils.Utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Title: AppController <br>
  * Description: Class main web Controller. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.2.3<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.5.1<br>
  * @version 1.0.0<br>
  */
+@Slf4j
 @Controller
 public class AppController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AppController.class.getName());
 
 	public static final String SIGNUP_VIEW_NAME = "home/signup";
 	public static final String SIGNIN_VIEW_NAME = "home/signin";
@@ -43,7 +43,7 @@ public class AppController {
 	public static final String HOME_NOT_SIGNED_VIEW_NAME = "home/homeNotSignedIn";
 
 	@Autowired
-	private AccountServices accountServices;
+	private AccountServices accountService;
 
 	@ModelAttribute("module")
 	String module() {
@@ -70,23 +70,28 @@ public class AppController {
 	}
 
 	@PostMapping("signup")
-	public String signup(@Valid @ModelAttribute AccountForm accountForm, Errors errors, RedirectAttributes ra) {
+	public String signup(@Valid @ModelAttribute AccountForm form, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return SIGNUP_VIEW_NAME;
 		}
-		Account account = null;
-		if (accountForm.getId() == 0)
-			account = new Account(accountForm.getEmail(), accountForm.getPassword(), accountForm.getRole());
-
-		account = accountServices.save(account);
+		Account account = new Account();
+		account.setEmail(form.getEmail());
+		account.setId(form.getId());
+		account.setPassword(form.getPassword());
+		account.setRole(form.getRole());
+		try {
+			account = accountService.save(account);
+		} catch (Exception e) {
+			log.error("Failed saving:" + form, e);
+		}
 
 		if (account == null) {
 			MessageHelper.addErrorAttribute(ra, "db.failed");
 			return "redirect:/home";
 		}
-		if (accountServices.login(account.getEmail(), account.getPassword())) {
+		if (accountService.login(account.getEmail(), account.getPassword())) {
 			// see messages.properties and homeSignedIn.html
-			MessageHelper.addSuccessAttribute(ra, "signup.success");
+			MessageHelper.addSuccessAttribute(ra, "signup.success",form.getEmail());
 		} else {
 			MessageHelper.addErrorAttribute(ra, "signup.failed");
 		}
@@ -109,20 +114,19 @@ public class AppController {
 	}
 
 	@PostMapping("authenticate")
-	public String login(Model model, @Valid @ModelAttribute LoginForm loginForm, Errors errors,
-			RedirectAttributes ra) {
+	public String login(Model model, @Valid @ModelAttribute LoginForm loginForm, Errors errors, RedirectAttributes ra) {
 		if (errors.hasErrors()) {
 			return SIGNIN_VIEW_NAME;
 		}
-		if (accountServices.login(loginForm.getEmail(), loginForm.getPassword())) {
+		if (accountService.login(loginForm.getEmail(), loginForm.getPassword())) {
 			// see messages.properties and homeSignedIn.html
-			MessageHelper.addSuccessAttribute(ra, "signin.success");
+			MessageHelper.addSuccessAttribute(ra, "signin.success",loginForm.getEmail());
 			String referer = loginForm.getReferer();
 			if (StringUtils.isAllBlank(referer)) {
 				// TODO: add /?lang=en to set lang to preferred / last selected.
 				referer = "/home";
 			}
-			LOGGER.info("Login passed. Redirecting to " + referer);
+			log.info("Login passed. Redirecting to " + referer);
 			return "redirect:" + referer;
 		}
 		MessageHelper.addErrorAttribute(model, "signin.failed");

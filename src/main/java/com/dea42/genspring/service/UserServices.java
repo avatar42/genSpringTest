@@ -3,8 +3,7 @@ package com.dea42.genspring.service;
 import java.util.Collections;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,11 +25,11 @@ import com.dea42.genspring.repo.UserRepository;
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.2.3<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.5.1<br>
  * @version 1.0.0<br>
  */
+@Slf4j
 public abstract class UserServices<T> implements UserDetailsService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserServices.class.getName());
 	@Autowired
 	protected UserRepository userRepository;
 
@@ -46,7 +45,7 @@ public abstract class UserServices<T> implements UserDetailsService {
 
 		String rtn = passwordEncoder.encode(s);
 
-		LOGGER.trace("Encrypted:'" + s + "' to '" + rtn + "'");
+		log.trace("Encrypted:'" + s + "' to '" + rtn + "'");
 		return rtn;
 	}
 
@@ -74,7 +73,7 @@ public abstract class UserServices<T> implements UserDetailsService {
 	public boolean login(String email, String password) {
 		Account account = userRepository.findOneByEmail(email);
 		if (account == null) {
-			LOGGER.warn("User email " + email + " not found in DB");
+			log.warn("User email " + email + " not found in DB");
 			return false;
 		}
 
@@ -84,7 +83,7 @@ public abstract class UserServices<T> implements UserDetailsService {
 			return true;
 		}
 
-		LOGGER.warn("User " + email + " password did not match");
+		log.warn("User " + email + " password did not match");
 		return false;
 
 	}
@@ -96,10 +95,10 @@ public abstract class UserServices<T> implements UserDetailsService {
 	 * @return
 	 */
 	private Authentication genAuthToken(Account account) {
-		LOGGER.debug("authing:" + account);
+		log.debug("authing:" + account);
 		Authentication a = new UsernamePasswordAuthenticationToken(createUser(account), null,
 				Collections.singleton(createAuthority(account)));
-		LOGGER.debug("result in:" + a);
+		log.debug("result in:" + a);
 		return a;
 	}
 
@@ -108,7 +107,7 @@ public abstract class UserServices<T> implements UserDetailsService {
 	}
 
 	private GrantedAuthority createAuthority(Account account) {
-		LOGGER.debug("logged in:" + account);
+		log.debug("logged in:" + account);
 		return new SimpleGrantedAuthority(account.getRole());
 	}
 

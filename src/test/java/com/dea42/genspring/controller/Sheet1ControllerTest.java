@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.ResultActions;
 import com.google.common.collect.ImmutableMap;
+import lombok.extern.slf4j.Slf4j;
 
 import com.dea42.genspring.MockBase;
 import com.dea42.genspring.entity.Sheet1;
@@ -16,9 +17,10 @@ import com.dea42.genspring.form.Sheet1Form;
  * Description: Sheet1Controller. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.4.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.5.1<br>
  * @version 1.0.0<br>
  */
+@Slf4j
 @WebMvcTest(Sheet1Controller.class)
 public class Sheet1ControllerTest extends MockBase {
 	private Sheet1 getSheet1(Integer id) {
@@ -86,7 +88,7 @@ public class Sheet1ControllerTest extends MockBase {
 	public void testSaveSheet1Save() throws Exception {
 		Sheet1 o = getSheet1(0);
 		Sheet1Form form = Sheet1Form.getInstance(o);
-		LOGGER.debug(form.toString());
+		log.debug(form.toString());
 
 		send(SEND_POST, "/sheet1s/save", "sheet1Form", form, ImmutableMap.of("action", "save"), ADMIN_USER,
 				"/sheet1s");

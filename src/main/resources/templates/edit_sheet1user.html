@@ -28,7 +28,7 @@
 				</div>
 			</th:block>
 			<fieldset>
-				<legend th:if="${sheet1userForm.id == 0}"
+				<legend th:unless="${sheet1userForm.id > 0}"
 					th:text="#{edit.new} + ' ' + #{class.Sheet1user}"></legend>
 				<legend th:if="${sheet1userForm.id > 0}"
 					th:text="#{edit.edit} + ' ' + #{class.Sheet1user}"></legend>

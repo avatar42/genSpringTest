@@ -28,7 +28,7 @@
 				</div>
 			</th:block>
 			<fieldset>
-				<legend th:if="${accountForm.id == 0}"
+				<legend th:unless="${accountForm.id > 0}"
 					th:text="#{edit.new} + ' ' + #{class.Account}"></legend>
 				<legend th:if="${accountForm.id > 0}"
 					th:text="#{edit.edit} + ' ' + #{class.Account}"></legend>

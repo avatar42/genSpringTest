@@ -8,16 +8,15 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Based on
  * https://github.com/StackAbuse/learning-spring/blob/master/password-strength/src/main/java/com/mynotes/spring/mvc/passwordstrength/constraint/PasswordConstraintValidator.java
  *
  */
+@Slf4j
 public class BaseConstraintValidator<A extends Annotation, T> implements ConstraintValidator<A, T> {
-	protected final Logger LOGGER = LoggerFactory.getLogger(this.getClass().getName());
 	protected String fieldName;
 	protected String secondFieldName;
 	// Assumed to be and int or long and 0 means new record
@@ -51,7 +50,7 @@ public class BaseConstraintValidator<A extends Annotation, T> implements Constra
 				try {
 					rtn = BeanUtils.getProperty(data, fieldName);
 				} catch (IllegalAccessException e) {
-					LOGGER.error(fieldName, e);
+					log.error(fieldName, e);
 				} catch (InvocationTargetException | NoSuchMethodException e) {
 					// mainly to help debug code
 					rtn = "" + data;
@@ -75,7 +74,7 @@ public class BaseConstraintValidator<A extends Annotation, T> implements Constra
 		} catch (InvocationTargetException | NoSuchMethodException e) {
 			// not here / accessible so assume not new
 		} catch (Exception e) {
-			LOGGER.warn(fieldName, e);
+			log.warn(fieldName, e);
 		}
 		return false;
 	}
