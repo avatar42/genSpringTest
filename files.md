@@ -1,3 +1,7 @@
+DB:jdbc:sqlite:D:/SpringTools4.6.1/workspace/genSpringTest/genSpringTestDB.sqlite<br>
+pom.xml<br>
+README.md<br>
+files.md<br>
 ./src/main/java/com/dea42/genspring/controller/AccountController.java<br>
 ./src/main/java/com/dea42/genspring/controller/ApiController.java<br>
 ./src/main/java/com/dea42/genspring/controller/AppController.java<br>
@@ -78,7 +82,6 @@
 ./src/main/webapp/resources/js/bootstrap.min.js<br>
 ./src/main/webapp/resources/js/jquery.min.js<br>
 ./src/main/webapp/WEB-INF/web.xml<br>
-./src/test/java/com/dea42/genspring/controller/.gitignore<br>
 ./src/test/java/com/dea42/genspring/controller/AccountControllerTest.java<br>
 ./src/test/java/com/dea42/genspring/controller/ApiControllerTest.java<br>
 ./src/test/java/com/dea42/genspring/controller/AppControllerTest.java<br>

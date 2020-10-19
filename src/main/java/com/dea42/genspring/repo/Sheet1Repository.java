@@ -9,8 +9,8 @@ import com.dea42.genspring.entity.Sheet1;
  * Description: Class for the Sheet1 Repository. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.1<br>
- * @version 1.0.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
+ * @version 0.5.4<br>
  */
 @Repository
 public interface Sheet1Repository extends JpaRepository<Sheet1, Integer>{
