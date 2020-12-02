@@ -1,27 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: common_header(~{::title},~{},~{})">
 <title th:text="#{edit.listView} + ' ' + #{class.Account}"></title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" media="screen"
-	th:href="@{/resources/css/bootstrap.min.css}" />
-<link rel="stylesheet" media="screen"
-	th:href="@{/resources/css/site.css}" />
-<script th:src="@{/resources/js/jquery.min.js}"></script>
-<script th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<div class="wrapper flex-grow-1">
 
-	<div class="container">
+	<div class="container" th:with="SearchForm=${session.accountSearchForm}">
 		<h1 th:text="#{class.Account} + ' ' + #{edit.list}"></h1>
+		<a th:href="@{/accounts/search}" th:text="#{search.search} + ' ' + #{class.Account}"></a> <br />
 		<a th:href="@{/accounts/new}" th:text="#{edit.new} + ' ' + #{class.Account}"></a> <br /><br />
 
 	    <table>
 	        <tr>
-            <th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.email}">Email</th>
-            <th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.role}">Role</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')" >
+				<a th:if="${SearchForm.sortField == 'email'}"
+					th:href="@{'/accounts/search/' + ${SearchForm.page} + '?sortField=email&sortDir=' + ${SearchForm.reverseSortDir}}"
+					th:text="#{Account.email}">Email</a>
+					<a th:if="${SearchForm.sortField != 'email'}"
+					th:href="@{'/accounts/search/' + ${SearchForm.page} + '?sortField=email&sortDir=asc'}"
+					th:text="#{Account.email}">Email</a>
+            </th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')" >
+				<a th:if="${SearchForm.sortField == 'role'}"
+					th:href="@{'/accounts/search/' + ${SearchForm.page} + '?sortField=role&sortDir=' + ${SearchForm.reverseSortDir}}"
+					th:text="#{Account.role}">Role</a>
+					<a th:if="${SearchForm.sortField != 'role'}"
+					th:href="@{'/accounts/search/' + ${SearchForm.page} + '?sortField=role&sortDir=asc'}"
+					th:text="#{Account.role}">Role</a>
+            </th>
             <th th:text="#{edit.actions}"></th>
 	        </tr>
 	        <tr th:each="account:${accounts}">
@@ -35,7 +43,38 @@
 
 	        </tr>
 	    </table>
+		<div th:if="${SearchForm.page > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">Total Rows:
+					[[${SearchForm.totalItems}]]</div>
+				<div class="col-sm-1">
+					<span
+						th:each="i: ${#numbers.sequence(1, SearchForm.totalPages)}">
+						<a th:if="${SearchForm.page != i}"
+						th:href="@{'/accounts/search/' + ${i}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">[[${i}]]</a>
+						<span th:unless="${SearchForm.page != i}">[[${i}]]</span>
+						&nbsp; &nbsp;
+					</span>
+				</div>
+				<div class="col-sm-1">
+					<a
+						th:if="${SearchForm.page < SearchForm.totalPages}"
+						th:href="@{'/accounts/search/' + ${SearchForm.page + 1}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Next</a>
+					<span
+						th:unless="${SearchForm.page < SearchForm.totalPages}">Next</span>
+				</div>
+
+				<div class="col-sm-1">
+					<a
+						th:if="${SearchForm.page < SearchForm.totalPages}"
+						th:href="@{'/accounts/search/' + ${SearchForm.totalPages}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Last</a>
+					<span
+						th:unless="${SearchForm.page < SearchForm.totalPages}">Last</span>
+				</div>
+			</div>
+		</div>
+
     </div>
 
-	<div th:insert="fragments/footer :: footer">&copy; 2020 default</div>
+	</div>	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy; 2020 default</div>
 </body></html>

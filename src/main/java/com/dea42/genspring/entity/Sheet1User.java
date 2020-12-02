@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
  * Description: Class for holding data from the sheet1user table. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  * Table name: sheet1user<br>
  * Column name: id<br>
  * Catalog name: null<br>
@@ -56,7 +56,7 @@ import javax.persistence.ManyToOne;
 @Data
 @Entity
 @Table(name = "`sheet1user`")
-public class Sheet1user implements Serializable {
+public class Sheet1User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     @Id

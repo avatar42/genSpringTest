@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: common_header(~{::title},~{},~{})">
 <title th:text="#{edit.listView} + ' ' + #{class.Sheet1}"></title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" media="screen"
-	th:href="@{/resources/css/bootstrap.min.css}" />
-<link rel="stylesheet" media="screen"
-	th:href="@{/resources/css/site.css}" />
-<script th:src="@{/resources/js/jquery.min.js}"></script>
-<script th:src="@{/resources/js/bootstrap.min.js}"></script>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<div class="wrapper flex-grow-1">
 
-	<div class="container">
+	<div class="container" th:with="SearchForm=${session.sheet1SearchForm}">
 		<h1 th:text="#{class.Sheet1} + ' ' + #{edit.list}"></h1>
+		<a th:href="@{/sheet1s/search}" th:text="#{search.search} + ' ' + #{class.Sheet1}"></a> <br />
 		<a th:href="@{/sheet1s/new}" th:text="#{edit.new} + ' ' + #{class.Sheet1}"></a> <br /><br />
 
 	    <table>
 	        <tr>
-            <th th:text="#{Sheet1.date}">Date</th>
-            <th th:text="#{Sheet1.decimal}">Decimal</th>
-            <th th:text="#{Sheet1.intfield}">IntField</th>
-            <th th:text="#{Sheet1.text}">Text</th>
+            <th>
+				<a th:if="${SearchForm.sortField == 'date'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=date&sortDir=' + ${SearchForm.reverseSortDir}}"
+					th:text="#{Sheet1.date}">Date</a>
+					<a th:if="${SearchForm.sortField != 'date'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=date&sortDir=asc'}"
+					th:text="#{Sheet1.date}">Date</a>
+            </th>
+            <th>
+				<a th:if="${SearchForm.sortField == 'decimal'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=decimal&sortDir=' + ${SearchForm.reverseSortDir}}"
+					th:text="#{Sheet1.decimal}">Decimal</a>
+					<a th:if="${SearchForm.sortField != 'decimal'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=decimal&sortDir=asc'}"
+					th:text="#{Sheet1.decimal}">Decimal</a>
+            </th>
+            <th>
+				<a th:if="${SearchForm.sortField == 'intfield'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=intfield&sortDir=' + ${SearchForm.reverseSortDir}}"
+					th:text="#{Sheet1.intfield}">IntField</a>
+					<a th:if="${SearchForm.sortField != 'intfield'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=intfield&sortDir=asc'}"
+					th:text="#{Sheet1.intfield}">IntField</a>
+            </th>
+            <th>
+				<a th:if="${SearchForm.sortField == 'text'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=text&sortDir=' + ${SearchForm.reverseSortDir}}"
+					th:text="#{Sheet1.text}">Text</a>
+					<a th:if="${SearchForm.sortField != 'text'}"
+					th:href="@{'/sheet1s/search/' + ${SearchForm.page} + '?sortField=text&sortDir=asc'}"
+					th:text="#{Sheet1.text}">Text</a>
+            </th>
             <th th:text="#{edit.actions}"></th>
 	        </tr>
 	        <tr th:each="sheet1:${sheet1s}">
@@ -41,7 +63,38 @@
 
 	        </tr>
 	    </table>
+		<div th:if="${SearchForm.page > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">Total Rows:
+					[[${SearchForm.totalItems}]]</div>
+				<div class="col-sm-1">
+					<span
+						th:each="i: ${#numbers.sequence(1, SearchForm.totalPages)}">
+						<a th:if="${SearchForm.page != i}"
+						th:href="@{'/sheet1s/search/' + ${i}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">[[${i}]]</a>
+						<span th:unless="${SearchForm.page != i}">[[${i}]]</span>
+						&nbsp; &nbsp;
+					</span>
+				</div>
+				<div class="col-sm-1">
+					<a
+						th:if="${SearchForm.page < SearchForm.totalPages}"
+						th:href="@{'/sheet1s/search/' + ${SearchForm.page + 1}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Next</a>
+					<span
+						th:unless="${SearchForm.page < SearchForm.totalPages}">Next</span>
+				</div>
+
+				<div class="col-sm-1">
+					<a
+						th:if="${SearchForm.page < SearchForm.totalPages}"
+						th:href="@{'/sheet1s/search/' + ${SearchForm.totalPages}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Last</a>
+					<span
+						th:unless="${SearchForm.page < SearchForm.totalPages}">Last</span>
+				</div>
+			</div>
+		</div>
+
     </div>
 
-	<div th:insert="fragments/footer :: footer">&copy; 2020 default</div>
+	</div>	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy; 2020 default</div>
 </body></html>

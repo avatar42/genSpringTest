@@ -18,6 +18,11 @@ One of the generated apps used to regression test genSpring, prototype changes a
 ![Account new screen](screenshots/Account.new.png)
 ![Account edit screen](screenshots/Account.edit.png)
 
+#### Sheet1User screens
+![Sheet1User list screen](screenshots/Sheet1User.list.png)
+![Sheet1User new screen](screenshots/Sheet1User.new.png)
+![Sheet1User edit screen](screenshots/Sheet1User.edit.png)
+
 #### Sheet1 screens
 ![Sheet1 list screen](screenshots/Sheet1.list.png)
 ![Sheet1 new screen](screenshots/Sheet1.new.png)
@@ -29,9 +34,4 @@ One of the generated apps used to regression test genSpring, prototype changes a
 ![Sheet2 list screen](screenshots/Sheet2.list.png)
 ![Sheet2 new screen](screenshots/Sheet2.new.png)
 ![Sheet2 edit screen](screenshots/Sheet2.edit.png)
-
-#### Sheet1user screens
-![Sheet1user list screen](screenshots/Sheet1user.list.png)
-![Sheet1user new screen](screenshots/Sheet1user.new.png)
-![Sheet1user edit screen](screenshots/Sheet1user.edit.png)
 

@@ -28,8 +28,8 @@ import com.dea42.genspring.service.AccountServices;
  * Title: SecurityConfiguration <br>
  * Description: Class for configuring app security. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @Configuration
 @EnableWebSecurity
@@ -66,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests() //.antMatchers("/**").permitAll();
-				.antMatchers("/", "/api/*", "/error", "/home/*", "/public/**", "/resources/**", "/signup", "/favicon.ico",
+				.antMatchers("/", "/api/*", "/error", "/home/*", "/public/**", "/resources/**","/webjars/**", "/signup", "/favicon.ico",
 						"/authenticate", "/international")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
 //				// TODO: added successForwardUrl("/home") to get around first click of login

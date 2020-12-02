@@ -42,10 +42,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Base class for Selenium tests
- * 
- * @author GenSpring
+ * Title: SeleniumBase <br>
+ * Description: Base class for Selenium tests. <br>
+ * Copyright: Copyright (c) 2001-${thisYear}<br>
+ * Company: RMRR<br>
  *
+ * @author Gened by GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @Slf4j
 public class SeleniumBase extends UnitBase {
@@ -483,17 +486,26 @@ public class SeleniumBase extends UnitBase {
 		// check css links work
 		openTest("/resources/css/site.css");
 		sourceContains("background-color:", false);
-		openTest("/resources/css/bootstrap.min.css");
-		sourceContains("Bootstrap v3.0.0", false);
+		
+		// webjars URLs need version in them when called direct
+		openTest("/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css");
+		sourceContains("Bootstrap v4.0.0", false);
+		openTest("/webjars/font-awesome/5.11.2/css/all.css");
+		sourceContains("Font Awesome Free 5.11.2", false);
+		openTest("/webjars/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css");
+		sourceContains("Tempus Dominus Bootstrap4 v5.1.2", false);
 
 		// check js links work
-		openTest("/resources/js/jquery.min.js");
-		sourceContains("jQuery v1.11.1", false);
-		openTest("/resources/js/bootstrap.min.js");
-		sourceContains("bootstrap.js v3.0.0", false);
-
-		// fonts
-		openTest("/resources/fonts/glyphicons-halflings-regular.svg");
+		openTest("/webjars/jquery/3.0.0/jquery.min.js");
+		sourceContains("jQuery v3.0.0", false);
+		openTest("/webjars/popper.js/1.12.9-1/umd/popper.min.js");
+		sourceContains("Federico Zivolo 2017", false);
+		openTest("/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js");
+		sourceContains("Bootstrap v4.0.0", false);
+		openTest("/webjars/momentjs/2.24.0/min/moment.min.js");
+		sourceContains("invalidMonth:null,invalidFormat", false);
+		openTest("/webjars/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js");
+		sourceContains("Tempus Dominus Bootstrap4 v5.1.2", false);
 
 		// favicon.ico
 		openTest("/favicon.ico");

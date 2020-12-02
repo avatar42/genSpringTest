@@ -30,8 +30,8 @@ import lombok.extern.slf4j.Slf4j;
  * Title: AppController <br>
  * Description: Class main web Controller. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @Slf4j
 @Controller

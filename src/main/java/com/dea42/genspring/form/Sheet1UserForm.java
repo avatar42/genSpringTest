@@ -4,7 +4,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 import com.dea42.genspring.utils.MessageHelper;
-import com.dea42.genspring.entity.Sheet1user;
+import com.dea42.genspring.entity.Sheet1User;
 
 import com.dea42.genspring.entity.Account;
 import com.dea42.genspring.entity.Sheet1;
@@ -16,12 +16,12 @@ import org.hibernate.validator.constraints.Length;
  * Description: Class for holding data from the sheet1user table for editing. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 
 @Data
-public class Sheet1userForm implements Serializable {
+public class Sheet1UserForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
@@ -31,16 +31,18 @@ public class Sheet1userForm implements Serializable {
 	private String useryn;
 
 	/**
-	 * Clones Sheet1user obj into form
+	 * Clones Sheet1User obj into form
 	 *
 	 * @param obj
 	 */
-	public static Sheet1userForm getInstance(Sheet1user obj) {
-		Sheet1userForm form = new Sheet1userForm();
-		form.setId(obj.getId());
-		form.setSheet1(obj.getSheet1());
-		form.setAccount(obj.getAccount());
-		form.setUseryn(obj.getUseryn());
+	public static Sheet1UserForm getInstance(Sheet1User obj) {
+		Sheet1UserForm form = new Sheet1UserForm();
+		if (obj != null) {
+			form.setId(obj.getId());
+			form.setSheet1(obj.getSheet1());
+			form.setAccount(obj.getAccount());
+			form.setUseryn(obj.getUseryn());
+		}
 		return form;
 	}
 }

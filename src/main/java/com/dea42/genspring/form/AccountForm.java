@@ -19,8 +19,8 @@ import org.hibernate.validator.constraints.Length;
  * Description: Class for holding data from the account table for editing. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @UniqueEmail.List({ @UniqueEmail(fieldName = "email", message = "email.unique") })
 @FieldMatch.List({
@@ -53,11 +53,13 @@ public class AccountForm implements Serializable {
 	 */
 	public static AccountForm getInstance(Account obj) {
 		AccountForm form = new AccountForm();
-		form.setEmail(obj.getEmail());
-		form.setId(obj.getId());
+		if (obj != null) {
+			form.setEmail(obj.getEmail());
+			form.setId(obj.getId());
 //		form.setPassword(obj.getPassword());
 //		form.setPasswordConfirm(obj.getPassword());
-		form.setRole(obj.getRole());
+			form.setRole(obj.getRole());
+		}
 		return form;
 	}
 }

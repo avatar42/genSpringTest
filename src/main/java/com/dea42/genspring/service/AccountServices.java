@@ -1,28 +1,40 @@
 package com.dea42.genspring.service;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
-
-import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 import com.dea42.genspring.entity.Account;
 import com.dea42.genspring.repo.AccountRepository;
+import com.dea42.genspring.search.SearchCriteria;
+import com.dea42.genspring.search.SearchOperation;
+import com.dea42.genspring.search.SearchSpecification;
+import com.dea42.genspring.search.AccountSearchForm;
 import com.dea42.genspring.utils.Utils;
+
+import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import javax.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Title: AccountServices <br>
  * Description: AccountServices. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @Slf4j
 @Service
@@ -69,8 +81,38 @@ public class AccountServices extends UserServices<Account> {
 		}
 	}
 
-	public List<Account> listAll() {
-		return (List<Account>) accountRepository.findAll();
+	public Page<Account> listAll(AccountSearchForm form) {
+		SearchSpecification<Account> searchSpec = new SearchSpecification<Account>();
+		if (form != null) {
+			log.debug(form.toString());
+			if (form.getIdMin() != null) {
+				searchSpec.add(new SearchCriteria("id", form.getIdMin(), SearchOperation.GREATER_THAN_EQUAL));
+			}
+			if (form.getIdMax() != null) {
+				searchSpec.add(new SearchCriteria("id", form.getIdMax(), SearchOperation.LESS_THAN_EQUAL));
+			}
+			if (!StringUtils.isBlank(form.getEmail())) {
+				searchSpec.add(new SearchCriteria("email", form.getEmail().toLowerCase(), SearchOperation.LIKE));
+			}
+			if (form.getIdMin() != null) {
+				searchSpec.add(new SearchCriteria("id", form.getIdMin(), SearchOperation.GREATER_THAN_EQUAL));
+			}
+			if (form.getIdMax() != null) {
+				searchSpec.add(new SearchCriteria("id", form.getIdMax(), SearchOperation.LESS_THAN_EQUAL));
+			}
+			if (!StringUtils.isBlank(form.getPassword())) {
+				searchSpec.add(new SearchCriteria("password", form.getPassword().toLowerCase(), SearchOperation.LIKE));
+			}
+			if (!StringUtils.isBlank(form.getRole())) {
+				searchSpec.add(new SearchCriteria("role", form.getRole().toLowerCase(), SearchOperation.LIKE));
+			}
+
+		} else {
+			form = new AccountSearchForm();
+		}
+		Pageable pageable = PageRequest.of(form.getPage() - 1, form.getPageSize(),
+				form.getSort());
+		return accountRepository.findAll(searchSpec, pageable);
 	}
 	
 	public Account save(Account account) {

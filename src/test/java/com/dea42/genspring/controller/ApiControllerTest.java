@@ -8,26 +8,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dea42.genspring.MockBase;
 import com.dea42.genspring.entity.Account;
+import com.dea42.genspring.entity.Sheet1User;
 import com.dea42.genspring.entity.Sheet2;
 import com.dea42.genspring.entity.Sheet1;
-import com.dea42.genspring.entity.Sheet1user;
 
 /**
  * Title: ApiControllerTest <br>
  * Description: REST Api Controller Test. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest(ApiController.class)
@@ -47,13 +52,33 @@ public class ApiControllerTest extends MockBase {
         o.setPassword(getTestPasswordString(30));
         o.setRole(getTestString(25));
 		list.add(o);
-
-		given(accountServices.listAll()).willReturn(list);
+		Page<Account> p = getPage(list);
+		given(accountServices.listAll(null)).willReturn(p);
 
 		this.mockMvc.perform(get("/api/accounts").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
 				.andExpect(content().string(containsString(o.getEmail())))
 				.andExpect(content().string(containsString("email")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString(o.getRole())))
 				.andExpect(content().string(containsString("role")));
+	}
+
+
+	/**
+	 * Test method for
+	 * {@link com.dea42.genspring.controller.Sheet1UserController#getAllSheet1Users(org.springframework.ui.Model)}.
+	 */
+	@Test
+	public void testGetAllSheet1Users() throws Exception {
+		List<Sheet1User> list = new ArrayList<>();
+		Sheet1User o = new Sheet1User();
+		o.setId(1);
+        o.setUseryn(getTestString(1));
+		list.add(o);
+		Page<Sheet1User> p = getPage(list);
+		given(sheet1UserServices.listAll(null)).willReturn(p);
+
+		this.mockMvc.perform(get("/api/sheet1Users").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
+				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("sheet1")))				.andExpect(content().string(containsString("account")))				.andExpect(content().string(containsString(o.getUseryn())))
+				.andExpect(content().string(containsString("useryn")));
 	}
 
 
@@ -68,8 +93,8 @@ public class ApiControllerTest extends MockBase {
 		o.setId(1);
         o.setText(getTestString(21));
 		list.add(o);
-
-		given(sheet2Services.listAll()).willReturn(list);
+		Page<Sheet2> p = getPage(list);
+		given(sheet2Services.listAll(null)).willReturn(p);
 
 		this.mockMvc.perform(get("/api/sheet2s").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
 				.andExpect(content().string(containsString("date")))				.andExpect(content().string(containsString("decimal")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("integer")))				.andExpect(content().string(containsString(o.getText())))
@@ -88,32 +113,12 @@ public class ApiControllerTest extends MockBase {
 		o.setId(1);
         o.setText(getTestString(7));
 		list.add(o);
-
-		given(sheet1Services.listAll()).willReturn(list);
+		Page<Sheet1> p = getPage(list);
+		given(sheet1Services.listAll(null)).willReturn(p);
 
 		this.mockMvc.perform(get("/api/sheet1s").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
 				.andExpect(content().string(containsString("date")))				.andExpect(content().string(containsString("decimal")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("intfield")))				.andExpect(content().string(containsString(o.getText())))
 				.andExpect(content().string(containsString("text")));
-	}
-
-
-	/**
-	 * Test method for
-	 * {@link com.dea42.genspring.controller.Sheet1userController#getAllSheet1users(org.springframework.ui.Model)}.
-	 */
-	@Test
-	public void testGetAllSheet1users() throws Exception {
-		List<Sheet1user> list = new ArrayList<>();
-		Sheet1user o = new Sheet1user();
-		o.setId(1);
-        o.setUseryn(getTestString(1));
-		list.add(o);
-
-		given(sheet1userServices.listAll()).willReturn(list);
-
-		this.mockMvc.perform(get("/api/sheet1users").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
-				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("sheet1")))				.andExpect(content().string(containsString("account")))				.andExpect(content().string(containsString(o.getUseryn())))
-				.andExpect(content().string(containsString("useryn")));
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.web.servlet.ResultActions;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
@@ -11,14 +12,15 @@ import lombok.extern.slf4j.Slf4j;
 import com.dea42.genspring.MockBase;
 import com.dea42.genspring.entity.Sheet1;
 import com.dea42.genspring.form.Sheet1Form;
+import com.dea42.genspring.search.Sheet1SearchForm;
 
 /**
  * Title: Sheet1ControllerTest <br>
  * Description: Sheet1Controller. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @Slf4j
 @WebMvcTest(Sheet1Controller.class)
@@ -40,7 +42,8 @@ public class Sheet1ControllerTest extends MockBase {
 		Sheet1 o = getSheet1(1);
 		list.add(o);
 
-		given(sheet1Services.listAll()).willReturn(list);
+		Page<Sheet1> p = getPage(list);
+		given(sheet1Services.listAll(new Sheet1SearchForm())).willReturn(p);
 
 		ResultActions ra = getAsAdmin("/sheet1s");
 		contentContainsMarkup(ra,"<h1>" + getMsg("class.Sheet1") + " " + getMsg("edit.list") + "</h1>");

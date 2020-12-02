@@ -1,83 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" media="screen"
-	th:href="@{/resources/css/bootstrap.min.css}" />
+<!-- import with <head th:replace="fragments/header :: common_header(~{::title},~{::link},~{::script})"> -->
+<!-- or <head th:replace="fragments/header :: common_header(~{::title},~{},~{})"> for no links or scripts-->
+<head th:fragment="common_header(title,links,scripts)">
+
+<title th:replace="${title}">Needs Title</title>
+
+<!-- Common styles and scripts -->
+<link rel="shortcut icon" th:href="@{/favicon.ico}">
+<script type="text/javascript" th:src="@{/sh/scripts/codebase.js}"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<link rel="stylesheet" th:href="@{/resources/css/site.css}" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/font-awesome/5.11.2/css/all.css} " />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css}" />
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/momentjs/min/moment.min.js}"></script>
+<script
+	th:src="@{/webjars/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
+<script>
+	$.fn.datetimepicker.Constructor.Default = $.extend({},
+			$.fn.datetimepicker.Constructor.Default, {
+				format : 'YYYY-MM-DD HH:mm:ss',
+				date : moment(),
+				icons : {
+					time : 'far fa-clock',
+					date : 'far fa-calendar',
+					up : 'fas fa-arrow-up',
+					down : 'fas fa-arrow-down',
+					previous : 'fas fa-chevron-left',
+					next : 'fas fa-chevron-right',
+					today : 'far fa-calendar-check-o',
+					clear : 'far fa-trash',
+					close : 'far fa-times'
+				}
+			});
+</script>
+
+<!-- Per-page placeholder for additional links -->
+<th:block th:replace="${links}" />
+<!-- Per-page placeholder for additional scripts -->
+<th:block th:replace="${scripts}" />
 </head>
 <body>
 	<div th:fragment="header">
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target=".nav-collapse">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" th:href="@{/}" th:text="#{app.name}"></a>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li id="guiMenu" class="dropdown"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"><span
-								th:text="#{header.gui}"></span> <b class="caret"></b> </a>
-							<ul class="dropdown-menu">
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'account' ? 'active' : ''}">
-    								<a id="guiItemAccount" th:href="@{/accounts}" th:text="#{class.Account}"></a></li>
-								<li th:classappend="${module == 'sheet2' ? 'active' : ''}">
-    								<a id="guiItemSheet2" th:href="@{/sheet2s}" th:text="#{class.Sheet2}"></a></li>
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1' ? 'active' : ''}">
-    								<a id="guiItemSheet1" th:href="@{/sheet1s}" th:text="#{class.Sheet1}"></a></li>
-								<li th:classappend="${module == 'sheet1user' ? 'active' : ''}">
-    								<a id="guiItemSheet1user" th:href="@{/sheet1users}" th:text="#{class.Sheet1user}"></a></li>
-							</ul></li>
-						<li id="restMenu" class="dropdown"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"><span
-								th:text="#{header.restApi}"></span> <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'account' ? 'active' : ''}">
-    								<a id="apiItemAccount" th:href="@{/api/accounts}" th:text="#{class.Account}"></a></li>
-								<li th:classappend="${module == 'sheet2' ? 'active' : ''}">
-    								<a id="apiItemSheet2" th:href="@{/api/sheet2s}" th:text="#{class.Sheet2}"></a></li>
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1' ? 'active' : ''}">
-    								<a id="apiItemSheet1" th:href="@{/api/sheet1s}" th:text="#{class.Sheet1}"></a></li>
-								<li th:classappend="${module == 'sheet1user' ? 'active' : ''}">
-    								<a id="apiItemSheet1user" th:href="@{/api/sheet1users}" th:text="#{class.Sheet1user}"></a></li>
-							</ul></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li id="langMenu" class="dropdown"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"><span
-								th:text="#{lang.change}"></span> <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li th:classappend="'active'"><a
-									th:href="@{/international?lang=en}" th:text="#{lang.en}"></a></li>
-								<li th:classappend="'active'"><a
-									th:href="@{/international?lang=fr}" th:text="#{lang.fr}"></a></li>
-								<li th:classappend="'active'"><a
-									th:href="@{/international?lang=de}" th:text="#{lang.de}"></a></li>
-							</ul></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li th:if="${#authorization.expression('!isAuthenticated()')}">
-							<a th:href="@{/login}"> <span
-								class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;<span
-								th:text="#{signin.signin}"></span>
-						</a>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" th:href="@{/}" th:text="#{app.name}"></a>
+			<div class="navbar-collapse collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<!-- guiMenu -->
+					<li th:replace="fragments/nav :: guiMenu"></li>
+					<!-- restMenu -->
+					<li th:replace="fragments/nav :: restMenu"></li>
+					<!-- staticMenu -->
+					<li th:replace="fragments/nav :: staticMenu"></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li id="langMenu" class="dropdown"><a href="#"
+						class="nav-link dropdown-toggle" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							th:text="#{lang.change}"></span> <b class="caret"></b></a>
+						<ul class="dropdown-menu bg-dark">
+							<li th:classappend="'active'"><a class="nav-link"
+								th:href="@{/international?lang=en}" th:text="#{lang.en}"></a></li>
+							<li th:classappend="'active'"><a class="nav-link"
+								th:href="@{/international?lang=fr}" th:text="#{lang.fr}"></a></li>
+							<li th:classappend="'active'"><a class="nav-link"
+								th:href="@{/international?lang=de}" th:text="#{lang.de}"></a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li th:if="${#authorization.expression('!isAuthenticated()')}">
+						<a th:href="@{/login}"> <span class="nav-link"
+							aria-hidden="true"></span>&nbsp;<span th:text="#{signin.signin}"></span>
+					</a>
 
-						</li>
-						<li th:if="${#authorization.expression('isAuthenticated()')}">
-							<a th:href="@{#}" onclick="$('#form').submit();"> <span
-								class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;<span
-								th:text="#{signin.logout}"></span>
-						</a>
-							<form style="visibility: hidden" id="form" method="post"
-								action="#" th:action="@{/logout}"></form>
-						</li>
-					</ul>
-				</div>
-				<!--/.nav-collapse -->
+					</li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}">
+						<a th:href="@{#}" onclick="$('#form').submit();"> <span
+							class="fa fa-user fa-fw" aria-hidden="true"></span>&nbsp;<span
+							th:text="#{signin.logout}"></span>
+					</a>
+						<form style="visibility: hidden" id="form" method="post"
+							action="#" th:action="@{/logout}"></form>
+					</li>
+				</ul>
 			</div>
+			<!--/.nav-collapse -->
 		</nav>
 		<br>
 		<div class="container">

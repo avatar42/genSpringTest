@@ -10,10 +10,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.servlet.Filter;
-import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tools.ant.UnsupportedAttributeException;
 import org.junit.Before;
@@ -30,23 +36,25 @@ import com.dea42.genspring.service.UserServices;
 import com.dea42.genspring.repo.UserRepository;
 import com.dea42.genspring.repo.AccountRepository;
 import com.dea42.genspring.service.AccountServices;
+import com.dea42.genspring.repo.Sheet1UserRepository;
+import com.dea42.genspring.service.Sheet1UserServices;
 import com.dea42.genspring.repo.Sheet2Repository;
 import com.dea42.genspring.service.Sheet2Services;
 import com.dea42.genspring.repo.Sheet1Repository;
 import com.dea42.genspring.service.Sheet1Services;
-import com.dea42.genspring.repo.Sheet1userRepository;
-import com.dea42.genspring.service.Sheet1userServices;
+
 
 import com.dea42.genspring.utils.Message;
 import com.dea42.genspring.utils.Utils;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Title: MockBase <br>
  * Description: The base class for mock testing. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-${thisYear}<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.5.4<br>
- * @version 0.5.4<br>
+ * @author Gened by GenSpring version 0.6.1<br>
+ * @version 0.6.1<br>
  */
 @Slf4j
 public class MockBase extends UnitBase {
@@ -55,10 +63,14 @@ public class MockBase extends UnitBase {
     @MockBean
     protected UserRepository userRepository;
 
-    @MockBean
+     @MockBean
     protected AccountServices accountServices;
     @MockBean
     protected AccountRepository accountRepository;
+    @MockBean
+    protected Sheet1UserServices sheet1UserServices;
+    @MockBean
+    protected Sheet1UserRepository sheet1UserRepository;
     @MockBean
     protected Sheet2Services sheet2Services;
     @MockBean
@@ -67,10 +79,8 @@ public class MockBase extends UnitBase {
     protected Sheet1Services sheet1Services;
     @MockBean
     protected Sheet1Repository sheet1Repository;
-    @MockBean
-    protected Sheet1userServices sheet1userServices;
-    @MockBean
-    protected Sheet1userRepository sheet1userRepository;
+
+
 	@Autowired
 	protected WebApplicationContext webApplicationContext;
 
@@ -160,19 +170,23 @@ public class MockBase extends UnitBase {
 		contentContainsKey(result, "header.gui");
 		if ("admin@dea42.com".equals(user)) 
 			contentContainsKey(result, "class.Account", false);
+		if ("admin@dea42.com".equals(user)) 
+			contentContainsKey(result, "class.Sheet1User", false);
 		contentContainsKey(result, "class.Sheet2", false);
 		if ("admin@dea42.com".equals(user)) 
 			contentContainsKey(result, "class.Sheet1", false);
-		contentContainsKey(result, "class.Sheet1user", false);
 // REST menu
 		contentContainsKey(result, "header.restApi");
 		if ("admin@dea42.com".equals(user)) 
 			contentContainsMarkup(result, "/api/accounts", false);
+		if ("admin@dea42.com".equals(user)) 
+			contentContainsMarkup(result, "/api/sheet1Users", false);
 		contentContainsMarkup(result, "/api/sheet2s", false);
 		if ("admin@dea42.com".equals(user)) 
 			contentContainsMarkup(result, "/api/sheet1s", false);
-		contentContainsMarkup(result, "/api/sheet1users", false);
-// Login / out
+
+
+		// Login / out
 		contentContainsKey(result, "lang.en");
 		contentContainsKey(result, "lang.fr");
 		contentContainsKey(result, "lang.de");
@@ -323,5 +337,99 @@ public class MockBase extends UnitBase {
 		log.debug("Returning:" + rtn);
 		return rtn;
 	}
+	/**
+	 * Converts a List<T> to Page<T> for mock returns
+	 * 
+	 * @param <T>
+	 * @param list
+	 * @return
+	 */
+	protected <T> Page<T> getPage(List<T> list) {
+		Page<T> p = new Page<T>() {
+
+			@Override
+			public int getNumber() {
+				return 0;
+			}
+
+			@Override
+			public int getSize() {
+				return 0;
+			}
+
+			@Override
+			public int getNumberOfElements() {
+				return list.size();
+			}
+
+			@Override
+			public List<T> getContent() {
+				return list;
+			}
+
+			@Override
+			public boolean hasContent() {
+				return false;
+			}
+
+			@Override
+			public Sort getSort() {
+				return null;
+			}
+
+			@Override
+			public boolean isFirst() {
+				return false;
+			}
+
+			@Override
+			public boolean isLast() {
+				return false;
+			}
+
+			@Override
+			public boolean hasNext() {
+				return false;
+			}
+
+			@Override
+			public boolean hasPrevious() {
+				return false;
+			}
+
+			@Override
+			public Pageable nextPageable() {
+				return null;
+			}
+
+			@Override
+			public Pageable previousPageable() {
+				return null;
+			}
+
+			@Override
+			public Iterator<T> iterator() {
+				return list.iterator();
+			}
+
+			@Override
+			public int getTotalPages() {
+				return 1;
+			}
+
+			@Override
+			public long getTotalElements() {
+				return list.size();
+			}
+
+			@Override
+			public <U> Page<U> map(Function<? super T, ? extends U> converter) {
+				return null;
+			}
+		};
+
+		return p;
+	}
 }
+
 
