@@ -1,32 +1,30 @@
 package com.dea42.genspring.search;
 
+import com.dea42.genspring.entity.Sheet2;
+import com.dea42.genspring.utils.MessageHelper;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
-
-
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.dea42.genspring.utils.MessageHelper;
-import com.dea42.genspring.entity.Sheet2;
 
-import lombok.Data;
 
 /**
- * Title: sheet2 Form <br>
- * Description: Class for holding data from the sheet2 table for editing. <br>
+ * Title: sheet2SearchForm <br>
+ * Description: Class for holding data from the sheet2 table for searching. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @Data
 public class Sheet2SearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date dateMin;
 	private Date dateMax;
 	private BigDecimal decimalMin;

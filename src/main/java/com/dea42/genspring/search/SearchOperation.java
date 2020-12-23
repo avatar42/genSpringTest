@@ -3,8 +3,8 @@ package com.dea42.genspring.search;
 /**
  * Supported search ops
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  *
  */
 public enum SearchOperation {

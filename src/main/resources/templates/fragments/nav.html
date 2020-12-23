@@ -9,11 +9,11 @@
 			<ul class="dropdown-menu bg-dark">
 								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'account' ? 'active' : ''}">
     								<a id="guiItemAccount" th:href="@{/accounts}" th:text="#{class.Account}"></a></li>
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1User' ? 'active' : ''}">
+								<li th:classappend="${module == 'sheet1User' ? 'active' : ''}">
     								<a id="guiItemSheet1User" th:href="@{/sheet1Users}" th:text="#{class.Sheet1User}"></a></li>
 								<li th:classappend="${module == 'sheet2' ? 'active' : ''}">
     								<a id="guiItemSheet2" th:href="@{/sheet2s}" th:text="#{class.Sheet2}"></a></li>
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1' ? 'active' : ''}">
+								<li th:classappend="${module == 'sheet1' ? 'active' : ''}">
     								<a id="guiItemSheet1" th:href="@{/sheet1s}" th:text="#{class.Sheet1}"></a></li>
 			</ul></li>
 		<li th:fragment="restMenu" id="restMenu" class="nav-item dropdown"><a
@@ -23,11 +23,11 @@
 			<ul class="dropdown-menu bg-dark">
 								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'account' ? 'active' : ''}">
     								<a id="apiItemAccount" th:href="@{/api/accounts}" th:text="#{class.Account}"></a></li>
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1User' ? 'active' : ''}">
+								<li th:classappend="${module == 'sheet1User' ? 'active' : ''}">
     								<a id="apiItemSheet1User" th:href="@{/api/sheet1Users}" th:text="#{class.Sheet1User}"></a></li>
 								<li th:classappend="${module == 'sheet2' ? 'active' : ''}">
     								<a id="apiItemSheet2" th:href="@{/api/sheet2s}" th:text="#{class.Sheet2}"></a></li>
-								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'sheet1' ? 'active' : ''}">
+								<li th:classappend="${module == 'sheet1' ? 'active' : ''}">
     								<a id="apiItemSheet1" th:href="@{/api/sheet1s}" th:text="#{class.Sheet1}"></a></li>
 			</ul></li>
 		<li th:fragment="staticMenu" id="staticMenu" class="nav-item dropdown">

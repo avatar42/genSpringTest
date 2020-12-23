@@ -20,10 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Title: Utils <br>
  * Description: General utils used by app from GenSpring static resources. <br>
- * Copyright: Copyright (c) 2001-${thisYear}<br>
+ * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @Slf4j
 public class Utils {

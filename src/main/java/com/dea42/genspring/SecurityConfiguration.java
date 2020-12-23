@@ -28,8 +28,8 @@ import com.dea42.genspring.service.AccountServices;
  * Title: SecurityConfiguration <br>
  * Description: Class for configuring app security. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @Configuration
 @EnableWebSecurity

@@ -51,10 +51,10 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Title: MockBase <br>
  * Description: The base class for mock testing. <br>
- * Copyright: Copyright (c) 2001-${thisYear}<br>
+ * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @Slf4j
 public class MockBase extends UnitBase {
@@ -170,20 +170,16 @@ public class MockBase extends UnitBase {
 		contentContainsKey(result, "header.gui");
 		if ("admin@dea42.com".equals(user)) 
 			contentContainsKey(result, "class.Account", false);
-		if ("admin@dea42.com".equals(user)) 
-			contentContainsKey(result, "class.Sheet1User", false);
+		contentContainsKey(result, "class.Sheet1User", false);
 		contentContainsKey(result, "class.Sheet2", false);
-		if ("admin@dea42.com".equals(user)) 
-			contentContainsKey(result, "class.Sheet1", false);
+		contentContainsKey(result, "class.Sheet1", false);
 // REST menu
 		contentContainsKey(result, "header.restApi");
 		if ("admin@dea42.com".equals(user)) 
 			contentContainsMarkup(result, "/api/accounts", false);
-		if ("admin@dea42.com".equals(user)) 
-			contentContainsMarkup(result, "/api/sheet1Users", false);
+		contentContainsMarkup(result, "/api/sheet1Users", false);
 		contentContainsMarkup(result, "/api/sheet2s", false);
-		if ("admin@dea42.com".equals(user)) 
-			contentContainsMarkup(result, "/api/sheet1s", false);
+		contentContainsMarkup(result, "/api/sheet1s", false);
 
 
 		// Login / out

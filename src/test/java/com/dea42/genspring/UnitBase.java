@@ -21,16 +21,17 @@ import junit.framework.TestCase;
 /**
  * Title: UnitBase <br>
  * Description: The base class for testing. <br>
- * Copyright: Copyright (c) 2001-${thisYear}<br>
+ * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public abstract class UnitBase extends TestCase {
 	private static final String strVal = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890abcdefghijklmnopqrstuvwzyz";
 	protected static final Logger LOGGER = LoggerFactory.getLogger(UnitBase.class.getName());
+	public static long DAY = 1000 * 60 * 60 * 24; 
 
 	public static final String SEND_GET = "GET";
 	public static final String SEND_POST = "POST";

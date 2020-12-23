@@ -7,8 +7,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * Title: ServletInitializer <br>
  * Description: Class for configuring app in war. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 public class ServletInitializer extends SpringBootServletInitializer {
 

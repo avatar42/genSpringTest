@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dea42</groupId>
 	<artifactId>genSpring</artifactId>
-	<version>0.6.1-SNAPSHOT</version>
+	<version>0.6.3-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<description>One of the generated apps used to regression test genSpring, prototype changes and use this repo to diff prototype changes.</description>
 
@@ -234,7 +234,7 @@
 							<groupId>org.codehaus.cargo</groupId>
 							<artifactId>genSpring-war</artifactId>
 							<type>war</type>
-							<location>${project.build.directory}/genSpring-0.6.1-SNAPSHOT.war</location>
+							<location>${project.build.directory}/genSpring-0.6.3-SNAPSHOT.war</location>
 							<properties>
 								<context>genSpring</context>
 							</properties>

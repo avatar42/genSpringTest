@@ -1,29 +1,27 @@
 package com.dea42.genspring.search;
 
-import java.io.Serializable;
 import com.dea42.genspring.controller.FieldMatch;
 import com.dea42.genspring.controller.UniqueEmail;
 import com.dea42.genspring.controller.ValidatePassword;
+import com.dea42.genspring.entity.Account;
+import com.dea42.genspring.utils.MessageHelper;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-
-
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.dea42.genspring.utils.MessageHelper;
-import com.dea42.genspring.entity.Account;
 
-import lombok.Data;
 
 /**
- * Title: account Form <br>
- * Description: Class for holding data from the account table for editing. <br>
+ * Title: accountSearchForm <br>
+ * Description: Class for holding data from the account table for searching. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @Data
 public class AccountSearchForm implements Serializable {

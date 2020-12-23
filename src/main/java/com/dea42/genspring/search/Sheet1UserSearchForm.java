@@ -1,26 +1,24 @@
 package com.dea42.genspring.search;
 
-import java.io.Serializable;
 import com.dea42.genspring.entity.Account;
 import com.dea42.genspring.entity.Sheet1;
+import com.dea42.genspring.entity.Sheet1User;
+import com.dea42.genspring.utils.MessageHelper;
+import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-
-
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.dea42.genspring.utils.MessageHelper;
-import com.dea42.genspring.entity.Sheet1User;
 
-import lombok.Data;
 
 /**
- * Title: sheet1user Form <br>
- * Description: Class for holding data from the sheet1user table for editing. <br>
+ * Title: sheet1userSearchForm <br>
+ * Description: Class for holding data from the sheet1user table for searching. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @Data
 public class Sheet1UserSearchForm implements Serializable {
@@ -48,10 +46,6 @@ public class Sheet1UserSearchForm implements Serializable {
 		Sheet1UserSearchForm form = new Sheet1UserSearchForm();
 		form.setIdMin(obj.getId());
 		form.setIdMax(obj.getId());
-		form.setSheet1Min(obj.getSheet1());
-		form.setSheet1Max(obj.getSheet1());
-		form.setAccountMin(obj.getAccount());
-		form.setAccountMax(obj.getAccount());
 		form.setUseryn(obj.getUseryn());
 		return form;
 	}

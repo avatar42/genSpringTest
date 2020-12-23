@@ -44,11 +44,11 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Title: SeleniumBase <br>
  * Description: Base class for Selenium tests. <br>
- * Copyright: Copyright (c) 2001-${thisYear}<br>
+ * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
  *
- * @author Gened by GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 @Slf4j
 public class SeleniumBase extends UnitBase {
@@ -180,6 +180,9 @@ public class SeleniumBase extends UnitBase {
 	protected void sourceContains(String expected, boolean doesNotContain) {
 		String src = getSrc();
 		assertNotNull("checking page source not null", src);
+		if (src.contains("??")) {
+			fail("'??' was found in page source:" + src);
+		}
 		if (doesNotContain) {
 			if (src.contains(expected)) {
 				fail("'" + expected + "' was found in page source:" + src);

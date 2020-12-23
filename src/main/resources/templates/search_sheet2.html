@@ -25,7 +25,7 @@
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('dateMin')}? 'has-error'">
 					<label for="dateMin" class="col-lg-2 control-label"
-						th:text="#{Sheet2.date} + ' ' + #{search.gte}"></label>
+						th:text="#{Sheet2.date} + ' ' + #{search.after}"></label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="dateMin"
 							th:field="*{dateMin}" />
@@ -41,7 +41,7 @@
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('dateMax')}? 'has-error'">
 					<label for="dateMax" class="col-lg-2 control-label"
-						th:text="#{Sheet2.date} + ' ' + #{search.lte}"></label>
+						th:text="#{Sheet2.date} + ' ' + #{search.before}"></label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="dateMax"
 							th:field="*{dateMax}" />

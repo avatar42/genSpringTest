@@ -1,14 +1,12 @@
 package com.dea42.genspring.form;
 
-import java.io.Serializable;
-import lombok.Data;
-
-import com.dea42.genspring.utils.MessageHelper;
 import com.dea42.genspring.entity.Sheet1;
-
+import com.dea42.genspring.utils.MessageHelper;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.NotBlank;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,8 +15,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Description: Class for holding data from the sheet1 table for editing. <br>
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.1<br>
- * @version 0.6.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
+ * @version 0.6.3<br>
  */
 
 @Data
