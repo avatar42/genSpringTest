@@ -1,100 +1,93 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: common_header(~{::title},~{},~{})">
+<head th:replace="fragments/header :: common_header(~{::title},~{::links},~{::scripts})">
 <title th:text="#{edit.listView} + ' ' + #{class.Sheet2}"></title>
+<links>
+<link th:rel="stylesheet"
+	th:href="@{/webjars/datatables/css/jquery.dataTables.min.css} " />
+</links>
+<scripts> <script
+	th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script> </scripts>
 </head>
 <body class="d-flex flex-column min-vh-100">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<div class="wrapper flex-grow-1">
 
-	<div class="container" th:with="SearchForm=${session.sheet2SearchForm}">
-		<h1 th:text="#{class.Sheet2} + ' ' + #{edit.list}"></h1>
-		<a th:href="@{/sheet2s/search}" th:text="#{search.search} + ' ' + #{class.Sheet2}"></a> <br />
-		<a th:href="@{/sheet2s/new}" th:text="#{edit.new} + ' ' + #{class.Sheet2}"></a> <br /><br />
+		<div class="container-fluid" th:with="SearchForm=${session.sheet2SearchForm}">
+			<h1 th:text="#{class.Sheet2} + ' ' + #{edit.list}"></h1>
+			<a th:href="@{/sheet2s/search}"
+				th:text="#{search.advanced} + ' ' + #{class.Sheet2}"></a> <br /> <a
+				th:href="@{/sheet2s/new}"
+				th:text="#{edit.new} + ' ' + #{class.Sheet2}"></a> <br /> <br />
+			<div style="float: right;" th:text="#{search.like}"></div>
 
-	    <table>
-	        <tr>
-            <th>
-				<a th:if="${SearchForm.sortField == 'date'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=date&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet2.date}">Date</a>
-					<a th:if="${SearchForm.sortField != 'date'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=date&sortDir=asc'}"
-					th:text="#{Sheet2.date}">Date</a>
-            </th>
-            <th>
-				<a th:if="${SearchForm.sortField == 'decimal'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=decimal&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet2.decimal}">Decimal</a>
-					<a th:if="${SearchForm.sortField != 'decimal'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=decimal&sortDir=asc'}"
-					th:text="#{Sheet2.decimal}">Decimal</a>
-            </th>
-            <th>
-				<a th:if="${SearchForm.sortField == 'integer'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=integer&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet2.integer}">Integer</a>
-					<a th:if="${SearchForm.sortField != 'integer'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=integer&sortDir=asc'}"
-					th:text="#{Sheet2.integer}">Integer</a>
-            </th>
-            <th>
-				<a th:if="${SearchForm.sortField == 'text'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=text&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet2.text}">Text</a>
-					<a th:if="${SearchForm.sortField != 'text'}"
-					th:href="@{'/sheet2s/search/' + ${SearchForm.page} + '?sortField=text&sortDir=asc'}"
-					th:text="#{Sheet2.text}">Text</a>
-            </th>
-            <th th:text="#{edit.actions}"></th>
-	        </tr>
-	        <tr th:each="sheet2:${sheet2s}">
-	            <td th:if="${sheet2 != null}" th:text="${sheet2.date}"></td>
-				<td th:unless="${sheet2 != null}"></td>
-	            <td th:if="${sheet2 != null}" th:text="${sheet2.decimal}"></td>
-				<td th:unless="${sheet2 != null}"></td>
-	            <td th:if="${sheet2 != null}" th:text="${sheet2.integer}"></td>
-				<td th:unless="${sheet2 != null}"></td>
-	            <td th:if="${sheet2 != null}" th:text="${sheet2.text}"></td>
-				<td th:unless="${sheet2 != null}"></td>
-				<td><a th:href="@{'/sheet2s/edit/' + ${sheet2.id}}" th:text="#{edit.edit}"></a>
-					&nbsp;&nbsp;&nbsp; <a th:href="@{'/sheet2s/delete/' + ${sheet2.id}}" th:text="#{edit.delete}"></a>
-				</td>
+			<table id="resultsTable" class="table table-bordered table-striped table-condensed"
+				style="width: 100%">
+				<thead>
+					<tr>
+						<th th:text="#{Sheet2.datefield}"></th>
+						<th th:text="#{Sheet2.decimalfield}"></th>
+						<th th:text="#{Sheet2.integerfield}"></th>
+						<th th:text="#{Sheet2.text}"></th>
+						<th th:text="#{edit.actions}"></th>
+					</tr>
+				</thead>
+			</table>
+			<script th:inline="javascript">
+				var editLab = /*[[#{edit.edit}]]*/'[msg not found]';
+				var deleteLab = /*[[#{edit.delete}]]*/'[msg not found]';
+				var datatablesUrl = /*[[#{datatables.url}]]*/'[msg not found]';
+				var link = /*[[@{/api/sheet2s/list}]]*/ '/api/sheet2s/list';
+				var ctx = /*[[@{/}]]*/ '/';
+			</script>
+			<script>
+				$('#resultsTable').DataTable({
+					"processing" : true,
+					"serverSide" : true,
+				    "language" : {
+				        "url" : datatablesUrl
+					    },
+					"ajax" : {
+						"url" : link,
+						"type" : "POST",
+						"dataType" : "json",
+						"contentType" : "application/json",
+						"data" : function(d) {
+							return JSON.stringify(d);
+						}
+					},
+					"columns" : [ {
+						"name" : "datefield",
+						"data" : "datefield",
+					}, {
+						"name" : "decimalfield",
+						"data" : "decimalfield",
+					}, {
+						"name" : "integerfield",
+						"data" : "integerfield",
+					}, {
+						"name" : "text",
+						"data" : "text",
+					}, {
+						"data" : "id",
+						"render" : make_edit_links,
+						"width" : "10%"
+					} ]
+				});
 
-	        </tr>
-	    </table>
-		<div th:if="${SearchForm.page > 1}">
-			<div class="row col-sm-10">
-				<div class="col-sm-2">Total Rows:
-					[[${SearchForm.totalItems}]]</div>
-				<div class="col-sm-1">
-					<span
-						th:each="i: ${#numbers.sequence(1, SearchForm.totalPages)}">
-						<a th:if="${SearchForm.page != i}"
-						th:href="@{'/sheet2s/search/' + ${i}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">[[${i}]]</a>
-						<span th:unless="${SearchForm.page != i}">[[${i}]]</span>
-						&nbsp; &nbsp;
-					</span>
-				</div>
-				<div class="col-sm-1">
-					<a
-						th:if="${SearchForm.page < SearchForm.totalPages}"
-						th:href="@{'/sheet2s/search/' + ${SearchForm.page + 1}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Next</a>
-					<span
-						th:unless="${SearchForm.page < SearchForm.totalPages}">Next</span>
-				</div>
 
-				<div class="col-sm-1">
-					<a
-						th:if="${SearchForm.page < SearchForm.totalPages}"
-						th:href="@{'/sheet2s/search/' + ${SearchForm.totalPages}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Last</a>
-					<span
-						th:unless="${SearchForm.page < SearchForm.totalPages}">Last</span>
-				</div>
-			</div>
+				function make_edit_links(id) {
+					return "<a href=\""+ctx+"sheet2s/edit/" + id +"\" id=\"edit_"+id + "\">"
+							+ editLab
+							+ "</a> &nbsp;&nbsp;&nbsp;"
+							+ "<a href=\""+ctx+"sheet2s/delete/" + id +"\" id=\"delete_"+id + "\">"
+							+ deleteLab + "</a>";
+				}
+			</script>
 		</div>
 
-    </div>
-
-	</div>	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy; 2020 default</div>
-</body></html>
+	</div>
+	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy;
+		2020 default</div>
+</body>
+</html>

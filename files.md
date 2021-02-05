@@ -53,6 +53,7 @@ files.md<br>
 ./src/main/java/com/dea42/genspring/search/SearchCriteria.java<br>
 ./src/main/java/com/dea42/genspring/search/SearchOperation.java<br>
 ./src/main/java/com/dea42/genspring/search/SearchSpecification.java<br>
+./src/main/java/com/dea42/genspring/search/SearchType.java<br>
 ./src/main/java/com/dea42/genspring/search/AccountSearchForm.java<br>
 ./src/main/java/com/dea42/genspring/search/Sheet1SearchForm.java<br>
 ./src/main/java/com/dea42/genspring/search/Sheet1UserSearchForm.java<br>
@@ -69,6 +70,12 @@ files.md<br>
 ./src/main/java/com/dea42/genspring/utils/MessageHelper.java<br>
 ./src/main/java/com/dea42/genspring/utils/Utils.java<br>
 ./src/main/java/com/dea42/genspring/WebAppApplication.java<br>
+./src/main/java/com/dea42/genspring/paging/Column.java<br>
+./src/main/java/com/dea42/genspring/paging/Direction.java<br>
+./src/main/java/com/dea42/genspring/paging/Order.java<br>
+./src/main/java/com/dea42/genspring/paging/PageInfo.java<br>
+./src/main/java/com/dea42/genspring/paging/PagingRequest.java<br>
+./src/main/java/com/dea42/genspring/paging/Search.java<br>
 ./src/main/java/com/dea42/genspring/entity/Account.java<br>
 ./src/main/java/com/dea42/genspring/entity/Sheet1.java<br>
 ./src/main/java/com/dea42/genspring/entity/Sheet1User.java<br>

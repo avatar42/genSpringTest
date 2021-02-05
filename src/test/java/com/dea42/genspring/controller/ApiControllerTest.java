@@ -8,16 +8,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Function;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dea42.genspring.MockBase;
@@ -29,10 +25,11 @@ import com.dea42.genspring.entity.Sheet1;
 /**
  * Title: ApiControllerTest <br>
  * Description: REST Api Controller Test. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest(ApiController.class)
@@ -49,16 +46,18 @@ public class ApiControllerTest extends MockBase {
 		Account o = new Account();
         o.setEmail(getTestEmailString(254));
 		o.setId(1);
+        o.setName(getTestString(254));
         o.setPassword(getTestPasswordString(30));
-        o.setRole(getTestString(25));
+        o.setUserrole(getTestString(25));
 		list.add(o);
 		Page<Account> p = getPage(list);
 		given(accountServices.listAll(null)).willReturn(p);
 
 		this.mockMvc.perform(get("/api/accounts").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
 				.andExpect(content().string(containsString(o.getEmail())))
-				.andExpect(content().string(containsString("email")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString(o.getRole())))
-				.andExpect(content().string(containsString("role")));
+				.andExpect(content().string(containsString("email")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString(o.getName())))
+				.andExpect(content().string(containsString("name")))				.andExpect(content().string(containsString(o.getUserrole())))
+				.andExpect(content().string(containsString("userrole")));
 	}
 
 
@@ -97,7 +96,7 @@ public class ApiControllerTest extends MockBase {
 		given(sheet2Services.listAll(null)).willReturn(p);
 
 		this.mockMvc.perform(get("/api/sheet2s").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
-				.andExpect(content().string(containsString("date")))				.andExpect(content().string(containsString("decimal")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("integer")))				.andExpect(content().string(containsString(o.getText())))
+				.andExpect(content().string(containsString("datefield")))				.andExpect(content().string(containsString("decimalfield")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("integerfield")))				.andExpect(content().string(containsString(o.getText())))
 				.andExpect(content().string(containsString("text")));
 	}
 
@@ -117,7 +116,7 @@ public class ApiControllerTest extends MockBase {
 		given(sheet1Services.listAll(null)).willReturn(p);
 
 		this.mockMvc.perform(get("/api/sheet1s").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
-				.andExpect(content().string(containsString("date")))				.andExpect(content().string(containsString("decimal")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("intfield")))				.andExpect(content().string(containsString(o.getText())))
+				.andExpect(content().string(containsString("datefield")))				.andExpect(content().string(containsString("decimalfield")))				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("intfield")))				.andExpect(content().string(containsString(o.getText())))
 				.andExpect(content().string(containsString("text")));
 	}
 

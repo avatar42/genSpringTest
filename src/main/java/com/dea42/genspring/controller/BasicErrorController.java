@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Handler for status errors like 404
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  *
  */
 @Controller

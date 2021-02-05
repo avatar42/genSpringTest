@@ -21,10 +21,10 @@ import junit.framework.TestCase;
 /**
  * Title: UnitBase <br>
  * Description: The base class for testing. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -46,11 +46,13 @@ public abstract class UnitBase extends TestCase {
 	protected Set<String> headless = new HashSet<String>();
 
 	protected static int TEST_USER_ID;
+	protected static String TEST_EMAIL;
 	protected static String TEST_USER;
 	protected static String TEST_PASS;
 	protected static String TEST_ROLE;
 
 	protected static int ADMIN_USER_ID;
+	protected static String ADMIN_EMAIL;
 	protected static String ADMIN_USER;
 	protected static String ADMIN_PASS;
 	protected static String ADMIN_ROLE;
@@ -59,15 +61,17 @@ public abstract class UnitBase extends TestCase {
 		appBundle = ResourceBundle.getBundle("app");
 		msgEnBundle = ResourceBundle.getBundle("messages");
 
-		if (TEST_USER == null) {
+		if (TEST_EMAIL == null) {
 			TEST_USER_ID = Utils.getProp(appBundle, "default.userid", 1);
-			TEST_USER = Utils.getProp(appBundle, "default.user", null);
+			TEST_EMAIL = Utils.getProp(appBundle, "default.email", null);
+			TEST_USER = Utils.getProp(appBundle, "default.user", "user");
 			TEST_PASS = Utils.getProp(appBundle, "default.userpass", null);
 			TEST_ROLE = Utils.getProp(appBundle, "default.userrole", null);
 		}
-		if (ADMIN_USER == null) {
+		if (ADMIN_EMAIL == null) {
 			ADMIN_USER_ID = Utils.getProp(appBundle, "default.adminid", 2);
-			ADMIN_USER = Utils.getProp(appBundle, "default.admin", null);
+			ADMIN_EMAIL = Utils.getProp(appBundle, "default.adminEmail", null);
+			ADMIN_USER = Utils.getProp(appBundle, "default.admin", "admin");
 			ADMIN_PASS = Utils.getProp(appBundle, "default.adminpass", null);
 			ADMIN_ROLE = Utils.getProp(appBundle, "default.adminrole", null);
 		}
@@ -84,19 +88,21 @@ public abstract class UnitBase extends TestCase {
 
 	protected Account getDefaultAdminAccount() {
 		Account a = new Account();
-		a.setEmail(ADMIN_USER);
+		a.setEmail(ADMIN_EMAIL);
+		a.setName(ADMIN_USER);
 		a.setId(ADMIN_USER_ID);
 		a.setPassword(ADMIN_PASS);
-		a.setRole(ADMIN_ROLE);
+		a.setUserrole(ADMIN_ROLE);
 		return a;
 	}
 
 	protected Account getDefaultUserAccount() {
 		Account a = new Account();
-		a.setEmail(TEST_USER);
+		a.setEmail(TEST_EMAIL);
+		a.setName(TEST_USER);
 		a.setId(TEST_USER_ID);
 		a.setPassword(TEST_PASS);
-		a.setRole(TEST_ROLE);
+		a.setUserrole(TEST_ROLE);
 		return a;
 	}
 

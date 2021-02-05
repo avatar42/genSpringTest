@@ -15,10 +15,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * Title: sheet2 Bean <br>
  * Description: Class for holding data from the sheet2 table. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  * Table name: sheet2<br>
  * Column name: id<br>
  * Catalog name: null<br>
@@ -32,16 +33,16 @@ public class Sheet2 implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	@Column(name = "Date", nullable = false)
-	private Date date;
-	@Column(name = "Decimal")
-	private BigDecimal decimal;
+	@Column(name = "DateField", nullable = false)
+	private Date datefield;
+	@Column(name = "DecimalField")
+	private BigDecimal decimalfield;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	@Column(name = "Integer", nullable = false)
-	private Integer integer;
+	@Column(name = "IntegerField", nullable = false)
+	private Integer integerfield;
 	@Column(name = "Text", nullable = false, length = 21)
 	private String text;
 }

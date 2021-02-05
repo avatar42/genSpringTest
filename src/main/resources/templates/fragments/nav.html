@@ -8,13 +8,13 @@
 				th:text="#{header.gui}"></span> <b class="caret"></b> </a>
 			<ul class="dropdown-menu bg-dark">
 								<li sec:authorize="hasRole('ROLE_ADMIN')"  th:classappend="${module == 'account' ? 'active' : ''}">
-    								<a id="guiItemAccount" th:href="@{/accounts}" th:text="#{class.Account}"></a></li>
+    								<a id="guiItemAccount" th:href="@{/accounts/list}" th:text="#{class.Account}"></a></li>
 								<li th:classappend="${module == 'sheet1User' ? 'active' : ''}">
-    								<a id="guiItemSheet1User" th:href="@{/sheet1Users}" th:text="#{class.Sheet1User}"></a></li>
+    								<a id="guiItemSheet1User" th:href="@{/sheet1Users/list}" th:text="#{class.Sheet1User}"></a></li>
 								<li th:classappend="${module == 'sheet2' ? 'active' : ''}">
-    								<a id="guiItemSheet2" th:href="@{/sheet2s}" th:text="#{class.Sheet2}"></a></li>
+    								<a id="guiItemSheet2" th:href="@{/sheet2s/list}" th:text="#{class.Sheet2}"></a></li>
 								<li th:classappend="${module == 'sheet1' ? 'active' : ''}">
-    								<a id="guiItemSheet1" th:href="@{/sheet1s}" th:text="#{class.Sheet1}"></a></li>
+    								<a id="guiItemSheet1" th:href="@{/sheet1s/list}" th:text="#{class.Sheet1}"></a></li>
 			</ul></li>
 		<li th:fragment="restMenu" id="restMenu" class="nav-item dropdown"><a
 			href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"

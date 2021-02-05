@@ -15,24 +15,26 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * Title: sheet2SearchForm <br>
  * Description: Class for holding data from the sheet2 table for searching. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Data
 public class Sheet2SearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	private Date dateMin;
-	private Date dateMax;
-	private BigDecimal decimalMin;
-	private BigDecimal decimalMax;
+	private Date datefieldMin;
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	private Date datefieldMax;
+	private BigDecimal decimalfieldMin;
+	private BigDecimal decimalfieldMax;
 	private Integer idMin;
 	private Integer idMax;
-	private Integer integerMin;
-	private Integer integerMax;
+	private Integer integerfieldMin;
+	private Integer integerfieldMax;
 	private String text = null;
 	private String sortField = "id";
 	private int page = 1;
@@ -40,6 +42,8 @@ public class Sheet2SearchForm implements Serializable {
 	private boolean sortAsc = true;
 	private int totalPages = 0;
 	private long totalItems = 0;
+	private SearchType doOr = SearchType.ADD;
+	private boolean advanced = true;
 	/**
 	 * Clones Sheet2 obj into form
 	 *
@@ -47,14 +51,14 @@ public class Sheet2SearchForm implements Serializable {
 	 */
 	public static Sheet2SearchForm getInstance(Sheet2 obj) {
 		Sheet2SearchForm form = new Sheet2SearchForm();
-		form.setDateMin(obj.getDate());
-		form.setDateMax(obj.getDate());
-		form.setDecimalMin(obj.getDecimal());
-		form.setDecimalMax(obj.getDecimal());
+		form.setDatefieldMin(obj.getDatefield());
+		form.setDatefieldMax(obj.getDatefield());
+		form.setDecimalfieldMin(obj.getDecimalfield());
+		form.setDecimalfieldMax(obj.getDecimalfield());
 		form.setIdMin(obj.getId());
 		form.setIdMax(obj.getId());
-		form.setIntegerMin(obj.getInteger());
-		form.setIntegerMax(obj.getInteger());
+		form.setIntegerfieldMin(obj.getIntegerfield());
+		form.setIntegerfieldMax(obj.getIntegerfield());
 		form.setText(obj.getText());
 		return form;
 	}

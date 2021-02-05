@@ -1,130 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: common_header(~{::title},~{},~{})">
+<head th:replace="fragments/header :: common_header(~{::title},~{::links},~{::scripts})">
 <title th:text="#{edit.listView} + ' ' + #{class.Sheet1User}"></title>
+<links>
+<link th:rel="stylesheet"
+	th:href="@{/webjars/datatables/css/jquery.dataTables.min.css} " />
+</links>
+<scripts> <script
+	th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script> </scripts>
 </head>
 <body class="d-flex flex-column min-vh-100">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<div class="wrapper flex-grow-1">
 
-	<div class="container" th:with="SearchForm=${session.sheet1UserSearchForm}">
-		<h1 th:text="#{class.Sheet1User} + ' ' + #{edit.list}"></h1>
-		<a th:href="@{/sheet1Users/search}" th:text="#{search.search} + ' ' + #{class.Sheet1User}"></a> <br />
-		<a th:href="@{/sheet1Users/new}" th:text="#{edit.new} + ' ' + #{class.Sheet1User}"></a> <br /><br />
+		<div class="container-fluid" th:with="SearchForm=${session.sheet1UserSearchForm}">
+			<h1 th:text="#{class.Sheet1User} + ' ' + #{edit.list}"></h1>
+			<a th:href="@{/sheet1Users/search}"
+				th:text="#{search.advanced} + ' ' + #{class.Sheet1User}"></a> <br /> <a
+				th:href="@{/sheet1Users/new}"
+				th:text="#{edit.new} + ' ' + #{class.Sheet1User}"></a> <br /> <br />
+			<div style="float: right;" th:text="#{search.like}"></div>
 
-	    <table>
-	        <tr>
-            <th>
-				<a th:if="${SearchForm.sortField == 'date'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=date&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet1.date}">Date</a>
-					<a th:if="${SearchForm.sortField != 'date'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=date&sortDir=asc'}"
-					th:text="#{Sheet1.date}">Date</a>
-            </th>
-            <th>
-				<a th:if="${SearchForm.sortField == 'decimal'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=decimal&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet1.decimal}">Decimal</a>
-					<a th:if="${SearchForm.sortField != 'decimal'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=decimal&sortDir=asc'}"
-					th:text="#{Sheet1.decimal}">Decimal</a>
-            </th>
-            <th>
-				<a th:if="${SearchForm.sortField == 'intfield'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=intfield&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet1.intfield}">IntField</a>
-					<a th:if="${SearchForm.sortField != 'intfield'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=intfield&sortDir=asc'}"
-					th:text="#{Sheet1.intfield}">IntField</a>
-            </th>
-            <th>
-				<a th:if="${SearchForm.sortField == 'text'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=text&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet1.text}">Text</a>
-					<a th:if="${SearchForm.sortField != 'text'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=text&sortDir=asc'}"
-					th:text="#{Sheet1.text}">Text</a>
-            </th>
-            <th sec:authorize="hasRole('ROLE_ADMIN')" >
-				<a th:if="${SearchForm.sortField == 'email'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=email&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Account.email}">Email</a>
-					<a th:if="${SearchForm.sortField != 'email'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=email&sortDir=asc'}"
-					th:text="#{Account.email}">Email</a>
-            </th>
-            <th sec:authorize="hasRole('ROLE_ADMIN')" >
-				<a th:if="${SearchForm.sortField == 'role'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=role&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Account.role}">Role</a>
-					<a th:if="${SearchForm.sortField != 'role'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=role&sortDir=asc'}"
-					th:text="#{Account.role}">Role</a>
-            </th>
-            <th>
-				<a th:if="${SearchForm.sortField == 'useryn'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=useryn&sortDir=' + ${SearchForm.reverseSortDir}}"
-					th:text="#{Sheet1User.useryn}">UserYN</a>
-					<a th:if="${SearchForm.sortField != 'useryn'}"
-					th:href="@{'/sheet1Users/search/' + ${SearchForm.page} + '?sortField=useryn&sortDir=asc'}"
-					th:text="#{Sheet1User.useryn}">UserYN</a>
-            </th>
-            <th th:text="#{edit.actions}"></th>
-	        </tr>
-	        <tr th:each="sheet1User:${sheet1Users}">
-	            <td th:if="${sheet1User.sheet1 != null}" th:text="${sheet1User.sheet1.date}"></td>
-				<td th:unless="${sheet1User.sheet1 != null}"></td>
-	            <td th:if="${sheet1User.sheet1 != null}" th:text="${sheet1User.sheet1.decimal}"></td>
-				<td th:unless="${sheet1User.sheet1 != null}"></td>
-	            <td th:if="${sheet1User.sheet1 != null}" th:text="${sheet1User.sheet1.intfield}"></td>
-				<td th:unless="${sheet1User.sheet1 != null}"></td>
-	            <td th:if="${sheet1User.sheet1 != null}" th:text="${sheet1User.sheet1.text}"></td>
-				<td th:unless="${sheet1User.sheet1 != null}"></td>
-	            <td th:if="${sheet1User.account != null}" sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${sheet1User.account.email}"></td>
-				<td th:unless="${sheet1User.account != null}"></td>
-	            <td th:if="${sheet1User.account != null}" sec:authorize="hasRole('ROLE_ADMIN')"  th:text="${sheet1User.account.role}"></td>
-				<td th:unless="${sheet1User.account != null}"></td>
-	            <td th:if="${sheet1User != null}" th:text="${sheet1User.useryn}"></td>
-				<td th:unless="${sheet1User != null}"></td>
-				<td><a th:href="@{'/sheet1Users/edit/' + ${sheet1User.id}}" th:text="#{edit.edit}"></a>
-					&nbsp;&nbsp;&nbsp; <a th:href="@{'/sheet1Users/delete/' + ${sheet1User.id}}" th:text="#{edit.delete}"></a>
-				</td>
+			<table id="resultsTable" class="table table-bordered table-striped table-condensed"
+				style="width: 100%">
+				<thead>
+					<tr>
+						<th th:text="#{Sheet1.datefield}"></th>
+						<th th:text="#{Sheet1.decimalfield}"></th>
+						<th th:text="#{Sheet1.intfield}"></th>
+						<th th:text="#{Sheet1.text}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.email}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.name}"></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.userrole}"></th>
+						<th th:text="#{Sheet1User.useryn}"></th>
+						<th th:text="#{edit.actions}"></th>
+					</tr>
+				</thead>
+			</table>
+			<script th:inline="javascript">
+				var editLab = /*[[#{edit.edit}]]*/'[msg not found]';
+				var deleteLab = /*[[#{edit.delete}]]*/'[msg not found]';
+				var datatablesUrl = /*[[#{datatables.url}]]*/'[msg not found]';
+				var link = /*[[@{/api/sheet1Users/list}]]*/ '/api/sheet1Users/list';
+				var ctx = /*[[@{/}]]*/ '/';
+			</script>
+			<script>
+				$('#resultsTable').DataTable({
+					"processing" : true,
+					"serverSide" : true,
+				    "language" : {
+				        "url" : datatablesUrl
+					    },
+					"ajax" : {
+						"url" : link,
+						"type" : "POST",
+						"dataType" : "json",
+						"contentType" : "application/json",
+						"data" : function(d) {
+							return JSON.stringify(d);
+						}
+					},
+					"columns" : [ {
+						"name" : "datefield",
+						"data" : "sheet1.datefield",
+					}, {
+						"name" : "decimalfield",
+						"data" : "sheet1.decimalfield",
+					}, {
+						"name" : "intfield",
+						"data" : "sheet1.intfield",
+					}, {
+						"name" : "text",
+						"data" : "sheet1.text",
+					}, {
+						"name" : "email",
+						"data" : "account.email",
+					}, {
+						"name" : "name",
+						"data" : "account.name",
+					}, {
+						"name" : "userrole",
+						"data" : "account.userrole",
+					}, {
+						"name" : "useryn",
+						"data" : "useryn",
+					}, {
+						"data" : "id",
+						"render" : make_edit_links,
+						"width" : "10%"
+					} ]
+				});
 
-	        </tr>
-	    </table>
-		<div th:if="${SearchForm.page > 1}">
-			<div class="row col-sm-10">
-				<div class="col-sm-2">Total Rows:
-					[[${SearchForm.totalItems}]]</div>
-				<div class="col-sm-1">
-					<span
-						th:each="i: ${#numbers.sequence(1, SearchForm.totalPages)}">
-						<a th:if="${SearchForm.page != i}"
-						th:href="@{'/sheet1Users/search/' + ${i}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">[[${i}]]</a>
-						<span th:unless="${SearchForm.page != i}">[[${i}]]</span>
-						&nbsp; &nbsp;
-					</span>
-				</div>
-				<div class="col-sm-1">
-					<a
-						th:if="${SearchForm.page < SearchForm.totalPages}"
-						th:href="@{'/sheet1Users/search/' + ${SearchForm.page + 1}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Next</a>
-					<span
-						th:unless="${SearchForm.page < SearchForm.totalPages}">Next</span>
-				</div>
 
-				<div class="col-sm-1">
-					<a
-						th:if="${SearchForm.page < SearchForm.totalPages}"
-						th:href="@{'/sheet1Users/search/' + ${SearchForm.totalPages}+ '?sortField=' + ${SearchForm.sortField} + '&sortDir=' + ${SearchForm.sortDir}}">Last</a>
-					<span
-						th:unless="${SearchForm.page < SearchForm.totalPages}">Last</span>
-				</div>
-			</div>
+				function make_edit_links(id) {
+					return "<a href=\""+ctx+"sheet1Users/edit/" + id +"\" id=\"edit_"+id + "\">"
+							+ editLab
+							+ "</a> &nbsp;&nbsp;&nbsp;"
+							+ "<a href=\""+ctx+"sheet1Users/delete/" + id +"\" id=\"delete_"+id + "\">"
+							+ deleteLab + "</a>";
+				}
+			</script>
 		</div>
 
-    </div>
-
-	</div>	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy; 2020 default</div>
-</body></html>
+	</div>
+	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy;
+		2020 default</div>
+</body>
+</html>

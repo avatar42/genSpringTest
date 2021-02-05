@@ -18,10 +18,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * Title: accountSearchForm <br>
  * Description: Class for holding data from the account table for searching. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Data
 public class AccountSearchForm implements Serializable {
@@ -30,14 +31,17 @@ public class AccountSearchForm implements Serializable {
 	private String email = null;
 	private Integer idMin;
 	private Integer idMax;
+	private String name = null;
 	private String password = null;
-	private String role = null;
+	private String userrole = null;
 	private String sortField = "id";
 	private int page = 1;
 	private int pageSize = 10;
 	private boolean sortAsc = true;
 	private int totalPages = 0;
 	private long totalItems = 0;
+	private SearchType doOr = SearchType.ADD;
+	private boolean advanced = true;
 	/**
 	 * Clones Account obj into form
 	 *
@@ -48,8 +52,9 @@ public class AccountSearchForm implements Serializable {
 		form.setEmail(obj.getEmail());
 		form.setIdMin(obj.getId());
 		form.setIdMax(obj.getId());
+		form.setName(obj.getName());
 		form.setPassword(obj.getPassword());
-		form.setRole(obj.getRole());
+		form.setUserrole(obj.getUserrole());
 		return form;
 	}
 

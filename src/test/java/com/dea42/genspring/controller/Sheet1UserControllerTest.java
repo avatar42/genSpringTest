@@ -17,10 +17,11 @@ import com.dea42.genspring.search.Sheet1UserSearchForm;
 /**
  * Title: Sheet1UserControllerTest <br>
  * Description: Sheet1UserController. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 @WebMvcTest(Sheet1UserController.class)
@@ -47,10 +48,10 @@ public class Sheet1UserControllerTest extends MockBase {
 
 		ResultActions ra = getAsAdmin("/sheet1Users");
 		contentContainsMarkup(ra,"<h1>" + getMsg("class.Sheet1User") + " " + getMsg("edit.list") + "</h1>");
-		contentContainsMarkup(ra,getMsg("Sheet1User.sheet1id"));
-		contentContainsMarkup(ra,getMsg("Sheet1User.userid"));
-		contentContainsMarkup(ra,getTestString(1));
-		contentContainsMarkup(ra,getMsg("Sheet1User.useryn"));
+//		contentContainsMarkup(ra,getMsg("Sheet1User.sheet1id"));
+//		contentContainsMarkup(ra,getMsg("Sheet1User.userid"));
+//		contentContainsMarkup(ra,getTestString(1));
+//		contentContainsMarkup(ra,getMsg("Sheet1User.useryn"));
 	}
 
 	/**
@@ -64,9 +65,9 @@ public class Sheet1UserControllerTest extends MockBase {
 		ResultActions ra = getAsAdmin("/sheet1Users/new");
 		contentContainsMarkup(ra,"<legend>" + getMsg("edit.new") + " " + getMsg("class.Sheet1User") + "</legend>");
 		// TODO: confirm ignoring Sheet1User.id
-		contentContainsMarkup(ra,"Sheet1");
-		contentContainsMarkup(ra,"Account");
-		contentContainsMarkup(ra,"Useryn");
+		contentContainsMarkup(ra,getMsg("Sheet1User.sheet1id"));
+		contentContainsMarkup(ra,getMsg("Sheet1User.userid"));
+		contentContainsMarkup(ra,getMsg("Sheet1User.useryn"));
 	}
 
 	/**
@@ -77,7 +78,7 @@ public class Sheet1UserControllerTest extends MockBase {
 	public void testSaveSheet1UserCancel() throws Exception {
 		Sheet1User o = getSheet1User(1);
 
-		send(SEND_POST, "/sheet1Users/save", "sheet1User", o, ImmutableMap.of("action", "cancel"), ADMIN_USER,
+		send(SEND_POST, "/sheet1Users/save", "sheet1User", o, ImmutableMap.of("action", "cancel"), ADMIN_EMAIL,
 				"/sheet1Users");
 	}
 
@@ -91,7 +92,7 @@ public class Sheet1UserControllerTest extends MockBase {
 		Sheet1UserForm form = Sheet1UserForm.getInstance(o);
 		log.debug(form.toString());
 
-		send(SEND_POST, "/sheet1Users/save", "sheet1UserForm", form, ImmutableMap.of("action", "save"), ADMIN_USER,
+		send(SEND_POST, "/sheet1Users/save", "sheet1UserForm", form, ImmutableMap.of("action", "save"), ADMIN_EMAIL,
 				"/sheet1Users");
 	}
 

@@ -51,10 +51,10 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Title: MockBase <br>
  * Description: The base class for mock testing. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 public class MockBase extends UnitBase {
@@ -127,7 +127,7 @@ public class MockBase extends UnitBase {
 		}
 		if (!StringUtils.isAllBlank(login)) {
 			UserRequestPostProcessor urpp = user(login);
-			if (ADMIN_USER.equals(login)) {
+			if (ADMIN_EMAIL.equals(login)) {
 				urpp = urpp.roles(ADMIN_ROLE);
 			} else {
 				urpp = urpp.roles(TEST_ROLE);
@@ -202,7 +202,7 @@ public class MockBase extends UnitBase {
 	 * @throws Exception
 	 */
 	protected ResultActions getAsAdmin(String relURL) throws Exception {
-		return send(SEND_GET, relURL, null, null, null, ADMIN_USER, null);
+		return send(SEND_GET, relURL, null, null, null, ADMIN_EMAIL, null);
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class MockBase extends UnitBase {
 	 * @throws Exception
 	 */
 	protected void getAsAdminRedirectExpected(String relURL, String redirectedUrl) throws Exception {
-		send(SEND_GET, relURL, null, null, null, ADMIN_USER, redirectedUrl);
+		send(SEND_GET, relURL, null, null, null, ADMIN_EMAIL, redirectedUrl);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class MockBase extends UnitBase {
 	 * @throws Exception
 	 */
 	protected void getAsNoOneRedirectExpected(String relURL, String redirectedUrl) throws Exception {
-		send(SEND_GET, relURL, null, null, null, ADMIN_USER, redirectedUrl);
+		send(SEND_GET, relURL, null, null, null, ADMIN_EMAIL, redirectedUrl);
 	}
 
 	/**
@@ -317,8 +317,8 @@ public class MockBase extends UnitBase {
 	 * @return
 	 */
 	protected RequestPostProcessor getMockTestUser() {
-		log.debug("Using the user:" + TEST_USER + " with role:ROLE_" + TEST_ROLE);
-		UserRequestPostProcessor rtn = user(TEST_USER).roles(TEST_ROLE);
+		log.debug("Using the user:" + TEST_EMAIL + " with role:ROLE_" + TEST_ROLE);
+		UserRequestPostProcessor rtn = user(TEST_EMAIL).roles(TEST_ROLE);
 		log.debug("Returning:" + rtn);
 		return rtn;
 	}
@@ -328,8 +328,8 @@ public class MockBase extends UnitBase {
 	 * @return
 	 */
 	protected RequestPostProcessor getMockTestAdmin() {
-		log.debug("Using the user:" + ADMIN_USER + " with role:ROLE_" + ADMIN_ROLE);
-		UserRequestPostProcessor rtn = user(ADMIN_USER).roles(ADMIN_ROLE);
+		log.debug("Using the user:" + ADMIN_EMAIL + " with role:ROLE_" + ADMIN_ROLE);
+		UserRequestPostProcessor rtn = user(ADMIN_EMAIL).roles(ADMIN_ROLE);
 		log.debug("Returning:" + rtn);
 		return rtn;
 	}

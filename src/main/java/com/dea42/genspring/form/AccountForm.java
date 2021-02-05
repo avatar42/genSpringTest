@@ -15,10 +15,11 @@ import org.hibernate.validator.constraints.Length;
 /**
  * Title: account Form <br>
  * Description: Class for holding data from the account table for editing. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @UniqueEmail.List({ @UniqueEmail(fieldName = "email", message = "email.unique") })
 @FieldMatch.List({
@@ -33,6 +34,9 @@ public class AccountForm implements Serializable {
     @NotBlank(message = "{"+MessageHelper.notBlank_message+"}")
 	private String email;
 	private Integer id;
+    @Length(max=254)
+    @NotBlank(message = "{"+MessageHelper.notBlank_message+"}")
+	private String name;
     @JsonIgnore
     @ValidatePassword(fieldName = "passwordConfirm")
     @Length(max=30)
@@ -42,7 +46,7 @@ public class AccountForm implements Serializable {
 	private String passwordConfirm;
     @Length(max=25)
     @NotBlank(message = "{"+MessageHelper.notBlank_message+"}")
-	private String role;
+	private String userrole;
 
 	/**
 	 * Clones Account obj into form
@@ -54,9 +58,10 @@ public class AccountForm implements Serializable {
 		if (obj != null) {
 			form.setEmail(obj.getEmail());
 			form.setId(obj.getId());
+			form.setName(obj.getName());
 //		form.setPassword(obj.getPassword());
 //		form.setPasswordConfirm(obj.getPassword());
-			form.setRole(obj.getRole());
+			form.setUserrole(obj.getUserrole());
 		}
 		return form;
 	}

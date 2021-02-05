@@ -44,11 +44,11 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Title: SeleniumBase <br>
  * Description: Base class for Selenium tests. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
  *
- * @author Gened by GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 public class SeleniumBase extends UnitBase {
@@ -181,15 +181,15 @@ public class SeleniumBase extends UnitBase {
 		String src = getSrc();
 		assertNotNull("checking page source not null", src);
 		if (src.contains("??")) {
-			fail("'??' was found in page source:" + src);
+			fail("'??' was found in page source:" + src + " of:" + driver.getCurrentUrl());
 		}
 		if (doesNotContain) {
 			if (src.contains(expected)) {
-				fail("'" + expected + "' was found in page source:" + src);
+				fail("'" + expected + "' was found in page source:" + src + " of:" + driver.getCurrentUrl());
 			}
 		} else {
 			if (!src.contains(expected)) {
-				fail("'" + expected + "' was not found in page source:" + src);
+				fail("'" + expected + "' was not found in page source:" + src + " of:" + driver.getCurrentUrl());
 			}
 		}
 
@@ -362,7 +362,7 @@ public class SeleniumBase extends UnitBase {
 		WebElement form = waitForElement(By.id("signinForm"));
 		screenshotRule.docShot("login");
 		ResourceBundle bundle = ResourceBundle.getBundle("app");
-		String user = Utils.getProp(bundle, "default.admin", null);
+		String user = Utils.getProp(bundle, "default.adminEmail", null);
 		String userpass = Utils.getProp(bundle, "default.adminpass", null);
 		sourceContains("<legend>" + getMsg("signin.title") + "</legend>", false);
 		type(By.id("email"), user, true, form);
@@ -479,6 +479,16 @@ public class SeleniumBase extends UnitBase {
 	}
 
 	/**
+	 * Open static url and check it contains expected
+	 * @param url
+	 * @param expected
+	 */
+	protected void checkStatic(String url,String expected) {
+		openTest(url);
+		sourceContains(expected, false);
+	}
+
+	/**
 	 * Do basic test of web site
 	 * 
 	 * @throws Exception
@@ -487,41 +497,31 @@ public class SeleniumBase extends UnitBase {
 		String staticTop = "/public";
 		// check statics
 		// check css links work
-		openTest("/resources/css/site.css");
-		sourceContains("background-color:", false);
+		checkStatic("/resources/css/site.css","background-color:");
 		
-		// webjars URLs need version in them when called direct
-		openTest("/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css");
-		sourceContains("Bootstrap v4.0.0", false);
-		openTest("/webjars/font-awesome/5.11.2/css/all.css");
-		sourceContains("Font Awesome Free 5.11.2", false);
-		openTest("/webjars/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css");
-		sourceContains("Tempus Dominus Bootstrap4 v5.1.2", false);
+		// webjars css URLs we use
+		checkStatic("/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css","Bootstrap v4.0.0");
+		checkStatic("/webjars/font-awesome/5.11.2/css/all.css","Font Awesome Free 5.11.2");
+		checkStatic("/webjars/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css","Tempus Dominus Bootstrap4 v5.1.2");
+		checkStatic("/webjars/datatables/1.10.23/css/jquery.dataTables.min.css","table.dataTable{width:");
 
-		// check js links work
-		openTest("/webjars/jquery/3.0.0/jquery.min.js");
-		sourceContains("jQuery v3.0.0", false);
-		openTest("/webjars/popper.js/1.12.9-1/umd/popper.min.js");
-		sourceContains("Federico Zivolo 2017", false);
-		openTest("/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js");
-		sourceContains("Bootstrap v4.0.0", false);
-		openTest("/webjars/momentjs/2.24.0/min/moment.min.js");
-		sourceContains("invalidMonth:null,invalidFormat", false);
-		openTest("/webjars/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js");
-		sourceContains("Tempus Dominus Bootstrap4 v5.1.2", false);
+		// check webjars js links work
+		checkStatic("/webjars/jquery/3.5.1/jquery.min.js","jQuery v3.5.1");
+		checkStatic("/webjars/popper.js/1.12.9-1/umd/popper.min.js","Federico Zivolo 2017");
+		checkStatic("/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js","Bootstrap v4.0.0");
+		checkStatic("/webjars/momentjs/2.24.0/min/moment.min.js","invalidMonth:null,invalidFormat");
+		checkStatic("/webjars/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js","Tempus Dominus Bootstrap4 v5.1.2");
+		checkStatic("/webjars/datatables/1.10.23/js/jquery.dataTables.min.js","DataTables 1.10.23");
 
 		// favicon.ico
 		openTest("/favicon.ico");
 
 		// Check tabs saves as static pages that do not require login
-		openTest(staticTop + "/optView.html");
-		sourceContains("resources/sheet.css", false);
-		openTest(staticTop + "/Players.html");
-		sourceContains("resources/sheet.css", false);
+		checkStatic(staticTop + "/optView.html","resources/sheet.css");
+		checkStatic(staticTop + "/Players.html","resources/sheet.css");
 		// Note is used as resources/sheet.css relative to
 		// src/main/webapp/public/Players.html
-		openTest(staticTop + "/resources/sheet.css");
-		sourceContains("fonts.googleapis.com", false);
+		checkStatic(staticTop + "/resources/sheet.css","fonts.googleapis.com");
 
 		// do basic web page checks
 		checkHeader(null, null);
@@ -575,7 +575,7 @@ public class SeleniumBase extends UnitBase {
 		@Override
 		protected void failed(Throwable e, Description description) {
 			endTime = System.currentTimeMillis();
-			File destFile = new File(testName + ".screenShot.png");
+			File destFile = new File("target/" + testName + ".screenShot.png");
 			takeShot(destFile);
 			log.error("saved screenshot to:" + destFile.getAbsolutePath(), e);
 		}

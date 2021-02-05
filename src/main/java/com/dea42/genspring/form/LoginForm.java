@@ -8,8 +8,8 @@ import com.dea42.genspring.utils.MessageHelper;
 /**
  * Form for logging in only
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  *
  */
 public class LoginForm {

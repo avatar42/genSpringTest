@@ -17,10 +17,11 @@ import com.dea42.genspring.search.AccountSearchForm;
 /**
  * Title: AccountControllerTest <br>
  * Description: AccountController. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 @WebMvcTest(AccountController.class)
@@ -29,9 +30,9 @@ public class AccountControllerTest extends MockBase {
 		Account o = new Account();
 		o.setId(id);
         o.setEmail(getTestEmailString(254));
-		// TODO: confirm ignoring Account.id
-		// TODO: confirm ignoring Account.password
-        o.setRole(getTestString(25));
+        o.setName(getTestString(254));
+//        o.setPassword(getTestPasswordString(30));
+        o.setUserrole(getTestString(25));
 		return o;
 	}
 
@@ -50,11 +51,13 @@ public class AccountControllerTest extends MockBase {
 
 		ResultActions ra = getAsAdmin("/accounts");
 		contentContainsMarkup(ra,"<h1>" + getMsg("class.Account") + " " + getMsg("edit.list") + "</h1>");
-        contentContainsMarkup(ra,getTestEmailString(254));
-		contentContainsMarkup(ra,getMsg("Account.email"));
+//        contentContainsMarkup(ra,getTestEmailString(254));
+//		contentContainsMarkup(ra,getMsg("Account.email"));
+//		contentContainsMarkup(ra,getTestString(254));
+//		contentContainsMarkup(ra,getMsg("Account.name"));
 		// TODO: confirm ignoring Account.password
-		contentContainsMarkup(ra,getTestString(25));
-		contentContainsMarkup(ra,getMsg("Account.role"));
+//		contentContainsMarkup(ra,getTestString(25));
+//		contentContainsMarkup(ra,getMsg("Account.userrole"));
 	}
 
 	/**
@@ -67,10 +70,11 @@ public class AccountControllerTest extends MockBase {
 	public void testShowNewAccountPage() throws Exception {
 		ResultActions ra = getAsAdmin("/accounts/new");
 		contentContainsMarkup(ra,"<legend>" + getMsg("edit.new") + " " + getMsg("class.Account") + "</legend>");
-		contentContainsMarkup(ra,"Email");
+		contentContainsMarkup(ra,getMsg("Account.email"));
 		// TODO: confirm ignoring Account.id
+		contentContainsMarkup(ra,getMsg("Account.name"));
 		// TODO: confirm ignoring Account.password
-		contentContainsMarkup(ra,"Role");
+		contentContainsMarkup(ra,getMsg("Account.userrole"));
 	}
 
 	/**
@@ -81,7 +85,7 @@ public class AccountControllerTest extends MockBase {
 	public void testSaveAccountCancel() throws Exception {
 		Account o = getAccount(1);
 
-		send(SEND_POST, "/accounts/save", "account", o, ImmutableMap.of("action", "cancel"), ADMIN_USER,
+		send(SEND_POST, "/accounts/save", "account", o, ImmutableMap.of("action", "cancel"), ADMIN_EMAIL,
 				"/accounts");
 	}
 
@@ -97,7 +101,7 @@ public class AccountControllerTest extends MockBase {
 		form.setPasswordConfirm(form.getPassword());
 		log.debug(form.toString());
 
-		send(SEND_POST, "/accounts/save", "accountForm", form, ImmutableMap.of("action", "save"), ADMIN_USER,
+		send(SEND_POST, "/accounts/save", "accountForm", form, ImmutableMap.of("action", "save"), ADMIN_EMAIL,
 				"/accounts");
 	}
 
@@ -117,9 +121,11 @@ public class AccountControllerTest extends MockBase {
 		contentContainsMarkup(ra,o.getEmail());
 		contentContainsMarkup(ra,"Email");
 		// TODO: confirm ignoring Account.id
+		contentContainsMarkup(ra,o.getName());
+		contentContainsMarkup(ra,"Name");
 		// TODO: confirm ignoring Account.password
-		contentContainsMarkup(ra,o.getRole());
-		contentContainsMarkup(ra,"Role");
+		contentContainsMarkup(ra,o.getUserrole());
+		contentContainsMarkup(ra,"Userrole");
 	}
 
 	/**

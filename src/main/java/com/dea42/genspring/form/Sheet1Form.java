@@ -13,10 +13,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * Title: sheet1 Form <br>
  * Description: Class for holding data from the sheet1 table for editing. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 
 @Data
@@ -24,8 +25,8 @@ public class Sheet1Form implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	private Date date;
-	private BigDecimal decimal;
+	private Date datefield;
+	private BigDecimal decimalfield;
 	private Integer id;
 	private Integer intfield;
     @Length(max=7)
@@ -39,8 +40,8 @@ public class Sheet1Form implements Serializable {
 	public static Sheet1Form getInstance(Sheet1 obj) {
 		Sheet1Form form = new Sheet1Form();
 		if (obj != null) {
-			form.setDate(obj.getDate());
-			form.setDecimal(obj.getDecimal());
+			form.setDatefield(obj.getDatefield());
+			form.setDecimalfield(obj.getDecimalfield());
 			form.setId(obj.getId());
 			form.setIntfield(obj.getIntfield());
 			form.setText(obj.getText());

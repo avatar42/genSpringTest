@@ -15,10 +15,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * Title: sheet1userSearchForm <br>
  * Description: Class for holding data from the sheet1user table for searching. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Data
 public class Sheet1UserSearchForm implements Serializable {
@@ -26,10 +27,8 @@ public class Sheet1UserSearchForm implements Serializable {
 
 	private Integer idMin;
 	private Integer idMax;
-	private Sheet1 sheet1Min;
-	private Sheet1 sheet1Max;
-	private Account accountMin;
-	private Account accountMax;
+	private Sheet1SearchForm sheet1;
+	private AccountSearchForm account;
 	private String useryn = null;
 	private String sortField = "id";
 	private int page = 1;
@@ -37,6 +36,8 @@ public class Sheet1UserSearchForm implements Serializable {
 	private boolean sortAsc = true;
 	private int totalPages = 0;
 	private long totalItems = 0;
+	private SearchType doOr = SearchType.ADD;
+	private boolean advanced = true;
 	/**
 	 * Clones Sheet1User obj into form
 	 *
@@ -46,6 +47,8 @@ public class Sheet1UserSearchForm implements Serializable {
 		Sheet1UserSearchForm form = new Sheet1UserSearchForm();
 		form.setIdMin(obj.getId());
 		form.setIdMax(obj.getId());
+		form.setSheet1(Sheet1SearchForm.getInstance(obj.getSheet1()));
+		form.setAccount(AccountSearchForm.getInstance(obj.getAccount()));
 		form.setUseryn(obj.getUseryn());
 		return form;
 	}

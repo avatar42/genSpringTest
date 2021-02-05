@@ -26,14 +26,14 @@
 					th:text="#{edit.edit} + ' ' + #{class.Sheet2}"></legend>
 
 				<div class="form-group"
-					th:classappend="${#fields.hasErrors('date')}? 'has-error'">
-					<label for="date" class="col-lg-2 control-label"
-						th:text="#{Sheet2.date} + ':'"></label>
+					th:classappend="${#fields.hasErrors('datefield')}? 'has-error'">
+					<label for="datefield" class="col-lg-2 control-label"
+						th:text="#{Sheet2.datefield} + ':'"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="date"
-							th:field="*{date}" />
+						<input type="text" class="form-control" id="datefield"
+							th:field="*{datefield}" />
 						<ul class="help-block"
-							th:each="error: ${#fields.errors('date')}">
+							th:each="error: ${#fields.errors('datefield')}">
 							<li th:each="message : ${error.split(';')}">
 								<p class="error-message" th:text="${message}"></p>
 							</li>
@@ -42,14 +42,14 @@
 				</div>
 
 				<div class="form-group"
-					th:classappend="${#fields.hasErrors('decimal')}? 'has-error'">
-					<label for="decimal" class="col-lg-2 control-label"
-						th:text="#{Sheet2.decimal} + ':'"></label>
+					th:classappend="${#fields.hasErrors('decimalfield')}? 'has-error'">
+					<label for="decimalfield" class="col-lg-2 control-label"
+						th:text="#{Sheet2.decimalfield} + ':'"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="decimal"
-							th:field="*{decimal}" />
+						<input type="text" class="form-control" id="decimalfield"
+							th:field="*{decimalfield}" />
 						<ul class="help-block"
-							th:each="error: ${#fields.errors('decimal')}">
+							th:each="error: ${#fields.errors('decimalfield')}">
 							<li th:each="message : ${error.split(';')}">
 								<p class="error-message" th:text="${message}"></p>
 							</li>
@@ -59,14 +59,14 @@
 
 				<input type="hidden" class="form-control" id="id" th:field="*{id}" />
 				<div class="form-group"
-					th:classappend="${#fields.hasErrors('integer')}? 'has-error'">
-					<label for="integer" class="col-lg-2 control-label"
-						th:text="#{Sheet2.integer} + ':'"></label>
+					th:classappend="${#fields.hasErrors('integerfield')}? 'has-error'">
+					<label for="integerfield" class="col-lg-2 control-label"
+						th:text="#{Sheet2.integerfield} + ':'"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="integer"
-							th:field="*{integer}" />
+						<input type="text" class="form-control" id="integerfield"
+							th:field="*{integerfield}" />
 						<ul class="help-block"
-							th:each="error: ${#fields.errors('integer')}">
+							th:each="error: ${#fields.errors('integerfield')}">
 							<li th:each="message : ${error.split(';')}">
 								<p class="error-message" th:text="${message}"></p>
 							</li>
@@ -101,5 +101,8 @@
 			</fieldset>
 		</form>
 
-	</div>	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy; 2020 default</div>
-</body></html>
+	</div>
+	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy;
+		2020 default</div>
+</body>
+</html>

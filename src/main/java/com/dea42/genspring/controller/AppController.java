@@ -30,8 +30,8 @@ import lombok.extern.slf4j.Slf4j;
  * Title: AppController <br>
  * Description: Class main web Controller. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 @Controller
@@ -76,9 +76,10 @@ public class AppController {
 		}
 		Account account = new Account();
 		account.setEmail(form.getEmail());
+		account.setName(form.getName());
 		account.setId(form.getId());
 		account.setPassword(form.getPassword());
-		account.setRole(form.getRole());
+		account.setUserrole(form.getUserrole());
 		try {
 			account = accountService.save(account);
 		} catch (Exception e) {

@@ -22,10 +22,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * Title: sheet1Search Test <br>
  * Description: Does regression tests of sheet1 search from service to DB <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -67,71 +68,71 @@ public class Sheet1SearchTest extends UnitBase {
 	}
 
 	@Test
-	public void testDate() {
-		// date Date 93
+	public void testDatefield() {
+		// datefield Date 93
 		Sheet1 rec = null;
 		Sheet1SearchForm form = new Sheet1SearchForm();
 		rec = getMidRecord(form, 0);
-		form.setDateMin(new Date(0));
+		form.setDatefieldMin(new Date(0));
 		rec = getMidRecord(form, 0);
-		log.info("Searching for records with date of " + rec.getDate());
+		log.info("Searching for records with datefield of " + rec.getDatefield());
 
 		form = new Sheet1SearchForm();
-		form.setDateMin(rec.getDate());
-		form.setDateMax(new Date(rec.getDate().getTime() + DAY));
+		form.setDatefieldMin(rec.getDatefield());
+		form.setDatefieldMax(new Date(rec.getDatefield().getTime() + DAY));
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDateMin(new Date(rec.getDate().getTime() - DAY));
-		form.setDateMax(rec.getDate());
+		form.setDatefieldMin(new Date(rec.getDatefield().getTime() - DAY));
+		form.setDatefieldMax(rec.getDatefield());
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDateMin(rec.getDate());
+		form.setDatefieldMin(rec.getDatefield());
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDateMax(rec.getDate());
+		form.setDatefieldMax(rec.getDatefield());
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDateMin(rec.getDate());
-		form.setDateMax(rec.getDate());
+		form.setDatefieldMin(rec.getDatefield());
+		form.setDatefieldMax(rec.getDatefield());
 		confirmGotResult(form, rec.getId());
 
 	}
 
 	@Test
-	public void testDecimal() {
-		// decimal BigDecimal 6
+	public void testDecimalfield() {
+		// decimalfield BigDecimal 6
 		Sheet1 rec = null;
 		Sheet1SearchForm form = new Sheet1SearchForm();
 		rec = getMidRecord(form, 0);
-		form.setDecimalMin(new BigDecimal(Integer.MIN_VALUE));
+		form.setDecimalfieldMin(new BigDecimal(Integer.MIN_VALUE));
 		rec = getMidRecord(form, 0);
-		log.info("Searching for records with decimal of " + rec.getDecimal());
+		log.info("Searching for records with decimalfield of " + rec.getDecimalfield());
 
 		form = new Sheet1SearchForm();
-		form.setDecimalMin(rec.getDecimal());
-		form.setDecimalMax(rec.getDecimal().add(new BigDecimal(100)));
+		form.setDecimalfieldMin(rec.getDecimalfield());
+		form.setDecimalfieldMax(rec.getDecimalfield().add(new BigDecimal(100)));
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDecimalMin(rec.getDecimal().subtract(new BigDecimal(100)));
-		form.setDecimalMax(rec.getDecimal());
+		form.setDecimalfieldMin(rec.getDecimalfield().subtract(new BigDecimal(100)));
+		form.setDecimalfieldMax(rec.getDecimalfield());
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDecimalMin(rec.getDecimal());
+		form.setDecimalfieldMin(rec.getDecimalfield());
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDecimalMax(rec.getDecimal());
+		form.setDecimalfieldMax(rec.getDecimalfield());
 		confirmGotResult(form, rec.getId());
 
 		form = new Sheet1SearchForm();
-		form.setDecimalMin(rec.getDecimal());
-		form.setDecimalMax(rec.getDecimal());
+		form.setDecimalfieldMin(rec.getDecimalfield());
+		form.setDecimalfieldMax(rec.getDecimalfield());
 		confirmGotResult(form, rec.getId());
 	}
 

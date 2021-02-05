@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: common_header(~{::title},~{},~{})">
-<title th:text="#{edit.edit} + ' ' + #{class.Sheet2}"></title>
+<title th:text="#{search.advanced} + ' ' + #{class.Sheet2}"></title>
 </head>
 <body class="d-flex flex-column min-vh-100">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
 	<div class="wrapper flex-grow-1">
 
 		<form class="form-narrow form-horizontal" method="post"
-			th:action="@{/sheet2s/search}" th:object="${sheet2SearchForm}"
+			th:action="@{/sheet2s/search}" 
+			th:object="${sheet2SearchForm}"
 			th:fragment="sheet2SearchForm">
 			<!--/* Show general error messages when form contains errors */-->
 			<th:block th:if="${#fields.hasErrors('${sheet2SearchForm.*}')}">
-				<div th:each="fieldErrors : ${#fields.errors('${sheet2SearchForm.*}')}">
+				<div 
+					th:each="fieldErrors : ${#fields.errors('${sheet2SearchForm.*}')}">
 					<div th:each="message : ${fieldErrors.split(';')}">
 						<div
 							th:replace="fragments/alert :: alert (type='danger', message=${message})">Alert</div>
@@ -20,117 +22,79 @@
 				</div>
 			</th:block>
 			<fieldset>
-				<legend th:text="#{search.search} + ' ' + #{class.Sheet2}"></legend>
+				<legend th:text="#{search.advanced} + ' ' + #{class.Sheet2}"></legend>
 
-				<div class="form-group"
-					th:classappend="${#fields.hasErrors('dateMin')}? 'has-error'">
-					<label for="dateMin" class="col-lg-2 control-label"
-						th:text="#{Sheet2.date} + ' ' + #{search.after}"></label>
+				<div class="form-group">
+					<label for="sheet2SearchForm.doOr"
+						th:text="#{search.doOr} + ' ' + #{search.like}">Select
+						type</label> <select class="form-control selectpicker" th:field="*{doOr}"
+						id="sheet2SearchForm.doOr">
+						<option
+							th:each="doOr : ${T(com.dea42.genspring.search.SearchType).values()}"
+							th:value="${doOr}" th:text="${doOr}"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="datefieldMin" class="col-lg-2 control-label"
+						th:text="#{Sheet2.datefield} + ' ' + #{search.after}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="dateMin"
-							th:field="*{dateMin}" />
-						<ul class="help-block"
-							th:each="error: ${#fields.errors('dateMin')}">
-							<li th:each="message : ${error.split(';')}">
-								<p class="error-message" th:text="${message}"></p>
-							</li>
-						</ul>
+						<input type="text" class="form-control" id="datefieldMin"
+							th:field="*{datefieldMin}" />
 					</div>
 				</div>
 
-				<div class="form-group"
-					th:classappend="${#fields.hasErrors('dateMax')}? 'has-error'">
-					<label for="dateMax" class="col-lg-2 control-label"
-						th:text="#{Sheet2.date} + ' ' + #{search.before}"></label>
+				<div class="form-group">
+					<label for="datefieldMax" class="col-lg-2 control-label"
+						th:text="#{Sheet2.datefield} + ' ' + #{search.before}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="dateMax"
-							th:field="*{dateMax}" />
-						<ul class="help-block"
-							th:each="error: ${#fields.errors('dateMax')}">
-							<li th:each="message : ${error.split(';')}">
-								<p class="error-message" th:text="${message}"></p>
-							</li>
-						</ul>
+						<input type="text" class="form-control" id="datefieldMax"
+							th:field="*{datefieldMax}" />
 					</div>
 				</div>
 
-				<div class="form-group"
-					th:classappend="${#fields.hasErrors('decimalMin')}? 'has-error'">
-					<label for="decimalMin" class="col-lg-2 control-label"
-						th:text="#{Sheet2.decimal} + ' ' + #{search.gte}"></label>
+				<div class="form-group">
+					<label for="decimalfieldMin" class="col-lg-2 control-label"
+						th:text="#{Sheet2.decimalfield} + ' ' + #{search.gte}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="decimalMin"
-							th:field="*{decimalMin}" />
-						<ul class="help-block"
-							th:each="error: ${#fields.errors('decimalMin')}">
-							<li th:each="message : ${error.split(';')}">
-								<p class="error-message" th:text="${message}"></p>
-							</li>
-						</ul>
+						<input type="text" class="form-control" id="decimalfieldMin"
+							th:field="*{decimalfieldMin}" />
 					</div>
 				</div>
 
-				<div class="form-group"
-					th:classappend="${#fields.hasErrors('decimalMax')}? 'has-error'">
-					<label for="decimalMax" class="col-lg-2 control-label"
-						th:text="#{Sheet2.decimal} + ' ' + #{search.lte}"></label>
+				<div class="form-group">
+					<label for="decimalfieldMax" class="col-lg-2 control-label"
+						th:text="#{Sheet2.decimalfield} + ' ' + #{search.lte}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="decimalMax"
-							th:field="*{decimalMax}" />
-						<ul class="help-block"
-							th:each="error: ${#fields.errors('decimalMax')}">
-							<li th:each="message : ${error.split(';')}">
-								<p class="error-message" th:text="${message}"></p>
-							</li>
-						</ul>
+						<input type="text" class="form-control" id="decimalfieldMax"
+							th:field="*{decimalfieldMax}" />
 					</div>
 				</div>
 
-				<div class="form-group"
-					th:classappend="${#fields.hasErrors('integerMin')}? 'has-error'">
-					<label for="integerMin" class="col-lg-2 control-label"
-						th:text="#{Sheet2.integer} + ' ' + #{search.gte}"></label>
+				<div class="form-group">
+					<label for="integerfieldMin" class="col-lg-2 control-label"
+						th:text="#{Sheet2.integerfield} + ' ' + #{search.gte}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="integerMin"
-							th:field="*{integerMin}" />
-						<ul class="help-block"
-							th:each="error: ${#fields.errors('integerMin')}">
-							<li th:each="message : ${error.split(';')}">
-								<p class="error-message" th:text="${message}"></p>
-							</li>
-						</ul>
+						<input type="text" class="form-control" id="integerfieldMin"
+							th:field="*{integerfieldMin}" />
 					</div>
 				</div>
 
-				<div class="form-group"
-					th:classappend="${#fields.hasErrors('integerMax')}? 'has-error'">
-					<label for="integerMax" class="col-lg-2 control-label"
-						th:text="#{Sheet2.integer} + ' ' + #{search.lte}"></label>
+				<div class="form-group">
+					<label for="integerfieldMax" class="col-lg-2 control-label"
+						th:text="#{Sheet2.integerfield} + ' ' + #{search.lte}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="integerMax"
-							th:field="*{integerMax}" />
-						<ul class="help-block"
-							th:each="error: ${#fields.errors('integerMax')}">
-							<li th:each="message : ${error.split(';')}">
-								<p class="error-message" th:text="${message}"></p>
-							</li>
-						</ul>
+						<input type="text" class="form-control" id="integerfieldMax"
+							th:field="*{integerfieldMax}" />
 					</div>
 				</div>
 
-				<div class="form-group"
-					th:classappend="${#fields.hasErrors('text')}? 'has-error'">
+				<div class="form-group">
 					<label for="text" class="col-lg-2 control-label"
 						th:text="#{Sheet2.text} + ' ' + #{search.like}"></label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="text"
 							th:field="*{text}" />
-						<ul class="help-block"
-							th:each="error: ${#fields.errors('text')}">
-							<li th:each="message : ${error.split(';')}">
-								<p class="error-message" th:text="${message}"></p>
-							</li>
-						</ul>
 					</div>
 				</div>
 
@@ -138,10 +102,15 @@
 					<div class="col-lg-offset-2 col-lg-10">
 						<button type="submit" name="action" value="search"
 							class="btn btn-default" th:text="#{search.search}"></button>
+						<button type="submit" name="action" value="reset"
+							class="btn btn-default" th:text="#{search.reset}"></button>
 					</div>
 				</div>
 			</fieldset>
 		</form>
 
-	</div>	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy; 2020 default</div>
-</body></html>
+	</div>
+	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy;
+		2020 default</div>
+</body>
+</html>

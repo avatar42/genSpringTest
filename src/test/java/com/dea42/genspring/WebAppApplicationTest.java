@@ -9,8 +9,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Title: WebAppApplicationTest <br>
  * Description: Quick test that build works and config loads. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

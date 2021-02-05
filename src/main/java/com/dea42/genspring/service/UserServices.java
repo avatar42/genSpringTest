@@ -25,8 +25,8 @@ import com.dea42.genspring.repo.UserRepository;
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 public abstract class UserServices<T> implements UserDetailsService {
@@ -108,7 +108,7 @@ public abstract class UserServices<T> implements UserDetailsService {
 
 	private GrantedAuthority createAuthority(Account account) {
 		log.debug("logged in:" + account);
-		return new SimpleGrantedAuthority(account.getRole());
+		return new SimpleGrantedAuthority(account.getUserrole());
 	}
 
 	public abstract T save(T obj);

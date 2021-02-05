@@ -1,6 +1,7 @@
 package com.dea42.genspring.controller;
 
 import java.util.Date;
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dea42.genspring.entity.Sheet2;
 import com.dea42.genspring.form.Sheet2Form;
+import com.dea42.genspring.paging.PageInfo;
+import com.dea42.genspring.paging.PagingRequest;
 import com.dea42.genspring.search.Sheet2SearchForm;
 import com.dea42.genspring.service.Sheet2Services;
 import com.dea42.genspring.utils.Message;
@@ -32,10 +36,11 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Title: Sheet2Controller <br>
  * Description: Sheet2Controller. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 @Controller
@@ -73,16 +78,28 @@ public class Sheet2Controller {
 	}
 
 	@PostMapping(value = "/search")
-	public ModelAndView search(HttpServletRequest request, @ModelAttribute Sheet2SearchForm form, RedirectAttributes ra,
-			@RequestParam(value = "action", required = true) String action) {
-		setForm(request, form);
-		ModelAndView mav = findPaginated(request, 1, "id", "asc");
-		@SuppressWarnings("unchecked")
-		List<Sheet2> list = (List<Sheet2>) mav.getModelMap().getAttribute("sheet2s");
-		if (list == null || list.isEmpty()) {
-			mav.setViewName("search_sheet2");
+	public ModelAndView search(HttpServletRequest request, @ModelAttribute Sheet2SearchForm form, 
+			RedirectAttributes ra, @RequestParam(value = "action", required = true) String action) {
+		ModelAndView mav;
+		if (action.equals("search")) {
+			setForm(request, form);
+			form.setAdvanced(true);
+			mav = new ModelAndView("sheet2s");
+//			mav = findPaginated(request, 1, "id", "asc");
+//			@SuppressWarnings("unchecked")
+//			List<Sheet2> list = (List<Sheet2>) mav.getModelMap().getAttribute("sheet2s");
+//			if (list == null || list.isEmpty()) {
+//				mav.setViewName("search_sheet2");
+//				mav.getModelMap().addAttribute(Message.MESSAGE_ATTRIBUTE,
+//						new Message("search.noResult", Message.Type.WARNING));
+//			}
+		} else {
+			form = new Sheet2SearchForm();
+			setForm(request, form);
+			mav = new ModelAndView("search_sheet2");
+			mav.addObject("sheet2SearchForm", form);
 			mav.getModelMap().addAttribute(Message.MESSAGE_ATTRIBUTE,
-					new Message("search.noResult", Message.Type.WARNING));
+					new Message("search.formReset", Message.Type.WARNING));
 		}
 
 		return mav;
@@ -133,10 +150,10 @@ public class Sheet2Controller {
 			}
 
 			Sheet2 sheet2 = new Sheet2();
-			sheet2.setDate(form.getDate());
-			sheet2.setDecimal(form.getDecimal());
+			sheet2.setDatefield(form.getDatefield());
+			sheet2.setDecimalfield(form.getDecimalfield());
 			sheet2.setId(form.getId());
-			sheet2.setInteger(form.getInteger());
+			sheet2.setIntegerfield(form.getIntegerfield());
 			sheet2.setText(form.getText());
 			try {
 				sheet2 = sheet2Service.save(sheet2);
@@ -172,5 +189,9 @@ public class Sheet2Controller {
 		sheet2Service.delete(id);
 		return "redirect:/sheet2s";
 	}
-}
 
+	@GetMapping("/list")
+	String home(Principal principal) {
+		return "sheet2s";
+	}
+}

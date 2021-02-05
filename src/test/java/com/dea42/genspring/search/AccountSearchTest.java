@@ -24,10 +24,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * Title: accountSearch Test <br>
  * Description: Does regression tests of account search from service to DB <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -101,6 +102,38 @@ public class AccountSearchTest extends UnitBase {
 	}
 
 	@Test
+	public void testName() {
+		// name String 12
+		Account rec = null;
+		AccountSearchForm form = new AccountSearchForm();
+		rec = getMidRecord(form, 0);
+		form.setName("%");
+		rec = getMidRecord(form, 0);
+		log.info("Searching for records with name of " + rec.getName());
+
+		form = new AccountSearchForm();
+		String text = rec.getName();
+		if (text.length() < 2) {
+			form.setName(text + "%");
+			confirmGotResult(form, rec.getId());
+
+			form.setName("%" + text);
+			confirmGotResult(form, rec.getId());
+			form.setName("%" + text + "%");
+			confirmGotResult(form, rec.getId());
+		} else {
+			int mid = text.length() / 2;
+			form.setName(text.substring(0, mid) + "%");
+			confirmGotResult(form, rec.getId());
+
+			form.setName("%" + text.substring(mid - 1, mid) + "%");
+			confirmGotResult(form, rec.getId());
+			form.setName("%" + text.substring(mid, text.length()));
+			confirmGotResult(form, rec.getId());
+		}
+	}
+
+	@Test
 	public void testPassword() {
 		// password String 12
 		Account rec = null;
@@ -133,33 +166,33 @@ public class AccountSearchTest extends UnitBase {
 	}
 
 	@Test
-	public void testRole() {
-		// role String 12
+	public void testUserrole() {
+		// userrole String 12
 		Account rec = null;
 		AccountSearchForm form = new AccountSearchForm();
 		rec = getMidRecord(form, 0);
-		form.setRole("%");
+		form.setUserrole("%");
 		rec = getMidRecord(form, 0);
-		log.info("Searching for records with role of " + rec.getRole());
+		log.info("Searching for records with userrole of " + rec.getUserrole());
 
 		form = new AccountSearchForm();
-		String text = rec.getRole();
+		String text = rec.getUserrole();
 		if (text.length() < 2) {
-			form.setRole(text + "%");
+			form.setUserrole(text + "%");
 			confirmGotResult(form, rec.getId());
 
-			form.setRole("%" + text);
+			form.setUserrole("%" + text);
 			confirmGotResult(form, rec.getId());
-			form.setRole("%" + text + "%");
+			form.setUserrole("%" + text + "%");
 			confirmGotResult(form, rec.getId());
 		} else {
 			int mid = text.length() / 2;
-			form.setRole(text.substring(0, mid) + "%");
+			form.setUserrole(text.substring(0, mid) + "%");
 			confirmGotResult(form, rec.getId());
 
-			form.setRole("%" + text.substring(mid - 1, mid) + "%");
+			form.setUserrole("%" + text.substring(mid - 1, mid) + "%");
 			confirmGotResult(form, rec.getId());
-			form.setRole("%" + text.substring(mid, text.length()));
+			form.setUserrole("%" + text.substring(mid, text.length()));
 			confirmGotResult(form, rec.getId());
 		}
 	}

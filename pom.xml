@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dea42</groupId>
 	<artifactId>genSpring</artifactId>
-	<version>0.6.3-SNAPSHOT</version>
+	<version>0.7.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<description>One of the generated apps used to regression test genSpring, prototype changes and use this repo to diff prototype changes.</description>
 
@@ -120,7 +120,18 @@
 			<artifactId>webjars-servlet-2.x</artifactId>
 			<version>1.4</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.5.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/datatables -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>datatables</artifactId>
+			<version>1.10.23</version>
+		</dependency>
+		
 		<!-- DB drivers -->
 		<dependency>
 			<groupId>org.xerial</groupId>
@@ -234,7 +245,7 @@
 							<groupId>org.codehaus.cargo</groupId>
 							<artifactId>genSpring-war</artifactId>
 							<type>war</type>
-							<location>${project.build.directory}/genSpring-0.6.3-SNAPSHOT.war</location>
+							<location>${project.build.directory}/genSpring-0.7.0-SNAPSHOT.war</location>
 							<properties>
 								<context>genSpring</context>
 							</properties>

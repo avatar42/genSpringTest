@@ -17,10 +17,11 @@ import com.dea42.genspring.search.Sheet2SearchForm;
 /**
  * Title: Sheet2ControllerTest <br>
  * Description: Sheet2Controller. <br>
- * Copyright: Copyright (c) 2001-2020<br>
+ * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by com.dea42.build.GenSpring version 0.6.3<br>
- * @version 0.6.3<br>
+ *
+ * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
+ * @version 0.7.0<br>
  */
 @Slf4j
 @WebMvcTest(Sheet2Controller.class)
@@ -47,11 +48,11 @@ public class Sheet2ControllerTest extends MockBase {
 
 		ResultActions ra = getAsAdmin("/sheet2s");
 		contentContainsMarkup(ra,"<h1>" + getMsg("class.Sheet2") + " " + getMsg("edit.list") + "</h1>");
-		contentContainsMarkup(ra,getMsg("Sheet2.date"));
-		contentContainsMarkup(ra,getMsg("Sheet2.decimal"));
-		contentContainsMarkup(ra,getMsg("Sheet2.integer"));
-		contentContainsMarkup(ra,getTestString(21));
-		contentContainsMarkup(ra,getMsg("Sheet2.text"));
+//		contentContainsMarkup(ra,getMsg("Sheet2.datefield"));
+//		contentContainsMarkup(ra,getMsg("Sheet2.decimalfield"));
+//		contentContainsMarkup(ra,getMsg("Sheet2.integerfield"));
+//		contentContainsMarkup(ra,getTestString(21));
+//		contentContainsMarkup(ra,getMsg("Sheet2.text"));
 	}
 
 	/**
@@ -64,11 +65,11 @@ public class Sheet2ControllerTest extends MockBase {
 	public void testShowNewSheet2Page() throws Exception {
 		ResultActions ra = getAsAdmin("/sheet2s/new");
 		contentContainsMarkup(ra,"<legend>" + getMsg("edit.new") + " " + getMsg("class.Sheet2") + "</legend>");
-		contentContainsMarkup(ra,"Date");
-		contentContainsMarkup(ra,"Decimal");
+		contentContainsMarkup(ra,getMsg("Sheet2.datefield"));
+		contentContainsMarkup(ra,getMsg("Sheet2.decimalfield"));
 		// TODO: confirm ignoring Sheet2.id
-		contentContainsMarkup(ra,"Integer");
-		contentContainsMarkup(ra,"Text");
+		contentContainsMarkup(ra,getMsg("Sheet2.integerfield"));
+		contentContainsMarkup(ra,getMsg("Sheet2.text"));
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class Sheet2ControllerTest extends MockBase {
 	public void testSaveSheet2Cancel() throws Exception {
 		Sheet2 o = getSheet2(1);
 
-		send(SEND_POST, "/sheet2s/save", "sheet2", o, ImmutableMap.of("action", "cancel"), ADMIN_USER,
+		send(SEND_POST, "/sheet2s/save", "sheet2", o, ImmutableMap.of("action", "cancel"), ADMIN_EMAIL,
 				"/sheet2s");
 	}
 
@@ -93,7 +94,7 @@ public class Sheet2ControllerTest extends MockBase {
 		Sheet2Form form = Sheet2Form.getInstance(o);
 		log.debug(form.toString());
 
-		send(SEND_POST, "/sheet2s/save", "sheet2Form", form, ImmutableMap.of("action", "save"), ADMIN_USER,
+		send(SEND_POST, "/sheet2s/save", "sheet2Form", form, ImmutableMap.of("action", "save"), ADMIN_EMAIL,
 				"/sheet2s");
 	}
 
@@ -110,10 +111,10 @@ public class Sheet2ControllerTest extends MockBase {
 		given(sheet2Services.get(1)).willReturn(o);
 
 		ResultActions ra = getAsAdmin("/sheet2s/edit/1");
-		contentContainsMarkup(ra,"Date");
-		contentContainsMarkup(ra,"Decimal");
+		contentContainsMarkup(ra,"Datefield");
+		contentContainsMarkup(ra,"Decimalfield");
 		// TODO: confirm ignoring Sheet2.id
-		contentContainsMarkup(ra,"Integer");
+		contentContainsMarkup(ra,"Integerfield");
 		contentContainsMarkup(ra,o.getText());
 		contentContainsMarkup(ra,"Text");
 	}

@@ -27,18 +27,18 @@
 
 				<input type="hidden" class="form-control" id="id" th:field="*{id}" />
 				<div class="form-group">
-					<label for="sheet1UserForm.sheet1.date" class="col-lg-2 control-label"
-						th:text="#{Sheet1.date} + ':'"></label>
-					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.date"
-	                        th:text="${sheet1UserForm.sheet1.date}">
+					<label for="sheet1UserForm.sheet1.datefield" class="col-lg-2 control-label"
+						th:text="#{Sheet1.datefield} + ':'"></label>
+					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.datefield"
+	                        th:text="${sheet1UserForm.sheet1.datefield}">
 					</div>
 				<div th:unless="${sheet1UserForm.sheet1 != null}" th:text="${sheet1UserForm.sheet1}"></div>
 				</div>
 				<div class="form-group">
-					<label for="sheet1UserForm.sheet1.decimal" class="col-lg-2 control-label"
-						th:text="#{Sheet1.decimal} + ':'"></label>
-					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.decimal"
-	                        th:text="${sheet1UserForm.sheet1.decimal}">
+					<label for="sheet1UserForm.sheet1.decimalfield" class="col-lg-2 control-label"
+						th:text="#{Sheet1.decimalfield} + ':'"></label>
+					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.decimalfield"
+	                        th:text="${sheet1UserForm.sheet1.decimalfield}">
 					</div>
 				<div th:unless="${sheet1UserForm.sheet1 != null}" th:text="${sheet1UserForm.sheet1}"></div>
 				</div>
@@ -69,10 +69,18 @@
 				</div>
 				<input type="hidden" class="form-control" id="account.id" th:field="*{account.id}" />
 				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserForm.account.role" class="col-lg-2 control-label"
-						th:text="#{Account.role} + ':'"></label>
-					<div th:if="${sheet1UserForm.account != null}" class="col-lg-10" id="sheet1UserForm.account.role"
-	                        th:text="${sheet1UserForm.account.role}">
+					<label for="sheet1UserForm.account.name" class="col-lg-2 control-label"
+						th:text="#{Account.name} + ':'"></label>
+					<div th:if="${sheet1UserForm.account != null}" class="col-lg-10" id="sheet1UserForm.account.name"
+	                        th:text="${sheet1UserForm.account.name}">
+					</div>
+				<div th:unless="${sheet1UserForm.account != null}" th:text="${sheet1UserForm.account}"></div>
+				</div>
+				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
+					<label for="sheet1UserForm.account.userrole" class="col-lg-2 control-label"
+						th:text="#{Account.userrole} + ':'"></label>
+					<div th:if="${sheet1UserForm.account != null}" class="col-lg-10" id="sheet1UserForm.account.userrole"
+	                        th:text="${sheet1UserForm.account.userrole}">
 					</div>
 				<div th:unless="${sheet1UserForm.account != null}" th:text="${sheet1UserForm.account}"></div>
 				</div>
@@ -103,5 +111,8 @@
 			</fieldset>
 		</form>
 
-	</div>	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy; 2020 default</div>
-</body></html>
+	</div>
+	<div class="mt-auto" th:insert="fragments/footer :: footer">&copy;
+		2020 default</div>
+</body>
+</html>
