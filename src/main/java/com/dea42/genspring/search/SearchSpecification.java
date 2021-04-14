@@ -19,8 +19,8 @@ import lombok.Data;
  * Description: Used to generate SearchCriteria list for queries. <br>
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by GenSpring version 0.7.0<br>
- * @version 0.7.0<br>
+ * @author Gened by GenSpring version 0.7.1<br>
+ * @version 0.7.1<br>
  */
 @Data
 public class SearchSpecification<T> implements Specification<T> {

@@ -18,8 +18,8 @@ import org.hibernate.validator.constraints.Length;
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
  *
- * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
- * @version 0.7.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
+ * @version 0.7.1<br>
  */
 @UniqueEmail.List({ @UniqueEmail(fieldName = "email", message = "email.unique") })
 @FieldMatch.List({
@@ -40,7 +40,6 @@ public class AccountForm implements Serializable {
     @JsonIgnore
     @ValidatePassword(fieldName = "passwordConfirm")
     @Length(max=30)
-    @NotBlank(message = "{"+MessageHelper.notBlank_message+"}")
 	private String password;
     @ValidatePassword(fieldName = "password")
 	private String passwordConfirm;

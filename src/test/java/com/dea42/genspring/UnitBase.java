@@ -23,8 +23,8 @@ import junit.framework.TestCase;
  * Description: The base class for testing. <br>
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
- * @author Gened by GenSpring version 0.7.0<br>
- * @version 0.7.0<br>
+ * @author Gened by GenSpring version 0.7.1<br>
+ * @version 0.7.1<br>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration

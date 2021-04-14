@@ -17,8 +17,8 @@ import lombok.Data;
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
  *
- * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
- * @version 0.7.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
+ * @version 0.7.1<br>
  * Table name: sheet1user<br>
  * Column name: id<br>
  * Catalog name: null<br>

@@ -108,6 +108,7 @@ files.md<br>
 ./src/main/resources/templates/search_sheet2.html<br>
 ./src/main/resources/templates/index.html<br>
 ./src/main/resources/templates/api_index.html<br>
+./src/main/resources/messages_es.properties<br>
 ./src/main/resources/application.properties<br>
 ./src/main/webapp/favicon.ico<br>
 ./src/main/webapp/public/optView.html<br>

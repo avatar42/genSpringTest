@@ -5,8 +5,8 @@ import lombok.Data;
 /**
  * Class for holding Criteria info
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
- * @version 0.7.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
+ * @version 0.7.1<br>
  *
  */
 @Data

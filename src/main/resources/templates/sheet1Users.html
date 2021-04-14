@@ -60,6 +60,10 @@
 							return JSON.stringify(d);
 						}
 					},
+    				"columnDefs": [{
+        				"targets": '_all',
+        				"defaultContent": ""
+    				}],
 					"columns" : [ {
 						"name" : "datefield",
 						"data" : "sheet1.datefield",

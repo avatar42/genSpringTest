@@ -11,8 +11,8 @@ import com.dea42.genspring.entity.Sheet2;
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
  *
- * @author Gened by com.dea42.build.GenSpring version 0.7.0<br>
- * @version 0.7.0<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
+ * @version 0.7.1<br>
  */
 @Repository
 public interface Sheet2Repository extends CrudRepository<Sheet2, Integer>,
