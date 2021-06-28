@@ -21,6 +21,7 @@ import com.dea42.genspring.entity.Account;
 import com.dea42.genspring.form.AccountForm;
 import com.dea42.genspring.form.LoginForm;
 import com.dea42.genspring.service.AccountServices;
+import com.dea42.genspring.service.UserServices;
 import com.dea42.genspring.utils.MessageHelper;
 import com.dea42.genspring.utils.Utils;
 
@@ -30,8 +31,8 @@ import lombok.extern.slf4j.Slf4j;
  * Title: AppController <br>
  * Description: Class main web Controller. <br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
- * @version 0.7.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
+ * @version 0.7.2<br>
  */
 @Slf4j
 @Controller
@@ -62,7 +63,9 @@ public class AppController {
 
 	@GetMapping("signup")
 	String signup(Model model, @RequestHeader(value = "X-Requested-With", required = false) String requestedWith) {
-		model.addAttribute(new AccountForm());
+		AccountForm form = new AccountForm();
+		form.setUserrole(UserServices.ROLE_PREFIX + "USER");
+		model.addAttribute(form);
 		if (Utils.isAjaxRequest(requestedWith)) {
 			return SIGNUP_VIEW_NAME.concat(" :: accountForm");
 		}
@@ -79,7 +82,7 @@ public class AppController {
 		account.setName(form.getName());
 		account.setId(form.getId());
 		account.setPassword(form.getPassword());
-		account.setUserrole(form.getUserrole());
+		account.setUserrole(UserServices.ROLE_PREFIX + "USER");
 		try {
 			account = accountService.save(account);
 		} catch (Exception e) {
@@ -90,7 +93,8 @@ public class AppController {
 			MessageHelper.addErrorAttribute(ra, "db.failed");
 			return "redirect:/home";
 		}
-		if (accountService.login(account.getEmail(), account.getPassword())) {
+		// Note password in account object is encrypted
+		if (accountService.login(account.getEmail(), form.getPassword())) {
 			// see messages.properties and homeSignedIn.html
 			MessageHelper.addSuccessAttribute(ra, "signup.success",form.getEmail());
 		} else {

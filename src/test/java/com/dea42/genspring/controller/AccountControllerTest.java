@@ -20,8 +20,8 @@ import com.dea42.genspring.search.AccountSearchForm;
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
  *
- * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
- * @version 0.7.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
+ * @version 0.7.2<br>
  */
 @Slf4j
 @WebMvcTest(AccountController.class)
@@ -55,7 +55,7 @@ public class AccountControllerTest extends MockBase {
 //		contentContainsMarkup(ra,getMsg("Account.email"));
 //		contentContainsMarkup(ra,getTestString(254));
 //		contentContainsMarkup(ra,getMsg("Account.name"));
-		// TODO: confirm ignoring Account.password
+		/* TODO: confirm ignoring ColInfo(fNum=4, colName=Password, msgKey=Account.password, vName=password, type=String, jtype=null, stype=12, gsName=Password, length=30, pk=false, defaultVal=, constraint=null, required=true, list=false, jsonIgnore=true, unique=false, hidden=true, password=true, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment=null) */
 //		contentContainsMarkup(ra,getTestString(25));
 //		contentContainsMarkup(ra,getMsg("Account.userrole"));
 	}
