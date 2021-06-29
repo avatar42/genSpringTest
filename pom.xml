@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.dea42</groupId>
 	<artifactId>genSpring</artifactId>
-	<version>0.7.1-SNAPSHOT</version>
+	<version>0.7.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<description>One of the generated apps used to regression test genSpring, prototype changes and use this repo to diff prototype changes.</description>
 
@@ -157,7 +157,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>28.0-jre</version>
+			<version>[30.0-jre,)</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.passay/passay -->
 		<dependency>
@@ -245,7 +245,7 @@
 							<groupId>org.codehaus.cargo</groupId>
 							<artifactId>genSpring-war</artifactId>
 							<type>war</type>
-							<location>${project.build.directory}/genSpring-0.7.1-SNAPSHOT.war</location>
+							<location>${project.build.directory}/genSpring-0.7.2-SNAPSHOT.war</location>
 							<properties>
 								<context>genSpring</context>
 							</properties>

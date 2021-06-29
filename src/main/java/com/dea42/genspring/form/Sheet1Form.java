@@ -16,8 +16,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
  *
- * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
- * @version 0.7.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
+ * @version 0.7.2<br>
  */
 
 @Data
@@ -27,7 +27,7 @@ public class Sheet1Form implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date datefield;
 	private BigDecimal decimalfield;
-	private Integer id;
+	private Integer id = 0;
 	private Integer intfield;
     @Length(max=7)
 	private String text;

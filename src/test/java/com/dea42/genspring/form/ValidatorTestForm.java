@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Copyright: Copyright (c) 2001-2020<br>
  * Company: RMRR<br>
  * 
- * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
- * @version 0.7.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
+ * @version 0.7.2<br>
  */
 @FieldMatch.List({
 		@FieldMatch(fieldName = "password", secondFieldName = "passwordConfirm", message = "password.mismatch") })

@@ -18,18 +18,24 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Copyright: Copyright (c) 2001-2021<br>
  * Company: RMRR<br>
  *
- * @author Gened by com.dea42.build.GenSpring version 0.7.1<br>
- * @version 0.7.1<br>
+ * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
+ * @version 0.7.2<br>
  */
 @Data
 public class Sheet1UserSearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+/* info=ColInfo(fNum=1, colName=id, msgKey=Sheet1User.id, vName=id, type=Integer, jtype=null, stype=4, gsName=Id, length=0, pk=true, defaultVal=null, constraint=null, required=true, list=true, jsonIgnore=false, unique=false, hidden=false, password=false, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment= * Table name: sheet1user<br>
+ * Column name: id<br>
+ * Catalog name: null<br>
+ * Primary key sequence: 0<br>
+ * Primary key name: null<br>
+ *  <br>) */
 	private Integer idMin;
 	private Integer idMax;
 	private Sheet1SearchForm sheet1;
 	private AccountSearchForm account;
-	private String useryn = null;
+	private String useryn = "";
 	private String sortField = "id";
 	private int page = 1;
 	private int pageSize = 10;
