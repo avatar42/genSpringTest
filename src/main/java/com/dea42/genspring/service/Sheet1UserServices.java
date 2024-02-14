@@ -1,6 +1,15 @@
 package com.dea42.genspring.service;
 
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.dea42.genspring.entity.Sheet1User;
 import com.dea42.genspring.paging.Column;
 import com.dea42.genspring.paging.Direction;
@@ -8,32 +17,19 @@ import com.dea42.genspring.paging.Order;
 import com.dea42.genspring.paging.PageInfo;
 import com.dea42.genspring.paging.PagingRequest;
 import com.dea42.genspring.repo.Sheet1UserRepository;
-import com.dea42.genspring.search.AccountSearchForm;
 import com.dea42.genspring.search.SearchCriteria;
 import com.dea42.genspring.search.SearchOperation;
 import com.dea42.genspring.search.SearchSpecification;
 import com.dea42.genspring.search.SearchType;
-import com.dea42.genspring.search.Sheet1SearchForm;
 import com.dea42.genspring.search.Sheet1UserSearchForm;
-import com.dea42.genspring.utils.Utils;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Service;
 
 
 /**
  * Title: Sheet1UserServices <br>
  * Description: Sheet1UserServices. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
@@ -50,58 +46,22 @@ public class Sheet1UserServices {
 		if (form != null) {
 			log.debug(form.toString());
 			searchSpec.setDoOr(form.getDoOr());
-		if (form.getSheet1() != null) {
-
-				if (form.getSheet1().getDatefieldMin() != null) {
-// need to subtract a millsec here to get >= same to work reliably.
-					searchSpec.add(new SearchCriteria<Date>("sheet1","datefield", new Date(form.getSheet1().getDatefieldMin().getTime() - 1), SearchOperation.GREATER_THAN_EQUAL));
-				}
-				if (form.getSheet1().getDatefieldMax() != null) {
-// need to add a millsec here to get <= same to work reliably.
-					searchSpec.add(new SearchCriteria<Date>("sheet1","datefield", new Date(form.getSheet1().getDatefieldMax().getTime() + 1), SearchOperation.LESS_THAN_EQUAL));
-				}
-				if (form.getSheet1().getDecimalfieldMin() != null) {
-					BigDecimal bd = form.getSheet1().getDecimalfieldMin();
-// SQLite rounds scales > 10 in select where compare though returns all decimals
-					if (bd.scale() > 10) {
-						bd = bd.setScale(10, BigDecimal.ROUND_DOWN);
-					}
-					searchSpec.add(new SearchCriteria<BigDecimal>("sheet1","decimalfield",bd, SearchOperation.GREATER_THAN_EQUAL));
-				}
-				if (form.getSheet1().getDecimalfieldMax() != null) {
-					BigDecimal bd = form.getSheet1().getDecimalfieldMax();
-// SQLite rounds scales > 10 in select where compare though returns all decimals
-				if (bd.scale() > 10) {
-					bd = bd.setScale(10, BigDecimal.ROUND_UP);
-				}
-					searchSpec.add(new SearchCriteria<BigDecimal>("sheet1","decimalfield",bd, SearchOperation.LESS_THAN_EQUAL));
-				}
-				if (form.getSheet1().getIntfieldMin() != null) {
-					searchSpec.add(new SearchCriteria<Integer>("sheet1","intfield", form.getSheet1().getIntfieldMin(), SearchOperation.GREATER_THAN_EQUAL));
-				}
-				if (form.getSheet1().getIntfieldMax() != null) {
-					searchSpec.add(new SearchCriteria<Integer>("sheet1","intfield", form.getSheet1().getIntfieldMax(), SearchOperation.LESS_THAN_EQUAL));
-				}
-				if (!StringUtils.isBlank(form.getSheet1().getText())) {
-					searchSpec.add(new SearchCriteria<String>("sheet1","text", form.getSheet1().getText().toLowerCase(), SearchOperation.LIKE));
-				}
-		}
-
-		if (form.getAccount() != null) {
-				if (!StringUtils.isBlank(form.getAccount().getEmail())) {
-					searchSpec.add(new SearchCriteria<String>("account","email", form.getAccount().getEmail().toLowerCase(), SearchOperation.LIKE));
-				}
-				if (!StringUtils.isBlank(form.getAccount().getName())) {
-					searchSpec.add(new SearchCriteria<String>("account","name", form.getAccount().getName().toLowerCase(), SearchOperation.LIKE));
-				}
-				if (!StringUtils.isBlank(form.getAccount().getPassword())) {
-					searchSpec.add(new SearchCriteria<String>("account","password", form.getAccount().getPassword().toLowerCase(), SearchOperation.LIKE));
-				}
-				if (!StringUtils.isBlank(form.getAccount().getUserrole())) {
-					searchSpec.add(new SearchCriteria<String>("account","userrole", form.getAccount().getUserrole().toLowerCase(), SearchOperation.LIKE));
-				}
-		}
-
+			if (form.getSheet1idMin() != null) {
+				searchSpec.add(new SearchCriteria<Integer>(null,"sheet1id", form.getSheet1idMin(),
+					SearchOperation.GREATER_THAN_EQUAL));
+			}
+			if (form.getSheet1idMax() != null) {
+				searchSpec.add(new SearchCriteria<Integer>(null,"sheet1id", form.getSheet1idMax(),
+					SearchOperation.LESS_THAN_EQUAL));
+			}
+			if (form.getUseridMin() != null) {
+				searchSpec.add(new SearchCriteria<Integer>(null,"userid", form.getUseridMin(),
+					SearchOperation.GREATER_THAN_EQUAL));
+			}
+			if (form.getUseridMax() != null) {
+				searchSpec.add(new SearchCriteria<Integer>(null,"userid", form.getUseridMax(),
+					SearchOperation.LESS_THAN_EQUAL));
+			}
 			if (!StringUtils.isBlank(form.getUseryn())) {
 				searchSpec.add(new SearchCriteria<String>(null,"useryn", form.getUseryn().toLowerCase(),
 					SearchOperation.LIKE));
@@ -144,20 +104,6 @@ public class Sheet1UserServices {
 
 			String value = pagingRequest.getSearch().getValue();
 			log.info("Searching for:" + value);
-		Sheet1SearchForm sheet1Form =  form.getSheet1();
-		if (sheet1Form == null) {
-			sheet1Form = new Sheet1SearchForm();
-		}
-			sheet1Form.setText(value);
-			form.setSheet1(sheet1Form);
-		AccountSearchForm accountForm =  form.getAccount();
-		if (accountForm == null) {
-			accountForm = new AccountSearchForm();
-		}
-			accountForm.setEmail(value);
-			accountForm.setName(value);
-			accountForm.setUserrole(value);
-			form.setAccount(accountForm);
 			form.setUseryn(value);
 			form.setDoOr(SearchType.OR);
 			form.setAdvanced(false);
@@ -165,7 +111,7 @@ public class Sheet1UserServices {
 			form = new Sheet1UserSearchForm();
 
 		}
-		form.setPage(pagingRequest.getStart() + 1);
+		form.setPage((pagingRequest.getStart() / pagingRequest.getLength()) + 1);
 		form.setPageSize(pagingRequest.getLength());
 		Order order = pagingRequest.getOrder().get(0);
 		int columnIndex = order.getColumn();

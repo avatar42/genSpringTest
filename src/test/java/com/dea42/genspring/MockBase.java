@@ -1,6 +1,7 @@
 package com.dea42.genspring;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -17,14 +18,14 @@ import java.util.function.Function;
 
 import javax.servlet.Filter;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.tools.ant.UnsupportedAttributeException;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.tools.ant.UnsupportedAttributeException;
-import org.junit.Before;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.UserRequestPostProcessor;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.web.servlet.ResultActions;
@@ -32,54 +33,54 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import com.dea42.genspring.service.UserServices;
-import com.dea42.genspring.repo.UserRepository;
+
 import com.dea42.genspring.repo.AccountRepository;
-import com.dea42.genspring.service.AccountServices;
-import com.dea42.genspring.repo.Sheet1UserRepository;
-import com.dea42.genspring.service.Sheet1UserServices;
-import com.dea42.genspring.repo.Sheet2Repository;
-import com.dea42.genspring.service.Sheet2Services;
 import com.dea42.genspring.repo.Sheet1Repository;
+import com.dea42.genspring.repo.Sheet1UserRepository;
+import com.dea42.genspring.repo.Sheet2Repository;
+import com.dea42.genspring.repo.UserRepository;
+import com.dea42.genspring.service.AccountServices;
 import com.dea42.genspring.service.Sheet1Services;
-
-
+import com.dea42.genspring.service.Sheet1UserServices;
+import com.dea42.genspring.service.Sheet2Services;
+import com.dea42.genspring.service.UserServices;
 import com.dea42.genspring.utils.Message;
 import com.dea42.genspring.utils.Utils;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Title: MockBase <br>
  * Description: The base class for mock testing. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
+ * 
  * @author Gened by GenSpring version 0.7.2<br>
  * @version 0.7.2<br>
  */
 @Slf4j
 public class MockBase extends UnitBase {
-    @MockBean
-    protected UserServices<?> userServices;
-    @MockBean
-    protected UserRepository userRepository;
+	@MockBean
+	protected UserServices<?> userServices;
+	@MockBean
+	protected UserRepository userRepository;
 
-     @MockBean
-    protected AccountServices accountServices;
-    @MockBean
-    protected AccountRepository accountRepository;
-    @MockBean
-    protected Sheet1UserServices sheet1UserServices;
-    @MockBean
-    protected Sheet1UserRepository sheet1UserRepository;
-    @MockBean
-    protected Sheet2Services sheet2Services;
-    @MockBean
-    protected Sheet2Repository sheet2Repository;
-    @MockBean
-    protected Sheet1Services sheet1Services;
-    @MockBean
-    protected Sheet1Repository sheet1Repository;
-
+	@MockBean
+	protected AccountServices accountServices;
+	@MockBean
+	protected AccountRepository accountRepository;
+	@MockBean
+	protected Sheet1UserServices sheet1UserServices;
+	@MockBean
+	protected Sheet1UserRepository sheet1UserRepository;
+	@MockBean
+	protected Sheet2Services sheet2Services;
+	@MockBean
+	protected Sheet2Repository sheet2Repository;
+	@MockBean
+	protected Sheet1Services sheet1Services;
+	@MockBean
+	protected Sheet1Repository sheet1Repository;
 
 	@Autowired
 	protected WebApplicationContext webApplicationContext;
@@ -87,7 +88,7 @@ public class MockBase extends UnitBase {
 	@Autowired
 	private Filter springSecurityFilterChain;
 
-	@Before()
+	@BeforeEach()
 	public void setup() {
 		// Init MockMvc Object and build
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
@@ -168,19 +169,18 @@ public class MockBase extends UnitBase {
 		contentContainsKey(result, "app.name");
 		// GUI menu
 		contentContainsKey(result, "header.gui");
-		if ("admin@dea42.com".equals(user)) 
+		if ("admin@dea42.com".equals(user))
 			contentContainsKey(result, "class.Account", false);
 		contentContainsKey(result, "class.Sheet1User", false);
 		contentContainsKey(result, "class.Sheet2", false);
 		contentContainsKey(result, "class.Sheet1", false);
 // REST menu
 		contentContainsKey(result, "header.restApi");
-		if ("admin@dea42.com".equals(user)) 
+		if ("admin@dea42.com".equals(user))
 			contentContainsMarkup(result, "/api/accounts", false);
 		contentContainsMarkup(result, "/api/sheet1Users", false);
 		contentContainsMarkup(result, "/api/sheet2s", false);
 		contentContainsMarkup(result, "/api/sheet1s", false);
-
 
 		// Login / out
 		contentContainsKey(result, "lang.en");
@@ -333,6 +333,7 @@ public class MockBase extends UnitBase {
 		log.debug("Returning:" + rtn);
 		return rtn;
 	}
+
 	/**
 	 * Converts a List<T> to Page<T> for mock returns
 	 * 
@@ -427,5 +428,3 @@ public class MockBase extends UnitBase {
 		return p;
 	}
 }
-
-

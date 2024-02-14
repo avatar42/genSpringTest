@@ -1,6 +1,19 @@
 package com.dea42.genspring.service;
 
 
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.dea42.genspring.entity.Account;
 import com.dea42.genspring.paging.Column;
 import com.dea42.genspring.paging.Direction;
@@ -14,25 +27,14 @@ import com.dea42.genspring.search.SearchOperation;
 import com.dea42.genspring.search.SearchSpecification;
 import com.dea42.genspring.search.SearchType;
 import com.dea42.genspring.utils.Utils;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
+
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 
 /**
  * Title: AccountServices <br>
  * Description: AccountServices. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
@@ -166,7 +168,7 @@ public class AccountServices extends UserServices<Account> {
 			form = new AccountSearchForm();
 
 		}
-		form.setPage(pagingRequest.getStart() + 1);
+		form.setPage((pagingRequest.getStart() / pagingRequest.getLength()) + 1);
 		form.setPageSize(pagingRequest.getLength());
 		Order order = pagingRequest.getOrder().get(0);
 		int columnIndex = order.getColumn();

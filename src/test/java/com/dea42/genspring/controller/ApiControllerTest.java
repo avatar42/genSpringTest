@@ -10,11 +10,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.dea42.genspring.MockBase;
 import com.dea42.genspring.entity.Account;
@@ -25,13 +25,13 @@ import com.dea42.genspring.entity.Sheet1;
 /**
  * Title: ApiControllerTest <br>
  * Description: REST Api Controller Test. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
  * @version 0.7.2<br>
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(ApiController.class)
 public class ApiControllerTest extends MockBase {
 
@@ -76,7 +76,7 @@ public class ApiControllerTest extends MockBase {
 		given(sheet1UserServices.listAll(null)).willReturn(p);
 
 		this.mockMvc.perform(get("/api/sheet1Users").with(user("user").roles("ADMIN"))).andExpect(status().isOk())
-				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("sheet1")))				.andExpect(content().string(containsString("account")))				.andExpect(content().string(containsString(o.getUseryn())))
+				.andExpect(content().string(containsString("id")))				.andExpect(content().string(containsString("sheet1id")))				.andExpect(content().string(containsString("userid")))				.andExpect(content().string(containsString(o.getUseryn())))
 				.andExpect(content().string(containsString("useryn")));
 	}
 

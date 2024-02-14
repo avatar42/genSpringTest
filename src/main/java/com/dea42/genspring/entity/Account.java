@@ -13,7 +13,7 @@ import lombok.Data;
 /**
  * Title: account Bean <br>
  * Description: Class for holding data from the account table. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>

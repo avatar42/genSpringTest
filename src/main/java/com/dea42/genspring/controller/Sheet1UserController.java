@@ -1,11 +1,10 @@
 package com.dea42.genspring.controller;
 
-import java.util.Date;
 import java.security.Principal;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,19 +22,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dea42.genspring.entity.Sheet1User;
 import com.dea42.genspring.form.Sheet1UserForm;
-import com.dea42.genspring.paging.PageInfo;
-import com.dea42.genspring.paging.PagingRequest;
 import com.dea42.genspring.search.Sheet1UserSearchForm;
 import com.dea42.genspring.service.Sheet1UserServices;
 import com.dea42.genspring.utils.Message;
 import com.dea42.genspring.utils.MessageHelper;
 import com.dea42.genspring.utils.Utils;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Title: Sheet1UserController <br>
  * Description: Sheet1UserController. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
@@ -151,8 +148,8 @@ public class Sheet1UserController {
 
 			Sheet1User sheet1User = new Sheet1User();
 			sheet1User.setId(form.getId());
-			sheet1User.setSheet1(form.getSheet1());
-			sheet1User.setAccount(form.getAccount());
+			sheet1User.setSheet1id(form.getSheet1id());
+			sheet1User.setUserid(form.getUserid());
 			sheet1User.setUseryn(form.getUseryn());
 			try {
 				sheet1User = sheet1UserService.save(sheet1User);

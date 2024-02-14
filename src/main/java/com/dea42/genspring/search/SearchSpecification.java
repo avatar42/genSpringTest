@@ -17,8 +17,9 @@ import lombok.Data;
 /**
  * Title: SearchSpecification <br>
  * Description: Used to generate SearchCriteria list for queries. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
+ * 
  * @author Gened by GenSpring version 0.7.2<br>
  * @version 0.7.2<br>
  */

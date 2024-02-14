@@ -1,5 +1,8 @@
 package com.dea42.genspring.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +13,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import com.dea42.genspring.UnitBase;
 import com.dea42.genspring.form.ValidatorTestForm;
@@ -31,7 +34,7 @@ public class FieldMatchConstraintValidatorTest extends UnitBase {
 
 	private static Validator validator;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpValidator() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
@@ -61,7 +64,7 @@ public class FieldMatchConstraintValidatorTest extends UnitBase {
 			errs.add(c.getMessageTemplate());
 		}
 		for (String err : keys) {
-			assertTrue("Looking for '" + err + "' in errors", errs.contains(err));
+			assertTrue(errs.contains(err), "Looking for '" + err + "' in errors");
 		}
 
 		if (expectErrorCnt != constraintViolations.size()) {
@@ -78,7 +81,7 @@ public class FieldMatchConstraintValidatorTest extends UnitBase {
 
 			}
 
-			assertEquals("Error count:", expectErrorCnt, constraintViolations.size());
+			assertEquals(expectErrorCnt, constraintViolations.size(), "Error count:");
 		}
 
 	}

@@ -2,7 +2,7 @@ package com.dea42.genspring.controller;
 import static org.mockito.BDDMockito.given;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.web.servlet.ResultActions;
@@ -17,7 +17,7 @@ import com.dea42.genspring.search.Sheet1UserSearchForm;
 /**
  * Title: Sheet1UserControllerTest <br>
  * Description: Sheet1UserController. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
@@ -110,8 +110,8 @@ public class Sheet1UserControllerTest extends MockBase {
 
 		ResultActions ra = getAsAdmin("/sheet1Users/edit/1");
 		// TODO: confirm ignoring Sheet1User.id
-		contentContainsMarkup(ra,"Sheet1");
-		contentContainsMarkup(ra,"Account");
+		contentContainsMarkup(ra,"Sheet1id");
+		contentContainsMarkup(ra,"Userid");
 		contentContainsMarkup(ra,o.getUseryn());
 		contentContainsMarkup(ra,"Useryn");
 	}

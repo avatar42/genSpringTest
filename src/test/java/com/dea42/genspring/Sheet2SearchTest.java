@@ -2,12 +2,12 @@ package com.dea42.genspring;
 
 import java.math.BigDecimal;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.dea42.genspring.entity.Sheet2;
 import com.dea42.genspring.search.Sheet2SearchForm;
@@ -24,9 +24,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author avatar42<br>
  */
 @Slf4j
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class Sheet2SearchTest extends TestCase {
+class Sheet2SearchTest extends TestCase {
 
 	@Autowired
 	private Sheet2Services sheet2Services;
@@ -47,7 +47,7 @@ public class Sheet2SearchTest extends TestCase {
 	}
 
 	@Test
-	public void testSpecifications() {
+	void testSpecifications() {
 		BigDecimal decimalMin;
 		BigDecimal decimalMax;
 		Integer integerMin;

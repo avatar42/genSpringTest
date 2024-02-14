@@ -1,4 +1,4 @@
-DB:jdbc:sqlite:D:/SpringTools4.6.1/workspace/genSpringTest/genSpringTestDB.sqlite<br>
+DB:jdbc:sqlite:D:/tmp/ws/genSpringTest/genSpringTestDB.sqlite<br>
 pom.xml<br>
 README.md<br>
 files.md<br>

@@ -1,24 +1,18 @@
 package com.dea42.genspring.search;
 
-import com.dea42.genspring.controller.FieldMatch;
-import com.dea42.genspring.controller.UniqueEmail;
-import com.dea42.genspring.controller.ValidatePassword;
-import com.dea42.genspring.entity.Account;
-import com.dea42.genspring.utils.MessageHelper;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.data.domain.Sort;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import org.springframework.data.domain.Sort;
+
+import com.dea42.genspring.entity.Account;
+
+import lombok.Data;
 
 /**
  * Title: accountSearchForm <br>
- * Description: Class for holding data from the account table for searching. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Description: Class for holding data from the account table for searching.
+ * <br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
@@ -29,12 +23,16 @@ public class AccountSearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String email = "";
-/* info=ColInfo(fNum=1, colName=id, msgKey=Account.id, vName=id, type=Integer, jtype=null, stype=4, gsName=Id, length=0, pk=true, defaultVal=null, constraint=null, required=true, list=false, jsonIgnore=false, unique=false, hidden=false, password=false, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment= * Table name: account<br>
- * Column name: id<br>
- * Catalog name: null<br>
- * Primary key sequence: 0<br>
- * Primary key name: null<br>
- *  <br>) */
+	/*
+	 * info=ColInfo(fNum=1, colName=id, msgKey=Account.id, vName=id, type=Integer,
+	 * jtype=null, stype=4, gsName=Id, length=0, pk=true, defaultVal=null,
+	 * constraint=null, required=true, list=false, jsonIgnore=false, unique=false,
+	 * hidden=false, password=false, email=false, created=false, lastMod=false,
+	 * adminOnly=false, foreignTable=null, foreignCol=null, colScale=0,
+	 * colPrecision=0, comment= * Table name: account<br> Column name: id<br>
+	 * Catalog name: null<br> Primary key sequence: 0<br> Primary key name: null<br>
+	 * <br>)
+	 */
 	private Integer idMin;
 	private Integer idMax;
 	private String name = "";
@@ -48,6 +46,7 @@ public class AccountSearchForm implements Serializable {
 	private long totalItems = 0;
 	private SearchType doOr = SearchType.ADD;
 	private boolean advanced = true;
+
 	/**
 	 * Clones Account obj into form
 	 *
@@ -66,6 +65,7 @@ public class AccountSearchForm implements Serializable {
 
 	/**
 	 * Generate a Sort from fields
+	 * 
 	 * @return
 	 */
 	public Sort getSort() {

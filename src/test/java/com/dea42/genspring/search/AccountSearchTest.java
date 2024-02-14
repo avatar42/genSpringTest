@@ -1,48 +1,43 @@
 package com.dea42.genspring.search;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.dea42.genspring.UnitBase;
-import com.dea42.genspring.controller.FieldMatch;
-import com.dea42.genspring.controller.UniqueEmail;
-import com.dea42.genspring.controller.ValidatePassword;
-import com.dea42.genspring.entity.Account;
-import com.dea42.genspring.search.AccountSearchForm;
-import com.dea42.genspring.service.AccountServices;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.Length;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.dea42.genspring.UnitBase;
+import com.dea42.genspring.entity.Account;
+import com.dea42.genspring.service.AccountServices;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Title: accountSearch Test <br>
  * Description: Does regression tests of account search from service to DB <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
  * @version 0.7.2<br>
  */
 @Slf4j
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class AccountSearchTest extends UnitBase {
+class AccountSearchTest extends UnitBase {
 
 	@Autowired
 	private AccountServices accountServices;
 
 	private Page<Account> confirmGotResult(AccountSearchForm form, Integer expectedID) {
-		log.info("form:"+form);
+		log.info("form:" + form);
 		Page<Account> list = accountServices.listAll(form);
-		assertNotNull("Checking return not null", list);
-		assertTrue("Checking at least 1 return", list.toList().size() > 0);
+		assertNotNull(list, "Checking return not null");
+		assertTrue(list.toList().size() > 0, "Checking at least 1 return");
 		if (expectedID > 0) {
 			boolean found = false;
 			for (Account s2 : list) {
@@ -51,26 +46,25 @@ public class AccountSearchTest extends UnitBase {
 				log.info(s2.toString());
 			}
 
-			assertTrue("Looking for record ID " + expectedID + " in results", found);
+			assertTrue(found, "Looking for record ID " + expectedID + " in results");
 		}
 		return list;
 	}
 
 	private Account getMidRecord(AccountSearchForm form, Integer expectedID) {
 		Page<Account> list = confirmGotResult(form, expectedID);
-		assertNotNull("Checking return not null", list);
+		assertNotNull(list, "Checking return not null");
 		int size = list.toList().size();
-		assertTrue("Checking at least 1 return", size > 0);
+		assertTrue(size > 0, "Checking at least 1 return");
 		int record = 0;
 		if (size > 2)
 			record = size / 2;
 		return list.toList().get(record);
 
-
 	}
 
 	@Test
-	public void testEmail() {
+	void testEmail() {
 		// email String 12
 		Account rec = null;
 		AccountSearchForm form = new AccountSearchForm();
@@ -102,7 +96,7 @@ public class AccountSearchTest extends UnitBase {
 	}
 
 	@Test
-	public void testName() {
+	void testName() {
 		// name String 12
 		Account rec = null;
 		AccountSearchForm form = new AccountSearchForm();
@@ -134,7 +128,7 @@ public class AccountSearchTest extends UnitBase {
 	}
 
 	@Test
-	public void testPassword() {
+	void testPassword() {
 		// password String 12
 		Account rec = null;
 		AccountSearchForm form = new AccountSearchForm();
@@ -166,7 +160,7 @@ public class AccountSearchTest extends UnitBase {
 	}
 
 	@Test
-	public void testUserrole() {
+	void testUserrole() {
 		// userrole String 12
 		Account rec = null;
 		AccountSearchForm form = new AccountSearchForm();

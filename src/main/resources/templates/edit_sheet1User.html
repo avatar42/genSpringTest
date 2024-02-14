@@ -26,64 +26,38 @@
 					th:text="#{edit.edit} + ' ' + #{class.Sheet1User}"></legend>
 
 				<input type="hidden" class="form-control" id="id" th:field="*{id}" />
-				<div class="form-group">
-					<label for="sheet1UserForm.sheet1.datefield" class="col-lg-2 control-label"
-						th:text="#{Sheet1.datefield} + ':'"></label>
-					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.datefield"
-	                        th:text="${sheet1UserForm.sheet1.datefield}">
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('sheet1id')}? 'has-error'">
+					<label for="sheet1id" class="col-lg-2 control-label"
+						th:text="#{Sheet1User.sheet1id} + ':'"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="sheet1id"
+							th:field="*{sheet1id}" />
+						<ul class="help-block"
+							th:each="error: ${#fields.errors('sheet1id')}">
+							<li th:each="message : ${error.split(';')}">
+								<p class="error-message" th:text="${message}"></p>
+							</li>
+						</ul>
 					</div>
-				<div th:unless="${sheet1UserForm.sheet1 != null}" th:text="${sheet1UserForm.sheet1}"></div>
 				</div>
-				<div class="form-group">
-					<label for="sheet1UserForm.sheet1.decimalfield" class="col-lg-2 control-label"
-						th:text="#{Sheet1.decimalfield} + ':'"></label>
-					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.decimalfield"
-	                        th:text="${sheet1UserForm.sheet1.decimalfield}">
+
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('userid')}? 'has-error'">
+					<label for="userid" class="col-lg-2 control-label"
+						th:text="#{Sheet1User.userid} + ':'"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="userid"
+							th:field="*{userid}" />
+						<ul class="help-block"
+							th:each="error: ${#fields.errors('userid')}">
+							<li th:each="message : ${error.split(';')}">
+								<p class="error-message" th:text="${message}"></p>
+							</li>
+						</ul>
 					</div>
-				<div th:unless="${sheet1UserForm.sheet1 != null}" th:text="${sheet1UserForm.sheet1}"></div>
 				</div>
-				<input type="hidden" class="form-control" id="sheet1.id" th:field="*{sheet1.id}" />
-				<div class="form-group">
-					<label for="sheet1UserForm.sheet1.intfield" class="col-lg-2 control-label"
-						th:text="#{Sheet1.intfield} + ':'"></label>
-					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.intfield"
-	                        th:text="${sheet1UserForm.sheet1.intfield}">
-					</div>
-				<div th:unless="${sheet1UserForm.sheet1 != null}" th:text="${sheet1UserForm.sheet1}"></div>
-				</div>
-				<div class="form-group">
-					<label for="sheet1UserForm.sheet1.text" class="col-lg-2 control-label"
-						th:text="#{Sheet1.text} + ':'"></label>
-					<div th:if="${sheet1UserForm.sheet1 != null}" class="col-lg-10" id="sheet1UserForm.sheet1.text"
-	                        th:text="${sheet1UserForm.sheet1.text}">
-					</div>
-				<div th:unless="${sheet1UserForm.sheet1 != null}" th:text="${sheet1UserForm.sheet1}"></div>
-				</div>
-				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserForm.account.email" class="col-lg-2 control-label"
-						th:text="#{Account.email} + ':'"></label>
-					<div th:if="${sheet1UserForm.account != null}" class="col-lg-10" id="sheet1UserForm.account.email"
-	                        th:text="${sheet1UserForm.account.email}">
-					</div>
-				<div th:unless="${sheet1UserForm.account != null}" th:text="${sheet1UserForm.account}"></div>
-				</div>
-				<input type="hidden" class="form-control" id="account.id" th:field="*{account.id}" />
-				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserForm.account.name" class="col-lg-2 control-label"
-						th:text="#{Account.name} + ':'"></label>
-					<div th:if="${sheet1UserForm.account != null}" class="col-lg-10" id="sheet1UserForm.account.name"
-	                        th:text="${sheet1UserForm.account.name}">
-					</div>
-				<div th:unless="${sheet1UserForm.account != null}" th:text="${sheet1UserForm.account}"></div>
-				</div>
-				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserForm.account.userrole" class="col-lg-2 control-label"
-						th:text="#{Account.userrole} + ':'"></label>
-					<div th:if="${sheet1UserForm.account != null}" class="col-lg-10" id="sheet1UserForm.account.userrole"
-	                        th:text="${sheet1UserForm.account.userrole}">
-					</div>
-				<div th:unless="${sheet1UserForm.account != null}" th:text="${sheet1UserForm.account}"></div>
-				</div>
+
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('useryn')}? 'has-error'">
 					<label for="useryn" class="col-lg-2 control-label"

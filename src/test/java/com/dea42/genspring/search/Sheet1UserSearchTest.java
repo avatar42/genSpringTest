@@ -1,45 +1,44 @@
 package com.dea42.genspring.search;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.dea42.genspring.UnitBase;
-import com.dea42.genspring.entity.Account;
-import com.dea42.genspring.entity.Sheet1;
-import com.dea42.genspring.entity.Sheet1User;
-import com.dea42.genspring.search.Sheet1UserSearchForm;
-import com.dea42.genspring.service.Sheet1UserServices;
-import javax.validation.constraints.NotBlank;
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.Length;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.dea42.genspring.UnitBase;
+import com.dea42.genspring.entity.Sheet1User;
+import com.dea42.genspring.service.Sheet1UserServices;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Title: sheet1userSearch Test <br>
- * Description: Does regression tests of sheet1user search from service to DB <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Description: Does regression tests of sheet1user search from service to DB
+ * <br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
  * @version 0.7.2<br>
  */
 @Slf4j
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class Sheet1UserSearchTest extends UnitBase {
+class Sheet1UserSearchTest extends UnitBase {
 
 	@Autowired
 	private Sheet1UserServices sheet1UserServices;
 
 	private Page<Sheet1User> confirmGotResult(Sheet1UserSearchForm form, Integer expectedID) {
-		log.info("form:"+form);
+		log.info("form:" + form);
 		Page<Sheet1User> list = sheet1UserServices.listAll(form);
-		assertNotNull("Checking return not null", list);
-		assertTrue("Checking at least 1 return", list.toList().size() > 0);
+		assertNotNull(list, "Checking return not null");
+		assertTrue(list.toList().size() > 0, "Checking at least 1 return");
 		if (expectedID > 0) {
 			boolean found = false;
 			for (Sheet1User s2 : list) {
@@ -48,44 +47,93 @@ public class Sheet1UserSearchTest extends UnitBase {
 				log.info(s2.toString());
 			}
 
-			assertTrue("Looking for record ID " + expectedID + " in results", found);
+			assertTrue(found, "Looking for record ID " + expectedID + " in results");
 		}
 		return list;
 	}
 
 	private Sheet1User getMidRecord(Sheet1UserSearchForm form, Integer expectedID) {
 		Page<Sheet1User> list = confirmGotResult(form, expectedID);
-		assertNotNull("Checking return not null", list);
+		assertNotNull(list, "Checking return not null");
 		int size = list.toList().size();
-		assertTrue("Checking at least 1 return", size > 0);
+		assertTrue(size > 0, "Checking at least 1 return");
 		int record = 0;
 		if (size > 2)
 			record = size / 2;
 		return list.toList().get(record);
 
-
 	}
 
 	@Test
-	public void testSheet1() {
-		// sheet1 Sheet1 4
+	void testSheet1id() {
+		// sheet1id Integer 4
 		Sheet1User rec = null;
 		Sheet1UserSearchForm form = new Sheet1UserSearchForm();
 		rec = getMidRecord(form, 0);
-// TODO: skip further tests now
+		form.setSheet1idMin(Integer.MIN_VALUE);
+		rec = getMidRecord(form, 0);
+		log.info("Searching for records with sheet1id of " + rec.getSheet1id());
+
+		form = new Sheet1UserSearchForm();
+		form.setSheet1idMin(rec.getSheet1id());
+		form.setSheet1idMax(rec.getSheet1id() + 1);
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setSheet1idMin(rec.getSheet1id() - 1);
+		form.setSheet1idMax(rec.getSheet1id());
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setSheet1idMin(rec.getSheet1id());
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setSheet1idMax(rec.getSheet1id());
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setSheet1idMin(rec.getSheet1id());
+		form.setSheet1idMax(rec.getSheet1id());
+		confirmGotResult(form, rec.getId());
 	}
 
 	@Test
-	public void testAccount() {
-		// account Account 4
+	void testUserid() {
+		// userid Integer 4
 		Sheet1User rec = null;
 		Sheet1UserSearchForm form = new Sheet1UserSearchForm();
 		rec = getMidRecord(form, 0);
-// TODO: skip further tests now
+		form.setUseridMin(Integer.MIN_VALUE);
+		rec = getMidRecord(form, 0);
+		log.info("Searching for records with userid of " + rec.getUserid());
+
+		form = new Sheet1UserSearchForm();
+		form.setUseridMin(rec.getUserid());
+		form.setUseridMax(rec.getUserid() + 1);
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setUseridMin(rec.getUserid() - 1);
+		form.setUseridMax(rec.getUserid());
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setUseridMin(rec.getUserid());
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setUseridMax(rec.getUserid());
+		confirmGotResult(form, rec.getId());
+
+		form = new Sheet1UserSearchForm();
+		form.setUseridMin(rec.getUserid());
+		form.setUseridMax(rec.getUserid());
+		confirmGotResult(form, rec.getId());
 	}
 
 	@Test
-	public void testUseryn() {
+	void testUseryn() {
 		// useryn String 12
 		Sheet1User rec = null;
 		Sheet1UserSearchForm form = new Sheet1UserSearchForm();

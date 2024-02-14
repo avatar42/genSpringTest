@@ -25,13 +25,8 @@
 				style="width: 100%">
 				<thead>
 					<tr>
-						<th th:text="#{Sheet1.datefield}"></th>
-						<th th:text="#{Sheet1.decimalfield}"></th>
-						<th th:text="#{Sheet1.intfield}"></th>
-						<th th:text="#{Sheet1.text}"></th>
-						<th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.email}"></th>
-						<th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.name}"></th>
-						<th sec:authorize="hasRole('ROLE_ADMIN')"  th:text="#{Account.userrole}"></th>
+						<th th:text="#{Sheet1User.sheet1id}"></th>
+						<th th:text="#{Sheet1User.userid}"></th>
 						<th th:text="#{Sheet1User.useryn}"></th>
 						<th th:text="#{edit.actions}"></th>
 					</tr>
@@ -65,26 +60,11 @@
         				"defaultContent": ""
     				}],
 					"columns" : [ {
-						"name" : "datefield",
-						"data" : "sheet1.datefield",
+						"name" : "sheet1id",
+						"data" : "sheet1id",
 					}, {
-						"name" : "decimalfield",
-						"data" : "sheet1.decimalfield",
-					}, {
-						"name" : "intfield",
-						"data" : "sheet1.intfield",
-					}, {
-						"name" : "text",
-						"data" : "sheet1.text",
-					}, {
-						"name" : "email",
-						"data" : "account.email",
-					}, {
-						"name" : "name",
-						"data" : "account.name",
-					}, {
-						"name" : "userrole",
-						"data" : "account.userrole",
+						"name" : "userid",
+						"data" : "userid",
 					}, {
 						"name" : "useryn",
 						"data" : "useryn",

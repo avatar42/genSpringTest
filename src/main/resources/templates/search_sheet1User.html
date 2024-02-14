@@ -35,104 +35,44 @@
 					</select>
 				</div>
 
+<!-- info=ColInfo(fNum=3, colName=Sheet1Id, msgKey=Sheet1User.sheet1id, vName=sheet1id, type=Integer, jtype=null, stype=4, gsName=Sheet1id, length=0, pk=false, defaultVal=null, constraint=null, required=false, list=true, jsonIgnore=false, unique=false, hidden=false, password=false, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment=null) -->
 				<div class="form-group">
-					<label for="sheet1UserSearchForm.sheet1.datefieldMin" class="col-lg-2 control-label"
-						th:text="#{Sheet1.datefield} + ' ' + #{search.after}"></label>
-					<div th:if="${sheet1UserSearchForm.sheet1 != null}" class="col-lg-10">
-						<input type="text" class="form-control" id="sheet1UserSearchForm.sheet1.datefieldMin"
-							th:field="*{sheet1.datefieldMin}" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="sheet1UserSearchForm.sheet1.datefieldMax" class="col-lg-2 control-label"
-						th:text="#{Sheet1.datefield} + ' ' + #{search.before}"></label>
-					<div th:if="${sheet1UserSearchForm.sheet1 != null}" class="col-lg-10">
-						<input type="text" class="form-control" id="sheet1UserSearchForm.sheet1.datefieldMax"
-							th:field="*{sheet1.datefieldMax}" />
-					</div>
-				</div>
-
-<!-- subtype=ColInfo(fNum=5, colName=DecimalField, msgKey=Sheet1.decimalfield, vName=decimalfield, type=BigDecimal, jtype=null, stype=6, gsName=Decimalfield, length=0, pk=false, defaultVal=null, constraint=null, required=false, list=true, jsonIgnore=false, unique=false, hidden=false, password=false, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=10, colPrecision=2000000000, comment=null) -->
-				<div class="form-group">
-					<label for="sheet1UserSearchForm.sheet1.decimalfieldMin" class="col-lg-2 control-label"
-						th:text="#{Sheet1.decimalfield} + ' ' + #{search.gte}"></label>
-					<div th:if="${sheet1UserSearchForm.sheet1 != null}" class="col-lg-10">
-						<input type="text" class="form-control" id="sheet1UserSearchForm.sheet1.decimalfieldMin"
-							th:field="*{sheet1.decimalfieldMin}" />
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="sheet1UserSearchForm.sheet1.decimalfieldMax" class="col-lg-2 control-label"
-						th:text="#{Sheet1.decimalfield} + ' ' + #{search.lte}"></label>
+					<label for="sheet1idMin" class="col-lg-2 control-label"
+						th:text="#{Sheet1User.sheet1id} + ' ' + #{search.gte}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="sheet1UserSearchForm.sheet1.decimalfieldMax"
-							th:field="*{sheet1.decimalfieldMax}" />
-					</div>
-				</div>
-
-				<input type="hidden" class="form-control" id="sheet1.id" />
-<!-- subtype=ColInfo(fNum=2, colName=IntField, msgKey=Sheet1.intfield, vName=intfield, type=Integer, jtype=null, stype=4, gsName=Intfield, length=0, pk=false, defaultVal=null, constraint=null, required=true, list=true, jsonIgnore=false, unique=false, hidden=false, password=false, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment=null) -->
-				<div class="form-group">
-					<label for="sheet1UserSearchForm.sheet1.intfieldMin" class="col-lg-2 control-label"
-						th:text="#{Sheet1.intfield} + ' ' + #{search.gte}"></label>
-					<div th:if="${sheet1UserSearchForm.sheet1 != null}" class="col-lg-10">
-						<input type="text" class="form-control" id="sheet1UserSearchForm.sheet1.intfieldMin"
-							th:field="*{sheet1.intfieldMin}" />
+						<input type="text" class="form-control" id="sheet1idMin"
+							th:field="*{sheet1idMin}" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="sheet1UserSearchForm.sheet1.intfieldMax" class="col-lg-2 control-label"
-						th:text="#{Sheet1.intfield} + ' ' + #{search.lte}"></label>
+					<label for="sheet1idMax" class="col-lg-2 control-label"
+						th:text="#{Sheet1User.sheet1id} + ' ' + #{search.lte}"></label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="sheet1UserSearchForm.sheet1.intfieldMax"
-							th:field="*{sheet1.intfieldMax}" />
+						<input type="text" class="form-control" id="sheet1idMax"
+							th:field="*{sheet1idMax}" />
+					</div>
+				</div>
+
+<!-- info=ColInfo(fNum=2, colName=Userid, msgKey=Sheet1User.userid, vName=userid, type=Integer, jtype=null, stype=4, gsName=Userid, length=0, pk=false, defaultVal=null, constraint=null, required=false, list=true, jsonIgnore=false, unique=false, hidden=false, password=false, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment=null) -->
+				<div class="form-group">
+					<label for="useridMin" class="col-lg-2 control-label"
+						th:text="#{Sheet1User.userid} + ' ' + #{search.gte}"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="useridMin"
+							th:field="*{useridMin}" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="sheet1UserSearchForm.sheet1.text" class="col-lg-2 control-label"
-						th:text="#{Sheet1.text} + ':'"></label>
-					<div th:if="${sheet1UserSearchForm.sheet1 != null}" class="col-lg-10" id="sheet1UserSearchForm.sheet1.text"
-	                        th:text="${sheet1UserSearchForm.sheet1.text}">
+					<label for="useridMax" class="col-lg-2 control-label"
+						th:text="#{Sheet1User.userid} + ' ' + #{search.lte}"></label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="useridMax"
+							th:field="*{useridMax}" />
 					</div>
-				<div th:unless="${sheet1UserSearchForm.sheet1 != null}" th:text="${sheet1UserSearchForm.sheet1}"></div>
 				</div>
-				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserSearchForm.account.email" class="col-lg-2 control-label"
-						th:text="#{Account.email} + ':'"></label>
-					<div th:if="${sheet1UserSearchForm.account != null}" class="col-lg-10" id="sheet1UserSearchForm.account.email"
-	                        th:text="${sheet1UserSearchForm.account.email}">
-					</div>
-				<div th:unless="${sheet1UserSearchForm.account != null}" th:text="${sheet1UserSearchForm.account}"></div>
-				</div>
-				<input type="hidden" class="form-control" id="account.id" />
-				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserSearchForm.account.name" class="col-lg-2 control-label"
-						th:text="#{Account.name} + ':'"></label>
-					<div th:if="${sheet1UserSearchForm.account != null}" class="col-lg-10" id="sheet1UserSearchForm.account.name"
-	                        th:text="${sheet1UserSearchForm.account.name}">
-					</div>
-				<div th:unless="${sheet1UserSearchForm.account != null}" th:text="${sheet1UserSearchForm.account}"></div>
-				</div>
-				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserSearchForm.account.password" class="col-lg-2 control-label"
-						th:text="#{Account.password} + ':'"></label>
-					<div th:if="${sheet1UserSearchForm.account != null}" class="col-lg-10" id="sheet1UserSearchForm.account.password"
-	                        th:text="${sheet1UserSearchForm.account.password}">
-					</div>
-				<div th:unless="${sheet1UserSearchForm.account != null}" th:text="${sheet1UserSearchForm.account}"></div>
-				</div>
-				<div sec:authorize="hasRole('ROLE_ADMIN')"  class="form-group">
-					<label for="sheet1UserSearchForm.account.userrole" class="col-lg-2 control-label"
-						th:text="#{Account.userrole} + ':'"></label>
-					<div th:if="${sheet1UserSearchForm.account != null}" class="col-lg-10" id="sheet1UserSearchForm.account.userrole"
-	                        th:text="${sheet1UserSearchForm.account.userrole}">
-					</div>
-				<div th:unless="${sheet1UserSearchForm.account != null}" th:text="${sheet1UserSearchForm.account}"></div>
-				</div>
+
 				<div class="form-group">
 					<label for="useryn" class="col-lg-2 control-label"
 						th:text="#{Sheet1User.useryn} + ' ' + #{search.like}"></label>

@@ -1,34 +1,32 @@
 package com.dea42.genspring.controller;
 
-import com.dea42.genspring.entity.Account;
-import com.dea42.genspring.entity.Sheet1;
-import com.dea42.genspring.entity.Sheet1User;
-import com.dea42.genspring.entity.Sheet2;
-import com.dea42.genspring.paging.PageInfo;
-import com.dea42.genspring.paging.PagingRequest;
-import com.dea42.genspring.search.AccountSearchForm;
-import com.dea42.genspring.search.Sheet1SearchForm;
-import com.dea42.genspring.search.Sheet1UserSearchForm;
-import com.dea42.genspring.search.Sheet2SearchForm;
-import com.dea42.genspring.service.AccountServices;
-import com.dea42.genspring.service.Sheet1Services;
-import com.dea42.genspring.service.Sheet1UserServices;
-import com.dea42.genspring.service.Sheet2Services;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dea42.genspring.entity.Account;
+import com.dea42.genspring.entity.Sheet1;
+import com.dea42.genspring.entity.Sheet1User;
+import com.dea42.genspring.entity.Sheet2;
+import com.dea42.genspring.paging.PageInfo;
+import com.dea42.genspring.paging.PagingRequest;
+import com.dea42.genspring.service.AccountServices;
+import com.dea42.genspring.service.Sheet1Services;
+import com.dea42.genspring.service.Sheet1UserServices;
+import com.dea42.genspring.service.Sheet2Services;
+
 
 /**
  * Title: ApiController <br>
  * Description: Api REST Controller. <br>
- * Copyright: Copyright (c) 2001-2021<br>
+ * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
  * @author Gened by com.dea42.build.GenSpring version 0.7.2<br>
