@@ -1,6 +1,5 @@
 package com.dea42.genspring.service;
 
-
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -28,7 +27,6 @@ import com.dea42.genspring.search.Sheet1SearchForm;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 /**
  * Title: Sheet1Services <br>
  * Description: Sheet1Services. <br>
@@ -41,8 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class Sheet1Services {
-    @Autowired
-    private Sheet1Repository sheet1Repository;
+	@Autowired
+	private Sheet1Repository sheet1Repository;
 
 	public Page<Sheet1> listAll(Sheet1SearchForm form) {
 		SearchSpecification<Sheet1> searchSpec = new SearchSpecification<Sheet1>();
@@ -52,15 +50,13 @@ public class Sheet1Services {
 
 			if (form.getDatefieldMin() != null) {
 // need to subtract a millsec here to get >= same to work reliably.
-				searchSpec.add(new SearchCriteria<Date>(null,"datefield",
-					new Date(form.getDatefieldMin().getTime() - 1),
-					SearchOperation.GREATER_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Date>(null, "datefield",
+						new Date(form.getDatefieldMin().getTime() - 1), SearchOperation.GREATER_THAN_EQUAL));
 			}
 			if (form.getDatefieldMax() != null) {
 // need to add a millsec here to get <= same to work reliably.
-				searchSpec.add(new SearchCriteria<Date>(null,"datefield",
-					new Date(form.getDatefieldMax().getTime() + 1),
-					SearchOperation.LESS_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Date>(null, "datefield",
+						new Date(form.getDatefieldMax().getTime() + 1), SearchOperation.LESS_THAN_EQUAL));
 			}
 			if (form.getDecimalfieldMin() != null) {
 				BigDecimal bd = form.getDecimalfieldMin();
@@ -68,8 +64,8 @@ public class Sheet1Services {
 				if (bd.scale() > 10) {
 					bd = bd.setScale(10, BigDecimal.ROUND_DOWN);
 				}
-				searchSpec.add(new SearchCriteria<BigDecimal>(null,"decimalfield",bd,
-					SearchOperation.GREATER_THAN_EQUAL));
+				searchSpec.add(
+						new SearchCriteria<BigDecimal>(null, "decimalfield", bd, SearchOperation.GREATER_THAN_EQUAL));
 			}
 			if (form.getDecimalfieldMax() != null) {
 				BigDecimal bd = form.getDecimalfieldMax();
@@ -77,20 +73,20 @@ public class Sheet1Services {
 				if (bd.scale() > 10) {
 					bd = bd.setScale(10, BigDecimal.ROUND_UP);
 				}
-				searchSpec.add(new SearchCriteria<BigDecimal>(null,"decimalfield",bd,
-					SearchOperation.LESS_THAN_EQUAL));
+				searchSpec
+						.add(new SearchCriteria<BigDecimal>(null, "decimalfield", bd, SearchOperation.LESS_THAN_EQUAL));
 			}
 			if (form.getIntfieldMin() != null) {
-				searchSpec.add(new SearchCriteria<Integer>(null,"intfield", form.getIntfieldMin(),
-					SearchOperation.GREATER_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Integer>(null, "intfield", form.getIntfieldMin(),
+						SearchOperation.GREATER_THAN_EQUAL));
 			}
 			if (form.getIntfieldMax() != null) {
-				searchSpec.add(new SearchCriteria<Integer>(null,"intfield", form.getIntfieldMax(),
-					SearchOperation.LESS_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Integer>(null, "intfield", form.getIntfieldMax(),
+						SearchOperation.LESS_THAN_EQUAL));
 			}
 			if (!StringUtils.isBlank(form.getText())) {
-				searchSpec.add(new SearchCriteria<String>(null,"text", form.getText().toLowerCase(),
-					SearchOperation.LIKE));
+				searchSpec.add(
+						new SearchCriteria<String>(null, "text", form.getText().toLowerCase(), SearchOperation.LIKE));
 			}
 
 		} else {
@@ -111,20 +107,20 @@ public class Sheet1Services {
 	public Sheet1 save(Sheet1 sheet1) {
 		return sheet1Repository.save(sheet1);
 	}
-	
+
 	public Sheet1 get(Integer id) {
 		return sheet1Repository.findById(id).get();
 	}
-	
+
 	public void delete(Integer id) {
 		sheet1Repository.deleteById(id);
 	}
 
 	public PageInfo<Sheet1> getSheet1s(HttpServletRequest request, PagingRequest pagingRequest) {
 
-		Sheet1SearchForm form =  (Sheet1SearchForm) request.getSession().getAttribute("sheet1SearchForm");
+		Sheet1SearchForm form = (Sheet1SearchForm) request.getSession().getAttribute("sheet1SearchForm");
 
-		if (form == null ) {
+		if (form == null) {
 			form = new Sheet1SearchForm();
 		} else if (StringUtils.isNotBlank(pagingRequest.getSearch().getValue())) {
 
@@ -155,9 +151,7 @@ public class Sheet1Services {
 
 		request.getSession().setAttribute("sheet1SearchForm", form);
 
-
 		return pageInfo;
 	}
-
 
 }

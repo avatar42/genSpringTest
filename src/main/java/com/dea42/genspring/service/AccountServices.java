@@ -1,6 +1,5 @@
 package com.dea42.genspring.service;
 
-
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -30,7 +29,6 @@ import com.dea42.genspring.utils.Utils;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 /**
  * Title: AccountServices <br>
  * Description: AccountServices. <br>
@@ -43,8 +41,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class AccountServices extends UserServices<Account> {
-    @Autowired
-    private AccountRepository accountRepository;
+	@Autowired
+	private AccountRepository accountRepository;
 
 	public static final String ROLE_PREFIX = "ROLE_";
 
@@ -95,20 +93,20 @@ public class AccountServices extends UserServices<Account> {
 			log.debug(form.toString());
 			searchSpec.setDoOr(form.getDoOr());
 			if (!StringUtils.isBlank(form.getEmail())) {
-				searchSpec.add(new SearchCriteria<String>(null,"email", form.getEmail().toLowerCase(),
-					SearchOperation.LIKE));
+				searchSpec.add(
+						new SearchCriteria<String>(null, "email", form.getEmail().toLowerCase(), SearchOperation.LIKE));
 			}
 			if (!StringUtils.isBlank(form.getName())) {
-				searchSpec.add(new SearchCriteria<String>(null,"name", form.getName().toLowerCase(),
-					SearchOperation.LIKE));
+				searchSpec.add(
+						new SearchCriteria<String>(null, "name", form.getName().toLowerCase(), SearchOperation.LIKE));
 			}
 			if (!StringUtils.isBlank(form.getPassword())) {
-				searchSpec.add(new SearchCriteria<String>(null,"password", form.getPassword().toLowerCase(),
-					SearchOperation.LIKE));
+				searchSpec.add(new SearchCriteria<String>(null, "password", form.getPassword().toLowerCase(),
+						SearchOperation.LIKE));
 			}
 			if (!StringUtils.isBlank(form.getUserrole())) {
-				searchSpec.add(new SearchCriteria<String>(null,"userrole", form.getUserrole().toLowerCase(),
-					SearchOperation.LIKE));
+				searchSpec.add(new SearchCriteria<String>(null, "userrole", form.getUserrole().toLowerCase(),
+						SearchOperation.LIKE));
 			}
 
 		} else {
@@ -140,20 +138,20 @@ public class AccountServices extends UserServices<Account> {
 
 		return accountRepository.save(account);
 	}
-	
+
 	public Account get(Integer id) {
 		return accountRepository.findById(id).get();
 	}
-	
+
 	public void delete(Integer id) {
 		accountRepository.deleteById(id);
 	}
 
 	public PageInfo<Account> getAccounts(HttpServletRequest request, PagingRequest pagingRequest) {
 
-		AccountSearchForm form =  (AccountSearchForm) request.getSession().getAttribute("accountSearchForm");
+		AccountSearchForm form = (AccountSearchForm) request.getSession().getAttribute("accountSearchForm");
 
-		if (form == null ) {
+		if (form == null) {
 			form = new AccountSearchForm();
 		} else if (StringUtils.isNotBlank(pagingRequest.getSearch().getValue())) {
 
@@ -186,9 +184,7 @@ public class AccountServices extends UserServices<Account> {
 
 		request.getSession().setAttribute("accountSearchForm", form);
 
-
 		return pageInfo;
 	}
-
 
 }

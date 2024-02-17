@@ -10,7 +10,8 @@ import lombok.Data;
 
 /**
  * Title: sheet1user Form <br>
- * Description: Class for holding data from the sheet1user table for editing. <br>
+ * Description: Class for holding data from the sheet1user table for editing.
+ * <br>
  * Copyright: Copyright (c) 2001-2024<br>
  * Company: RMRR<br>
  *
@@ -25,7 +26,7 @@ public class Sheet1UserForm implements Serializable {
 	private Integer id = 0;
 	private Integer sheet1id;
 	private Integer userid;
-    @Length(max=1)
+	@Length(max = 1)
 	private String useryn;
 
 	/**

@@ -22,7 +22,6 @@ import com.dea42.genspring.service.Sheet1Services;
 import com.dea42.genspring.service.Sheet1UserServices;
 import com.dea42.genspring.service.Sheet2Services;
 
-
 /**
  * Title: ApiController <br>
  * Description: Api REST Controller. <br>
@@ -36,58 +35,58 @@ import com.dea42.genspring.service.Sheet2Services;
 @RequestMapping("/api")
 public class ApiController {
 
-    @Autowired
-    private AccountServices accountServices;
-    @Autowired
-    private Sheet1UserServices sheet1UserServices;
-    @Autowired
-    private Sheet2Services sheet2Services;
-    @Autowired
-    private Sheet1Services sheet1Services;
+	@Autowired
+	private AccountServices accountServices;
+	@Autowired
+	private Sheet1UserServices sheet1UserServices;
+	@Autowired
+	private Sheet2Services sheet2Services;
+	@Autowired
+	private Sheet1Services sheet1Services;
 
-    public ApiController(){
-    }
+	public ApiController() {
+	}
 
-    @GetMapping("/accounts")
-    public List<Account> getAllAccounts(){
-        return this.accountServices.listAll(null).toList();
-    }
+	@GetMapping("/accounts")
+	public List<Account> getAllAccounts() {
+		return this.accountServices.listAll(null).toList();
+	}
 
 	@PostMapping(value = "/accounts/list")
-	public PageInfo<Account> listAccount(HttpServletRequest request,@RequestBody PagingRequest pagingRequest) {
+	public PageInfo<Account> listAccount(HttpServletRequest request, @RequestBody PagingRequest pagingRequest) {
 
 		return accountServices.getAccounts(request, pagingRequest);
 	}
 
-    @GetMapping("/sheet1Users")
-    public List<Sheet1User> getAllSheet1Users(){
-        return this.sheet1UserServices.listAll(null).toList();
-    }
+	@GetMapping("/sheet1Users")
+	public List<Sheet1User> getAllSheet1Users() {
+		return this.sheet1UserServices.listAll(null).toList();
+	}
 
 	@PostMapping(value = "/sheet1Users/list")
-	public PageInfo<Sheet1User> listSheet1User(HttpServletRequest request,@RequestBody PagingRequest pagingRequest) {
+	public PageInfo<Sheet1User> listSheet1User(HttpServletRequest request, @RequestBody PagingRequest pagingRequest) {
 
 		return sheet1UserServices.getSheet1Users(request, pagingRequest);
 	}
 
-    @GetMapping("/sheet2s")
-    public List<Sheet2> getAllSheet2s(){
-        return this.sheet2Services.listAll(null).toList();
-    }
+	@GetMapping("/sheet2s")
+	public List<Sheet2> getAllSheet2s() {
+		return this.sheet2Services.listAll(null).toList();
+	}
 
 	@PostMapping(value = "/sheet2s/list")
-	public PageInfo<Sheet2> listSheet2(HttpServletRequest request,@RequestBody PagingRequest pagingRequest) {
+	public PageInfo<Sheet2> listSheet2(HttpServletRequest request, @RequestBody PagingRequest pagingRequest) {
 
 		return sheet2Services.getSheet2s(request, pagingRequest);
 	}
 
-    @GetMapping("/sheet1s")
-    public List<Sheet1> getAllSheet1s(){
-        return this.sheet1Services.listAll(null).toList();
-    }
+	@GetMapping("/sheet1s")
+	public List<Sheet1> getAllSheet1s() {
+		return this.sheet1Services.listAll(null).toList();
+	}
 
 	@PostMapping(value = "/sheet1s/list")
-	public PageInfo<Sheet1> listSheet1(HttpServletRequest request,@RequestBody PagingRequest pagingRequest) {
+	public PageInfo<Sheet1> listSheet1(HttpServletRequest request, @RequestBody PagingRequest pagingRequest) {
 
 		return sheet1Services.getSheet1s(request, pagingRequest);
 	}

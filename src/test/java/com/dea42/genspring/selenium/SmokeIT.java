@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  *
  */
 @ExtendWith(SpringExtension.class)
-public class SmokeIT extends SeleniumBase {
+class SmokeIT extends SeleniumBase {
 
 	/**
 	 * Do basic login and check pages are reachable in deployed app mode
@@ -22,7 +22,7 @@ public class SmokeIT extends SeleniumBase {
 	 * @throws Exception
 	 */
 	@Test
-	public void smokeTest() throws Exception {
+	void smokeTest() throws Exception {
 		checkSite();
 	}
 }

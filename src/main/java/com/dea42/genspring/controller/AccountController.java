@@ -63,7 +63,6 @@ public class AccountController {
 			log.debug("stored:" + form);
 	}
 
-
 	@GetMapping
 	public ModelAndView getAll(HttpServletRequest request) {
 		return findPaginated(request, 1, "id", "asc");
@@ -75,7 +74,7 @@ public class AccountController {
 	}
 
 	@PostMapping(value = "/search")
-	public ModelAndView search(HttpServletRequest request, @ModelAttribute AccountSearchForm form, 
+	public ModelAndView search(HttpServletRequest request, @ModelAttribute AccountSearchForm form,
 			RedirectAttributes ra, @RequestParam(value = "action", required = true) String action) {
 		ModelAndView mav;
 		if (action.equals("search")) {

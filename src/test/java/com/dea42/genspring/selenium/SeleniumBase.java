@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -60,11 +61,11 @@ import lombok.extern.slf4j.Slf4j;
 public class SeleniumBase extends UnitBase {
 
 	@LocalServerPort
-	protected int port;
+	protected String port;
 	protected String base;
 	protected String context = "genspring";
 	protected WebDriver driver;
-	protected int timeOutInSeconds = 30;
+	protected long timeOutInSeconds = 30;
 	protected boolean useLocal = false;
 	// time to pause at the start of each command.
 	protected long speedDelay = 1;
@@ -72,7 +73,7 @@ public class SeleniumBase extends UnitBase {
 
 	@RegisterExtension
 	public ScreenShotRule screenshotRule = new ScreenShotRule();
-	
+
 	private TestInfo testInfo;
 
 	public SeleniumBase() {
@@ -376,8 +377,16 @@ public class SeleniumBase extends UnitBase {
 // If downloading and running an exe makes you nervous (and it probably should) set useLocal to true and update path below.
 		if (useLocal) {
 			System.setProperty("webdriver.gecko.driver", "C:\\webdriver\\geckodriver-v0.11.1-win64\\geckodriver.exe");
-			DesiredCapabilities dc = DesiredCapabilities.firefox();
-			dc.setCapability("marionette", true);
+			// browser options
+			// keys.add("chromeOptions");
+			// keys.add("edgeOptions");
+			// keys.add("goog:chromeOptions");
+			// keys.add("moz:firefoxOptions");
+			// keys.add("operaOptions");
+			// keys.add("se:ieOptions");
+			// keys.add("safari.options");
+			DesiredCapabilities dc = new DesiredCapabilities();
+			dc.setBrowserName("moz:firefoxOptions");
 		} else {
 			WebDriverManager.firefoxdriver().setup();
 		}
@@ -390,11 +399,11 @@ public class SeleniumBase extends UnitBase {
 			this.base = "http://localhost:" + port;
 	}
 
-//	@After
-//	public void teardown() {
-//		if (driver != null)
-//			driver.quit();
-//	}
+	@AfterEach
+	public void teardown() {
+		if (driver != null)
+			driver.quit();
+	}
 
 	public void loginAdmin() {
 		speedControl();

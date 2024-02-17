@@ -25,12 +25,12 @@ import lombok.Data;
 public class Sheet1Form implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date datefield;
 	private BigDecimal decimalfield;
 	private Integer id = 0;
 	private Integer intfield;
-    @Length(max=7)
+	@Length(max = 7)
 	private String text;
 
 	/**

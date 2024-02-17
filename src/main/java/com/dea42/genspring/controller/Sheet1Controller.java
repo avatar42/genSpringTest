@@ -63,7 +63,6 @@ public class Sheet1Controller {
 			log.debug("stored:" + form);
 	}
 
-
 	@GetMapping
 	public ModelAndView getAll(HttpServletRequest request) {
 		return findPaginated(request, 1, "id", "asc");
@@ -75,8 +74,8 @@ public class Sheet1Controller {
 	}
 
 	@PostMapping(value = "/search")
-	public ModelAndView search(HttpServletRequest request, @ModelAttribute Sheet1SearchForm form, 
-			RedirectAttributes ra, @RequestParam(value = "action", required = true) String action) {
+	public ModelAndView search(HttpServletRequest request, @ModelAttribute Sheet1SearchForm form, RedirectAttributes ra,
+			@RequestParam(value = "action", required = true) String action) {
 		ModelAndView mav;
 		if (action.equals("search")) {
 			setForm(request, form);

@@ -55,7 +55,7 @@ public class AccountControllerTest extends MockBase {
 //		contentContainsMarkup(ra,getMsg("Account.email"));
 //		contentContainsMarkup(ra,getTestString(254));
 //		contentContainsMarkup(ra,getMsg("Account.name"));
-		/* TODO: confirm ignoring ColInfo(fNum=4, colName=Password, msgKey=Account.password, vName=password, type=String, jtype=null, stype=12, gsName=Password, length=30, pk=false, defaultVal=, constraint=null, required=true, list=false, jsonIgnore=true, unique=false, hidden=true, password=true, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment=null) */
+		/* TODO: confirm ignoring ColInfo(fNum=5, colName=Password, msgKey=Account.password, vName=password, type=String, jtype=null, stype=12, gsName=Password, length=30, pk=false, defaultVal=, constraint=null, required=true, list=false, jsonIgnore=true, unique=false, hidden=true, password=true, email=false, created=false, lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null, colScale=0, colPrecision=0, comment=null) */
 //		contentContainsMarkup(ra,getTestString(25));
 //		contentContainsMarkup(ra,getMsg("Account.userrole"));
 	}

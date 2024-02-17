@@ -16,7 +16,7 @@
           </RollingFile>
   </Appenders>
   <Loggers>
-    <Logger name="com.dea42" level="trace" additivity="false">
+    <Logger name="com.dea42" level="info" additivity="false">
       <AppenderRef ref="Console"/>
       <AppenderRef ref="Rolling"/>
     </Logger>

@@ -1,6 +1,5 @@
 package com.dea42.genspring.service;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +24,6 @@ import com.dea42.genspring.search.Sheet1UserSearchForm;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 /**
  * Title: Sheet1UserServices <br>
  * Description: Sheet1UserServices. <br>
@@ -38,8 +36,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class Sheet1UserServices {
-    @Autowired
-    private Sheet1UserRepository sheet1UserRepository;
+	@Autowired
+	private Sheet1UserRepository sheet1UserRepository;
 
 	public Page<Sheet1User> listAll(Sheet1UserSearchForm form) {
 		SearchSpecification<Sheet1User> searchSpec = new SearchSpecification<Sheet1User>();
@@ -47,24 +45,24 @@ public class Sheet1UserServices {
 			log.debug(form.toString());
 			searchSpec.setDoOr(form.getDoOr());
 			if (form.getSheet1idMin() != null) {
-				searchSpec.add(new SearchCriteria<Integer>(null,"sheet1id", form.getSheet1idMin(),
-					SearchOperation.GREATER_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Integer>(null, "sheet1id", form.getSheet1idMin(),
+						SearchOperation.GREATER_THAN_EQUAL));
 			}
 			if (form.getSheet1idMax() != null) {
-				searchSpec.add(new SearchCriteria<Integer>(null,"sheet1id", form.getSheet1idMax(),
-					SearchOperation.LESS_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Integer>(null, "sheet1id", form.getSheet1idMax(),
+						SearchOperation.LESS_THAN_EQUAL));
 			}
 			if (form.getUseridMin() != null) {
-				searchSpec.add(new SearchCriteria<Integer>(null,"userid", form.getUseridMin(),
-					SearchOperation.GREATER_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Integer>(null, "userid", form.getUseridMin(),
+						SearchOperation.GREATER_THAN_EQUAL));
 			}
 			if (form.getUseridMax() != null) {
-				searchSpec.add(new SearchCriteria<Integer>(null,"userid", form.getUseridMax(),
-					SearchOperation.LESS_THAN_EQUAL));
+				searchSpec.add(new SearchCriteria<Integer>(null, "userid", form.getUseridMax(),
+						SearchOperation.LESS_THAN_EQUAL));
 			}
 			if (!StringUtils.isBlank(form.getUseryn())) {
-				searchSpec.add(new SearchCriteria<String>(null,"useryn", form.getUseryn().toLowerCase(),
-					SearchOperation.LIKE));
+				searchSpec.add(new SearchCriteria<String>(null, "useryn", form.getUseryn().toLowerCase(),
+						SearchOperation.LIKE));
 			}
 
 		} else {
@@ -85,20 +83,20 @@ public class Sheet1UserServices {
 	public Sheet1User save(Sheet1User sheet1User) {
 		return sheet1UserRepository.save(sheet1User);
 	}
-	
+
 	public Sheet1User get(Integer id) {
 		return sheet1UserRepository.findById(id).get();
 	}
-	
+
 	public void delete(Integer id) {
 		sheet1UserRepository.deleteById(id);
 	}
 
 	public PageInfo<Sheet1User> getSheet1Users(HttpServletRequest request, PagingRequest pagingRequest) {
 
-		Sheet1UserSearchForm form =  (Sheet1UserSearchForm) request.getSession().getAttribute("sheet1UserSearchForm");
+		Sheet1UserSearchForm form = (Sheet1UserSearchForm) request.getSession().getAttribute("sheet1UserSearchForm");
 
-		if (form == null ) {
+		if (form == null) {
 			form = new Sheet1UserSearchForm();
 		} else if (StringUtils.isNotBlank(pagingRequest.getSearch().getValue())) {
 
@@ -129,9 +127,7 @@ public class Sheet1UserServices {
 
 		request.getSession().setAttribute("sheet1UserSearchForm", form);
 
-
 		return pageInfo;
 	}
-
 
 }

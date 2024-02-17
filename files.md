@@ -111,7 +111,6 @@ files.md<br>
 ./src/test/java/com/dea42/genspring/selenium/SeleniumBase.java<br>
 ./src/test/java/com/dea42/genspring/selenium/SmokeIT.java<br>
 ./src/test/java/com/dea42/genspring/selenium/SmokeTest.java<br>
-./src/test/java/com/dea42/genspring/Sheet2SearchTest.java<br>
 ./src/test/java/com/dea42/genspring/UnitBase.java<br>
 ./src/test/java/com/dea42/genspring/WebAppApplicationTest.java<br>
 ./src/test/resources/rename.properties<br>

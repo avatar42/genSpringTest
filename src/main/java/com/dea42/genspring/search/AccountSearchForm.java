@@ -24,13 +24,13 @@ public class AccountSearchForm implements Serializable {
 
 	private String email = "";
 	/*
-	 * info=ColInfo(fNum=1, colName=id, msgKey=Account.id, vName=id, type=Integer,
+	 * info=ColInfo(fNum=2, colName=id, msgKey=Account.id, vName=id, type=Integer,
 	 * jtype=null, stype=4, gsName=Id, length=0, pk=true, defaultVal=null,
 	 * constraint=null, required=true, list=false, jsonIgnore=false, unique=false,
 	 * hidden=false, password=false, email=false, created=false, lastMod=false,
 	 * adminOnly=false, foreignTable=null, foreignCol=null, colScale=0,
 	 * colPrecision=0, comment= * Table name: account<br> Column name: id<br>
-	 * Catalog name: null<br> Primary key sequence: 0<br> Primary key name: null<br>
+	 * Catalog name: null<br> Primary key sequence: 1<br> Primary key name: null<br>
 	 * <br>)
 	 */
 	private Integer idMin;

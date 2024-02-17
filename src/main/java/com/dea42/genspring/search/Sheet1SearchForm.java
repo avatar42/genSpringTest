@@ -29,7 +29,7 @@ public class Sheet1SearchForm implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date datefieldMax;
 	/*
-	 * info=ColInfo(fNum=5, colName=DecimalField, msgKey=Sheet1.decimalfield,
+	 * info=ColInfo(fNum=6, colName=DecimalField, msgKey=Sheet1.decimalfield,
 	 * vName=decimalfield, type=BigDecimal, jtype=null, stype=6,
 	 * gsName=Decimalfield, length=0, pk=false, defaultVal=null, constraint=null,
 	 * required=false, list=true, jsonIgnore=false, unique=false, hidden=false,
@@ -40,18 +40,18 @@ public class Sheet1SearchForm implements Serializable {
 	private BigDecimal decimalfieldMin;
 	private BigDecimal decimalfieldMax;
 	/*
-	 * info=ColInfo(fNum=1, colName=id, msgKey=Sheet1.id, vName=id, type=Integer,
+	 * info=ColInfo(fNum=2, colName=id, msgKey=Sheet1.id, vName=id, type=Integer,
 	 * jtype=null, stype=4, gsName=Id, length=0, pk=true, defaultVal=null,
 	 * constraint=null, required=true, list=true, jsonIgnore=false, unique=false,
 	 * hidden=false, password=false, email=false, created=false, lastMod=false,
 	 * adminOnly=false, foreignTable=null, foreignCol=null, colScale=0,
 	 * colPrecision=0, comment= * Table name: sheet1<br> Column name: id<br> Catalog
-	 * name: null<br> Primary key sequence: 0<br> Primary key name: null<br> <br>)
+	 * name: null<br> Primary key sequence: 1<br> Primary key name: null<br> <br>)
 	 */
 	private Integer idMin;
 	private Integer idMax;
 	/*
-	 * info=ColInfo(fNum=2, colName=IntField, msgKey=Sheet1.intfield,
+	 * info=ColInfo(fNum=3, colName=IntField, msgKey=Sheet1.intfield,
 	 * vName=intfield, type=Integer, jtype=null, stype=4, gsName=Intfield, length=0,
 	 * pk=false, defaultVal=null, constraint=null, required=true, list=true,
 	 * jsonIgnore=false, unique=false, hidden=false, password=false, email=false,

@@ -23,19 +23,19 @@ public class Sheet1UserSearchForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * info=ColInfo(fNum=1, colName=id, msgKey=Sheet1User.id, vName=id,
+	 * info=ColInfo(fNum=2, colName=id, msgKey=Sheet1User.id, vName=id,
 	 * type=Integer, jtype=null, stype=4, gsName=Id, length=0, pk=true,
 	 * defaultVal=null, constraint=null, required=true, list=true, jsonIgnore=false,
 	 * unique=false, hidden=false, password=false, email=false, created=false,
 	 * lastMod=false, adminOnly=false, foreignTable=null, foreignCol=null,
 	 * colScale=0, colPrecision=0, comment= * Table name: sheet1user<br> Column
-	 * name: id<br> Catalog name: null<br> Primary key sequence: 0<br> Primary key
+	 * name: id<br> Catalog name: null<br> Primary key sequence: 1<br> Primary key
 	 * name: null<br> <br>)
 	 */
 	private Integer idMin;
 	private Integer idMax;
 	/*
-	 * info=ColInfo(fNum=3, colName=Sheet1Id, msgKey=Sheet1User.sheet1id,
+	 * info=ColInfo(fNum=4, colName=Sheet1Id, msgKey=Sheet1User.sheet1id,
 	 * vName=sheet1id, type=Integer, jtype=null, stype=4, gsName=Sheet1id, length=0,
 	 * pk=false, defaultVal=null, constraint=null, required=false, list=true,
 	 * jsonIgnore=false, unique=false, hidden=false, password=false, email=false,
@@ -45,7 +45,7 @@ public class Sheet1UserSearchForm implements Serializable {
 	private Integer sheet1idMin;
 	private Integer sheet1idMax;
 	/*
-	 * info=ColInfo(fNum=2, colName=Userid, msgKey=Sheet1User.userid, vName=userid,
+	 * info=ColInfo(fNum=3, colName=Userid, msgKey=Sheet1User.userid, vName=userid,
 	 * type=Integer, jtype=null, stype=4, gsName=Userid, length=0, pk=false,
 	 * defaultVal=null, constraint=null, required=false, list=true,
 	 * jsonIgnore=false, unique=false, hidden=false, password=false, email=false,
